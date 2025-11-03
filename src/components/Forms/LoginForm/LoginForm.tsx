@@ -1,7 +1,7 @@
-import { View, TouchableOpacity } from 'react-native'
-import React, { useMemo, useState } from 'react'
-import { Formik } from 'formik';
-import { LoginDto } from 'src/types/dto';
+import { View, TouchableOpacity, KeyboardAvoidingView, Keyboard } from 'react-native'
+import React, { useEffect, useMemo, useRef, useState } from 'react'
+import { FastField, Field, Formik } from 'formik';
+import { LoginDto, LoginPhoneDto } from 'src/types/dto';
 import { useAuth } from 'src/context/AuthContext';
 import { useLogin } from 'src/hooks/useUserAuth';
 import { createStyles } from './styles';
@@ -17,8 +17,19 @@ import LockIcon from 'src/icons/LockIcon';
 import * as appService from 'src/services/appService';
 import { checkResponse } from 'src/common/utils';
 import * as Yup from 'yup';
-import { useNavigation } from '@react-navigation/native';
+import { BaseNavigationContainer, useNavigation } from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import CountryCode from 'src/components/common/CountryCode/CountryCode';
+import CustomFormTextInput from 'src/components/common/CustomFormTextInput/CustomFormTextInput';
+import { CountryType } from 'src/types/types/Types';
+import OTPInput from 'src/components/common/OTPInput/OTPInput';
+import PagerView from 'react-native-pager-view';
+
+const initialValues = {
+  phoneCode: '',
+  number: '',
+  code: '',
+}
 
 export default function LoginForm() {
   const { login } = useAuth();
@@ -28,10 +39,15 @@ export default function LoginForm() {
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [checked, setChecked] = useState<boolean>(false);
   const navigation: any = useNavigation();
+  const formRef = useRef<any>(null);
+  const [country, setCountry] = useState<CountryType | null>(null);
+  const pagerRef = useRef<PagerView>(null);
+  const [step, setStep] = useState<number>(0);
 
   const validationSchema = Yup.object({
-    username: Yup.string().email().required(),
-    password: Yup.string().min(6).required(),
+    phoneCode: Yup.string().required(),
+    number: Yup.string().required(),
+    code: Yup.string().required(),
   });
 
   const navigateToForgotPassword = () => {
@@ -54,86 +70,80 @@ export default function LoginForm() {
 
   const { mutate, isLoading } = useLogin(onSuccess, onError);
 
-  const handleLogin = (credentials: LoginDto) => {
-    mutate(credentials);
+  const handleLogin = (credentials: LoginPhoneDto) => {
+    navigation.navigate('VerifyUserScreen')
+    // mutate(credentials);
   }
+
+  useEffect(() => {
+    formRef.current.values.phoneCode = country?.phoneCode || '';
+  }, [country])
+
+  useEffect(() => {
+    console.log('step', step)
+  }, [step])
 
   return (
     <Formik
-      initialValues={{ username: '', password: '' }}
-      validationSchema={validationSchema}
+      innerRef={formRef}
+      initialValues={initialValues}
+      // validationSchema={validationSchema}
       validateOnMount
-      onSubmit={(values: LoginDto) => {
+      onSubmit={(values: LoginPhoneDto) => {
         handleLogin(values);
       }}>
       {(props) => (
         <View style={styles.container}>
-          <View style={globalStyles.flex1}>
 
+          {/* Phone Number */}
+          <View style={[globalStyles.flex1, globalStyles.ph20]} key='1'>
             <View style={globalStyles.mt10}>
-              <CustomTextInput
-                label='Email'
-                placeholder={'Enter your email'}
-                leftIcon={<EmailIcon size={22} color={theme.colors.primary} />}
-                fontWeight='medium'
-                keyboardType='email-address'
-                autoCapitalize='none'
-                onChangeText={props.handleChange('username')} />
+              <Field
+                required={true}
+                name="number"
+                component={CustomFormTextInput}
+                label="Phone Number"
+                placeholder="Enter phone number"
+                keyboardType='numeric'
+                leftIcon={
+                  <KeyboardAvoidingView>
+                    <CountryCode
+                      title={'Select country'}
+                      country={country}
+                      setCountry={setCountry} />
+                  </KeyboardAvoidingView>
+                }
+                height={68}
+                leftIconContainerStyle={styles.leftIconContainerStyle}
+              />
             </View>
+          </View>
 
-            <View style={globalStyles.mt10}>
-              <CustomTextInput
-                label='Password'
-                placeholder={'Enter password'}
-                leftIcon={<LockIcon size={18} color={theme.colors.secondary} />}
-                rightIcon={<TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
-                  <Ionicons name={showPassword ? 'eye-outline' : 'eye-off-outline'} size={24} color={theme.colors.secondary} />
-                </TouchableOpacity>}
-                fontWeight='medium'
-                secureTextEntry={!showPassword}
-                autoCapitalize='none'
-                onChangeText={props.handleChange('password')} />
-            </View>
 
-            <View style={[globalStyles.flexRow, globalStyles.jcb, globalStyles.aic, globalStyles.mt10]}>
-              <TouchableOpacity style={[globalStyles.flexRow, globalStyles.aic]} onPress={() => setChecked(!checked)}>
-                <View style={[, { width: 20, height: 20 }]}>
-                  <FontAwesome name={checked ? 'check-square-o' : 'square-o'} size={22} color={theme.colors.text} />
-                </View>
-                <View style={globalStyles.ml5}>
-                  <CustomText text='Remember me' size={16} color={theme.colors.text} fontWeight='medium' />
-                </View>
-              </TouchableOpacity>
-              <TouchableOpacity onPress={navigateToForgotPassword}>
-                <CustomText text='Forgot Password?' size={16} color={theme.colors.primary} fontWeight='medium' />
-              </TouchableOpacity>
-            </View>
 
-            <View style={globalStyles.mv20}>
-              <View style={globalStyles.mt10}>
-                <PrimaryButton
-                  text="Log In"
-                  onPress={props.submitForm}
-                  fontWeight='semiBold'
-                  disabled={!props.isValid || isLoading}
-                  isLoading={isLoading} />
-              </View>
-            </View>
+          <View style={[globalStyles.ph20, globalStyles.pv15]}>
+            <PrimaryButton
+              text={'Log In'}
+              onPress={props.submitForm}
+              fontWeight='semiBold'
+              // disabled={!props.isValid || isLoading}
+              isLoading={isLoading} />
+          </View>
 
-            <View>
-              {/* <View>
+          <View>
+            {/* <View>
                 <CustomText text='Or sign in with' size={16} fontWeight='medium' style={globalStyles.centerText} color={theme.colors.text} />
               </View> */}
-              {/* <View style={[globalStyles.mt20]}>
+            {/* <View style={[globalStyles.mt20]}>
                 <SignInOptions />
               </View> */}
-            </View>
-
           </View>
-        </View>
-      )}
 
-    </Formik>
+        </View>
+  )
+}
+
+    </Formik >
 
   )
 }

@@ -1,13 +1,14 @@
 import { useMutation, useQuery } from 'react-query';
 import * as authService from '../services/authService';
-import { LoginDto } from 'src/types/dto';
+import { LoginDto, LoginPhoneDto } from 'src/types/dto';
 import { ChangePasswordDto } from 'src/types/dto/ChangePasswordDto';
 import { VerifyEmailDto } from 'src/types/dto/VerifyEmailDto';
 import { ResetPasswordDto } from 'src/types/dto/ResetPasswordDto';
 import { RegisterDto } from 'src/types/dto/RegisterDto';
 import { VerifyAccountDto } from 'src/types/dto/VerifyAccountDto';
+import { SendPhoneVerificationCodeDto } from 'src/types/dto/SendPhoneVerificationCodeDto';
 
-const login = async (credentials: LoginDto) => {
+const login = async (credentials: LoginPhoneDto) => {
   const result = await authService.login(credentials);
   if (result.status_code == 200) {
     result.data.verified = true;
@@ -40,8 +41,8 @@ const signup = async (dto: RegisterDto) => {
   return await authService.signup(dto);
 }
 
-const resendVerificationCode = async (userId: number) => {
-  return await authService.resendVerificationCode(userId);
+const resendVerificationCode = async (dto: SendPhoneVerificationCodeDto) => {
+  return await authService.resendVerificationCode(dto);
 }
 
 const verifyAccount = async ({ userId, dto }: {
@@ -107,10 +108,10 @@ export const useSignUp = (onSuccess: any, onError: any, options = {}) => {
   })
 }
 
-export const useResendVerificationCode = (userId: number, options = {}) => {
+export const useResendVerificationCode = (dto: SendPhoneVerificationCodeDto, options = {}) => {
   return useQuery({
     queryKey: ['verificationCode'],
-    queryFn: () => resendVerificationCode(userId),
+    queryFn: () => resendVerificationCode(dto),
     ...options,
   })
 }

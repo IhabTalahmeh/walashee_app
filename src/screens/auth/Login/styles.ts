@@ -6,7 +6,6 @@ export const createStyles = (theme: Theme) => {
     container: {
       flex: 1,
       backgroundColor: theme.colors.background,
-      paddingHorizontal: 20,
     },
     logoContainer: {
       justifyContent: 'center',

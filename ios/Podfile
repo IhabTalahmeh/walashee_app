@@ -14,7 +14,7 @@ if linkage != nil
   use_frameworks! :linkage => linkage.to_sym
 end
 
-target 'MSLogger_App' do
+target 'walashee_app' do
   config = use_native_modules!
 
   use_react_native!(
@@ -23,7 +23,7 @@ target 'MSLogger_App' do
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
 
-  target 'MSLogger_AppTests' do
+  target 'walashee_appTests' do
     inherit! :complete
     # Pods for testing
   end

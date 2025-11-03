@@ -19,6 +19,14 @@ export const createStyles = (theme: Theme) => {
       color: theme.colors.text,
       fontSize: 24,
       fontFamily: fonts.black
+    },
+    leftIconContainerStyle: {
+      width: 80,
+      borderRightWidth: 1,
+      borderColor: theme.colors.lightgray,
+      marginRight: 15,
+      height: '60%',
+      paddingLeft: 15,
     }
   });
 }

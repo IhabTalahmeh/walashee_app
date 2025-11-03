@@ -41,12 +41,12 @@ export interface ImageItem {
 };
 
 export interface CountryType {
-  id: number,
+  id: string,
   iso: string,
   iso3: string,
-  nice_name: string,
-  arabic_name: string,
-  phone_code: number,
+  name: string,
+  nameAR: string,
+  phoneCode: number,
 }
 
 export interface Reimbursement {

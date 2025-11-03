@@ -50,7 +50,7 @@ export default function LoginScreen() {
         </View>
 
         {/* Bottom-aligned in ScrollView */}
-        <View style={[globalStyles.flex1, globalStyles.jcc, globalStyles.aic, globalStyles.mb20]}>
+        <View style={[globalStyles.flex1, globalStyles.jcc, globalStyles.aic, globalStyles.pv20]}>
           <NewToMSLogger />
         </View>
       </ScrollView>

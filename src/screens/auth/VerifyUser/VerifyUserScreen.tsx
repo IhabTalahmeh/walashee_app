@@ -1,6 +1,6 @@
 import { View, ScrollView, KeyboardAvoidingView, Platform, TouchableOpacity } from 'react-native'
 import React, { useEffect, useMemo, useRef, useState } from 'react'
-import { Formik } from 'formik';
+import { FastField, Formik } from 'formik';
 import CustomButton from 'src/components/buttons/CustomButton/CustomButton';
 import Spacer from 'src/components/common/Spacer/Spacer';
 import FastImage from 'react-native-fast-image';
@@ -17,6 +17,7 @@ import { ErrorButton } from 'src/components/buttons/CustomButton/variants';
 import CustomDialog from 'src/components/Modals/CustomDialog/CustomDialog';
 import NeutralButton from 'src/components/buttons/CustomButton/variants/NeutralButton';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import CustomFormTextInput from 'src/components/common/CustomFormTextInput/CustomFormTextInput';
 
 const initialTimer = 59;
 
@@ -27,7 +28,7 @@ export default function VerifyUserScreen() {
   const styles = useMemo(() => createStyles(theme), [theme]);
   const formRef = useRef<any>(null);
   const route: any = useRoute();
-  const email = route?.params?.email || '';
+  const { phoneCode, number } = route?.params || {};
   const [timer, setTimer] = useState<number>(0);
   const [error, setError] = useState<boolean>(false);
   const [logoutModalOpen, setLogoutModalOpen] = useState<boolean>(false);
@@ -53,7 +54,10 @@ export default function VerifyUserScreen() {
     }
   );
 
-  const { refetch: resendCode } = useResendVerificationCode(user.id, {
+  const { refetch: resendCode } = useResendVerificationCode({
+    phoneCode,
+    number,
+  }, {
     enabled: false,
     onSuccess: (data: any) => console.log('resend result', data),
     onError: (error: any) => console.log('error', error),
@@ -146,20 +150,31 @@ export default function VerifyUserScreen() {
                   </View>
 
                   <View style={globalStyles.mt10}>
-                    <CustomText text='Verify your account' size={20} fontWeight='bold' color={theme.colors.text} />
+                    <CustomText text="Verify it's you" size={20} fontWeight='bold' color={theme.colors.text} />
                   </View>
 
                   <View style={globalStyles.mt10}>
                     <CustomText text='Enter the 6 digit code sent to' size={16} fontWeight='regular' color={theme.colors.pureBorder} style={globalStyles.centerText} />
-                    <CustomText text={user.email} size={16} fontWeight='regular' color={theme.colors.primary} style={[globalStyles.centerText, globalStyles.mt5]} />
+                    <CustomText text={`${phoneCode}${number}`} size={16} fontWeight='regular' color={theme.colors.primary} style={[globalStyles.centerText, globalStyles.mt5]} />
                   </View>
                 </View>
 
-                <View>
+                {/* <View>
                   <OTPInput
                     value={props.values.code}
                     onChangeText={props.handleChange('code')}
                     error={error}
+                  />
+                </View> */}
+
+                {/* Patient first name */}
+                <View style={[globalStyles.pv20]}>
+                  <FastField
+                    name="code"
+                    component={CustomFormTextInput}
+                    required
+                    placeholder='Enter verification code'
+                    height={68}
                   />
                 </View>
 

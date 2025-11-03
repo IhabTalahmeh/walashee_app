@@ -180,7 +180,7 @@ export const getCPTSuggestions = async (procedureName: string) => {
 }
 
 export const getCountries = async () => {
-  const { data } = await ApiService.get(`country_codes_lookups`);
+  const { data } = await ApiService.get(`lookups/countries`);
   return data;
 }
 

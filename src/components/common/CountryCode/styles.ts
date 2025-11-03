@@ -48,8 +48,6 @@ export const createStyles = (theme: Theme) => {
       justifyContent: 'center',
       alignItems: 'center',
       paddingVertical: 15,
-      borderBottomWidth: 1,
-      borderColor: theme.colors.border,
     }
   });
 }

@@ -196,6 +196,10 @@ export const createGlobalStyles = (theme: Theme) =>
       width: '100%',
     },
 
+    h100: {
+      height: '100%',
+    },
+
     asc: {
       alignSelf: 'center',
     },

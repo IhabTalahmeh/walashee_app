@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-               BuildableName = "MSLogger_App.app"
-               BlueprintName = "MSLogger_App"
-               ReferencedContainer = "container:MSLogger_App.xcodeproj">
+               BuildableName = "walashee_app.app"
+               BlueprintName = "walashee_app"
+               ReferencedContainer = "container:walashee_app.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "MSLogger_AppTests.xctest"
-               BlueprintName = "MSLogger_AppTests"
-               ReferencedContainer = "container:MSLogger_App.xcodeproj">
+               BuildableName = "walashee_appTests.xctest"
+               BlueprintName = "walashee_appTests"
+               ReferencedContainer = "container:walashee_app.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -55,9 +55,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "MSLogger_App.app"
-            BlueprintName = "MSLogger_App"
-            ReferencedContainer = "container:MSLogger_App.xcodeproj">
+            BuildableName = "walashee_app.app"
+            BlueprintName = "walashee_app"
+            ReferencedContainer = "container:walashee_app.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -72,9 +72,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "MSLogger_App.app"
-            BlueprintName = "MSLogger_App"
-            ReferencedContainer = "container:MSLogger_App.xcodeproj">
+            BuildableName = "walashee_app.app"
+            BlueprintName = "walashee_app"
+            ReferencedContainer = "container:walashee_app.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

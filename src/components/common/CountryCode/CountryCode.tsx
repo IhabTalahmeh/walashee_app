@@ -38,7 +38,7 @@ function CountryCode({
     enabled: true,
     onSuccess: (data: any) => {
       if (!country) {
-        const selected = data?.find((c: CountryType) => c.id === 227);
+        const selected = data?.find((c: CountryType) => c.id == '9c260f15-b5e1-11f0-b04b-544810c5aad1');
         if (selected) {
           setCountry(selected);
         }
@@ -48,7 +48,7 @@ function CountryCode({
 
 
   const filteredCountries = useMemo(() => {
-    return countries?.filter((c: any) => c.nice_name.toLowerCase().includes(keyword.toLowerCase()));
+    return countries?.filter((c: any) => c.nameAR.toLowerCase().includes(keyword.toLowerCase()) || c.name.toLowerCase().includes(keyword.toLocaleLowerCase()));
   }, [keyword, countries]);
 
   const openModal = () => {
@@ -75,7 +75,7 @@ function CountryCode({
           <View style={[globalStyles.flex1, globalStyles.flexRow, globalStyles.aic, globalStyles.jcc]}>
             <Flag isoCode={item.iso} size={16} />
             <CustomText
-              text={item.nice_name}
+              text={item.name}
               size={18}
               color={theme.colors.text}
               fontWeight="semiBold"
@@ -84,7 +84,7 @@ function CountryCode({
           </View>
 
           <CustomText
-            text={`+${item.phone_code}`}
+            text={`+${item.phoneCode}`}
             size={18}
             color={theme.colors.text}
             fontWeight='semiBold'
@@ -95,6 +95,10 @@ function CountryCode({
     ),
     [country, globalStyles, styles, theme.colors.text]
   );
+
+  useEffect(() => {
+    console.log('country', country);
+  }, [country])
 
   return (
     <>
@@ -134,7 +138,7 @@ function CountryCode({
               <View style={[globalStyles.flex1, globalStyles.mt10]}>
                 <FlatList
                   data={filteredCountries}
-                  keyExtractor={item => item.id.toString()}
+                  keyExtractor={item => item.id}
                   renderItem={renderCountry}
                   keyboardShouldPersistTaps="handled"
                   showsVerticalScrollIndicator={false}

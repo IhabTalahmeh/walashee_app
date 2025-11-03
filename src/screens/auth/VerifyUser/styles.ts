@@ -9,7 +9,7 @@ export const createStyles = (theme: Theme) => {
       paddingHorizontal: 20,
     },
     topSection: {
-      marginVertical: 30,
+      marginTop: 30,
       justifyContent: 'center',
       alignItems: 'center',
     }

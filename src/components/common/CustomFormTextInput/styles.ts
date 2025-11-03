@@ -1,7 +1,5 @@
 import { StyleSheet } from 'react-native';
 import { fonts, Theme } from '../../../styles/theme';
-import { isRTL } from 'src/styles/globalStyles';
-import { hexWithOpacity } from 'src/common/utils';
 
 export const createStyles = (theme: Theme) => {
   return StyleSheet.create({
@@ -9,7 +7,7 @@ export const createStyles = (theme: Theme) => {
       height: 55,
       borderWidth: 1,
       borderRadius: 14,
-      borderColor: theme.colors.pureBorder,
+      borderColor: theme.colors.border,
       backgroundColor: theme.colors.inputBackground,
       display: 'flex',
       flexDirection: 'row',

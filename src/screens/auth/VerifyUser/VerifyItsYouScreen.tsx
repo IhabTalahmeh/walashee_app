@@ -5,10 +5,10 @@ import CustomButton from 'src/components/buttons/CustomButton/CustomButton';
 import FastImage from 'react-native-fast-image';
 import { useGlobalStyles } from 'src/hooks/useGlobalStyles';
 import { useTheme } from 'src/context/ThemeContext';
-import { useRoute } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import * as Yup from 'yup';
 import CustomText from 'src/components/common/CustomText/CustomText';
-import { useLoginWithPhoneCode, useResendVerificationCode } from 'src/hooks/useUserAuth';
+import { useLoginWithPhoneCode, useResendVerificationCode, useSendPhoneLoginVerificationCode } from 'src/hooks/useUserAuth';
 import { createStyles } from './styles';
 import { useAuth } from 'src/context/AuthContext';
 import CustomFormTextInput from 'src/components/common/CustomFormTextInput/CustomFormTextInput';
@@ -34,26 +34,19 @@ export default function VerifyItsYouScreen() {
   const route: any = useRoute();
   const { phoneCode, number } = route?.params || {};
   const [timer, setTimer] = useState<number>(0);
+  const navigation: any = useNavigation();
 
   const { mutate: loginWithPhoneCode, isLoading } = useLoginWithPhoneCode(
     (data: any) => {
-      console.log('data', data);
-      const newUser = { ...user };
-      login(newUser);
+      login(data);
     },
     (error: any) => {
       formRef.current.setFieldError('code', t('invalid-verification-code'));
     }
   );
 
-  const { refetch: resendCode } = useResendVerificationCode({
-    phoneCode,
-    number,
-  }, {
-    enabled: false,
-    onSuccess: (data: any) => console.log('resend result', data),
-    onError: (error: any) => formRef.current.setFieldError(t('invalid-verification-code')),
-  })
+
+  const { mutate: resendCode } = useSendPhoneLoginVerificationCode(null, null);
 
   const validationSchema = Yup.object({
     phoneCode: Yup.string().required(),
@@ -66,7 +59,7 @@ export default function VerifyItsYouScreen() {
   }
 
   const onResendPress = () => {
-    resendCode();
+    resendCode({ phoneCode, number });
     formRef.current?.setFieldValue('code', '');
     setTimer(initialTimer);
     const interval = setInterval(() => {
@@ -144,7 +137,7 @@ export default function VerifyItsYouScreen() {
 
                     <CustomText
                       text={
-                          timer == 0 ? t('didnt-receive-code') : t('resend-code-in')
+                        timer == 0 ? t('didnt-receive-code') : t('resend-code-in')
                       }
                       size={16}
                       color={theme.colors.text}

@@ -2,7 +2,7 @@ import { View, KeyboardAvoidingView } from 'react-native'
 import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { Field, Formik } from 'formik';
 import { PhoneDto } from 'src/types/dto';
-import { useSendPhoneLoginVerificationCode, useSignUpWithPhone } from 'src/hooks/useUserAuth';
+import { useSignUpWithPhone } from 'src/hooks/useUserAuth';
 import { createStyles } from './styles';
 import { useTheme } from 'src/context/ThemeContext';
 import { useGlobalStyles } from 'src/hooks/useGlobalStyles';
@@ -23,7 +23,7 @@ const initialValues = {
 export default function PhoneSignUpForm() {
   const { t } = useTranslation();
   const globalStyles = useGlobalStyles();
-  const { theme, toggleTheme } = useTheme();
+  const { theme } = useTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const navigation: any = useNavigation();
   const formRef = useRef<any>(null);

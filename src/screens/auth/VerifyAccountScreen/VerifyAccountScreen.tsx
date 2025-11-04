@@ -5,16 +5,17 @@ import CustomButton from 'src/components/buttons/CustomButton/CustomButton';
 import FastImage from 'react-native-fast-image';
 import { useGlobalStyles } from 'src/hooks/useGlobalStyles';
 import { useTheme } from 'src/context/ThemeContext';
-import { useRoute } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import * as Yup from 'yup';
 import CustomText from 'src/components/common/CustomText/CustomText';
-import { useLoginWithPhoneCode, useResendVerificationCode, useVerifyAccount } from 'src/hooks/useUserAuth';
+import { useLoginWithPhoneCode, useResendVerificationCode, useSignUpWithPhone, useVerifyAccount } from 'src/hooks/useUserAuth';
 import { createStyles } from './styles';
 import { useAuth } from 'src/context/AuthContext';
 import CustomFormTextInput from 'src/components/common/CustomFormTextInput/CustomFormTextInput';
 import { getPhoneNumberWithoutLeadingZero } from 'src/common/utils';
 import { LoginPhoneDto, PhoneWithCodeDto } from 'src/types/dto';
 import { useTranslation } from 'react-i18next';
+import * as appService from 'src/services/appService';
 
 const initialTimer = 59;
 
@@ -34,7 +35,7 @@ export default function VerifyAccountScreen() {
   const route: any = useRoute();
   const { phoneCode, number } = route?.params || {};
   const [timer, setTimer] = useState<number>(0);
-  const [error, setError] = useState<boolean>(false);
+  const navigation: any = useNavigation();
 
   const { mutate: verifyAccount, isLoading } = useVerifyAccount(
     (data: any) => {
@@ -42,19 +43,24 @@ export default function VerifyAccountScreen() {
     },
     (error: any) => {
       formRef.current.setFieldError('code', t('invalid-verification-code'))
-      console.log('error', error);
-      // setError(true);
     }
   );
 
-  const { refetch: resendCode } = useResendVerificationCode({
-    phoneCode,
-    number,
-  }, {
-    enabled: false,
-    onSuccess: (data: any) => console.log('resend result', data),
-    onError: (error: any) => formRef.current.setFieldError(t('invalid-verification-code')),
-  })
+  const onSuccess = async (result: any) => {
+    navigation.navigate('VerifyAccountScreen', formRef.current.values);
+  }
+
+  const onError = (error: any) => {
+    switch (error?.status) {
+      case 409:
+        formRef.current.setFieldError('number', t('phone-already-used'));
+        break;
+      default:
+        appService.showToast(error.message, 'error');
+    }
+  }
+
+  const { mutate: resendCode } = useSignUpWithPhone(onSuccess, onError);
 
   const validationSchema = Yup.object({
     phoneCode: Yup.string().required(),
@@ -63,13 +69,11 @@ export default function VerifyAccountScreen() {
   });
 
   const handleSubmit = (dto: PhoneWithCodeDto) => {
-    setError(false);
     verifyAccount(dto)
   }
 
   const onResendPress = () => {
-    resendCode();
-    setError(false);
+    resendCode({ phoneCode, number });
     formRef.current?.setFieldValue('code', '');
     setTimer(initialTimer);
     const interval = setInterval(() => {
@@ -147,10 +151,10 @@ export default function VerifyAccountScreen() {
 
                     <CustomText
                       text={
-                          timer == 0 ? t('didnt-receive-code') : t('resend-code-in')
+                        timer == 0 ? t('didnt-receive-code') : t('resend-code-in')
                       }
                       size={16}
-                      color={error ? theme.colors.error : theme.colors.text}
+                      color={theme.colors.text}
                     />
 
                     <TouchableOpacity style={globalStyles.ml5} onPress={onResendPress} disabled={timer > 0}>

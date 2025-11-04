@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect, useMemo, memo } from 'react';
+import React, { useState, useCallback, useEffect, useMemo, memo, useContext } from 'react';
 import { View, Modal, TouchableOpacity, FlatList, TextInputProps, SafeAreaView, Keyboard } from 'react-native';
 import CustomHeader from 'src/components/common/CustomHeader/CustomHeader';
 import CustomText from 'src/components/common/CustomText/CustomText';
@@ -11,6 +11,8 @@ import { CountryType } from 'src/types/types/Types';
 import Flag from 'react-native-country-flag';
 import SearchInput from '../SearchInput/SearchInput';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { LanguageContext } from 'src/context/LanguageContext';
+import { useTranslation } from 'react-i18next';
 
 interface Props extends TextInputProps {
   required?: boolean;
@@ -27,6 +29,8 @@ function CountryCode({
   placeholder = '',
   ...props
 }: Props) {
+  const { t } = useTranslation();
+  const { language } = useContext(LanguageContext);
   const [visible, setVisible] = useState(false);
   const { theme } = useTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
@@ -75,7 +79,7 @@ function CountryCode({
           <View style={[globalStyles.flex1, globalStyles.flexRow, globalStyles.aic, globalStyles.jcc]}>
             <Flag isoCode={item.iso} size={16} />
             <CustomText
-              text={item.name}
+              text={language == 'ar' ? item.nameAR : item.name}
               size={18}
               color={theme.colors.text}
               fontWeight="semiBold"
@@ -131,7 +135,7 @@ function CountryCode({
               <View>
                 <SearchInput
                   onChangeText={setKeyword}
-                  placeholder="Search countries"
+                  placeholder={t('search')}
                   value={keyword}
                 />
               </View>

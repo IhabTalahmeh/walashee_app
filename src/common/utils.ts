@@ -1,4 +1,7 @@
+import { I18nManager } from 'react-native';
 import RNFS from 'react-native-fs';
+
+const arabicDigits = ['٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩'] as const;
 
 export const getBase64FromUri = async (uri: string): Promise<string> => {
   try {

@@ -3,8 +3,10 @@ import React, { useMemo } from 'react'
 import { useTheme } from 'src/context/ThemeContext'
 import { createStyles } from './styles';
 import { useNavigation } from '@react-navigation/native';
+import { useTranslation } from 'react-i18next';
 
 export default function SignUpNote() {
+  const { t } = useTranslation();
   const { theme } = useTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const navigation: any = useNavigation();
@@ -21,18 +23,18 @@ export default function SignUpNote() {
     <View>
       <Text
         style={styles.mainText}
-      >By continue you agree to our
+      >{t('signup-note-1')}
         <Text
           style={styles.linkText}
           onPress={navigateToTermsOfUse}
           suppressHighlighting={true}
-        > Terms of Use
-        </Text> &
+        > {t('terms-of-use')}
+        </Text> {t('&')}
         <Text
           style={styles.linkText}
           onPress={navigateToPrivacyPolicy}
           suppressHighlighting={true}
-        > Privacy Policy</Text></Text>
+        > {t('privacy-policy')}</Text></Text>
     </View>
   )
 }

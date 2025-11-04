@@ -16,6 +16,7 @@ import { useContactUs } from 'src/hooks/useUtility';
 import * as appService from 'src/services/appService';
 import * as Yup from 'yup';
 import UserIconOutline from 'src/icons/UserIconOutline';
+import { useTranslation } from 'react-i18next';
 
 const defaultInitialValues = {
   name: '',
@@ -26,6 +27,7 @@ const defaultInitialValues = {
 }
 
 export default function ContactScreen() {
+  const { t } = useTranslation();
   const globalStyles = useGlobalStyles();
   const { theme } = useTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
@@ -129,7 +131,7 @@ export default function ContactScreen() {
                     leftIcon={
                       <KeyboardAvoidingView>
                         <CountryCode
-                          title={'Select country'}
+                          title={t('select-country')}
                           country={country}
                           setCountry={setCountry} />
                       </KeyboardAvoidingView>
@@ -161,7 +163,7 @@ export default function ContactScreen() {
                     fontWeight='semiBold'
                     disabled={!props.isValid || isLoading}
                     isLoading={isLoading}
-                    />
+                  />
                 </View>
 
               </View>

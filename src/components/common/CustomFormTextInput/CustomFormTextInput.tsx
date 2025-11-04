@@ -7,6 +7,7 @@ import { hexWithOpacity } from 'src/common/utils';
 import { useTheme } from 'src/context/ThemeContext';
 import { useGlobalStyles } from 'src/hooks/useGlobalStyles';
 import { createStyles } from './styles';
+import { useTranslation } from 'react-i18next';
 
 interface FastFieldProps extends TextInputProps {
   field: any;
@@ -47,6 +48,7 @@ export default function CustomFormTextInput({
   lightBorder = false,
   ...props
 }: FastFieldProps) {
+  const { t } = useTranslation();
   const globalStyles = useGlobalStyles();
   const { theme } = useTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
@@ -89,7 +91,7 @@ export default function CustomFormTextInput({
           )}
           {required === false && (
             <CustomText
-              text="(Optional)"
+              text={`(${t('optional')})`}
               size={15}
               color={theme.colors.pureBorder}
               fontWeight="regular"
@@ -103,53 +105,53 @@ export default function CustomFormTextInput({
           style={[
             styles.container,
             lightBorder ? { borderColor: theme.colors.border } : null,
-          { height}
+            { height }
           ]}
         >
-        {leftIcon && (
-          <View style={[
-            { height: '100%' },
-            { width: leftIconWidth },
-            leftIconContainerStyle,
-            globalStyles.flexRow,
-            globalStyles.aic,
-            globalStyles.jcc,
-          ]}>
-            {leftIcon}
-          </View>
-        )}
-        <TextInput
-          ref={inputRef}
-          {...props}
-          value={field.value}
-          onChangeText={form.handleChange(field.name)}
-          onBlur={form.handleBlur(field.name)}
-          placeholderTextColor={hexWithOpacity(theme.colors.text, 1)}
-          style={[
-            styles.textInput,
-            {
-              fontSize,
-              color: textColor ?? theme.colors.text,
-              fontFamily: fonts[fontWeight],
-              flex: 1,
-              paddingLeft: leftIcon ? 0 : 10,
-            },
-          ]}
-          pointerEvents='none'
-          autoCorrect={false}
-        />
-        {rightIcon && (
-          <View style={[
-            { width: rightIconWidth },
-            globalStyles.flexRow,
-            globalStyles.aic,
-            globalStyles.jcc,
-          ]}>
-            {rightIcon}
-          </View>
-        )}
-      </View>
-    </TouchableWithoutFeedback >
+          {leftIcon && (
+            <View style={[
+              { height: '100%' },
+              { width: leftIconWidth },
+              leftIconContainerStyle,
+              globalStyles.flexRow,
+              globalStyles.aic,
+              globalStyles.jcc,
+            ]}>
+              {leftIcon}
+            </View>
+          )}
+          <TextInput
+            ref={inputRef}
+            {...props}
+            value={field.value}
+            onChangeText={form.handleChange(field.name)}
+            onBlur={form.handleBlur(field.name)}
+            placeholderTextColor={hexWithOpacity(theme.colors.text, 1)}
+            style={[
+              styles.textInput,
+              {
+                fontSize,
+                color: textColor ?? theme.colors.text,
+                fontFamily: fonts[fontWeight],
+                flex: 1,
+                paddingLeft: leftIcon ? 0 : 10,
+              },
+            ]}
+            pointerEvents='none'
+            autoCorrect={false}
+          />
+          {rightIcon && (
+            <View style={[
+              { width: rightIconWidth },
+              globalStyles.flexRow,
+              globalStyles.aic,
+              globalStyles.jcc,
+            ]}>
+              {rightIcon}
+            </View>
+          )}
+        </View>
+      </TouchableWithoutFeedback >
     </>
   );
 }

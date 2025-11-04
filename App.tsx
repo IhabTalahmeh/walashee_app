@@ -18,6 +18,7 @@ import { Linking, Platform } from 'react-native';
 import { useGetAppVersion } from 'src/hooks/useLookups';
 import DeviceInfo from 'react-native-device-info';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { LanguageProvider } from 'src/context/LanguageContext';
 
 LogBox.ignoreLogs(['[Reanimated]']);
 LogBox.ignoreLogs(['AxiosError']);
@@ -45,20 +46,22 @@ function App(): React.JSX.Element {
   // }, []);
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <SafeAreaProvider>
-        <GestureHandlerRootView style={{ flex: 1 }}>
-          <ThemeProvider>
-            <AuthProvider>
-              <BottomSheetModalProvider>
-                <MainApp />
-                <Toast config={toastConfig} />
-              </BottomSheetModalProvider>
-            </AuthProvider>
-          </ThemeProvider>
-        </GestureHandlerRootView>
-      </SafeAreaProvider>
-    </QueryClientProvider>
+    <LanguageProvider>
+      <QueryClientProvider client={queryClient}>
+        <SafeAreaProvider>
+          <GestureHandlerRootView style={{ flex: 1 }}>
+            <ThemeProvider>
+              <AuthProvider>
+                <BottomSheetModalProvider>
+                  <MainApp />
+                  <Toast config={toastConfig} />
+                </BottomSheetModalProvider>
+              </AuthProvider>
+            </ThemeProvider>
+          </GestureHandlerRootView>
+        </SafeAreaProvider>
+      </QueryClientProvider>
+    </LanguageProvider>
   );
 }
 

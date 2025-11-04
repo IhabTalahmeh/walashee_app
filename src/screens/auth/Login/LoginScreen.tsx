@@ -9,8 +9,11 @@ import LoginForm from 'src/components/Forms/LoginForm/LoginForm';
 import NewToMSLogger from 'src/components/common/DontHaveAnAccount/DontHaveAnAccount';
 import { ScrollView } from 'react-native-gesture-handler';
 import DontHaveAnAccount from 'src/components/common/DontHaveAnAccount/DontHaveAnAccount';
+import { useTranslation } from 'react-i18next';
+import { LanguageSelector } from 'src/components/common/LanguageSelector/LanguageSelector';
 
 export default function LoginScreen() {
+  const { t } = useTranslation();
   const globalStyles = useGlobalStyles();
   const { theme } = useTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
@@ -29,6 +32,11 @@ export default function LoginScreen() {
         showsVerticalScrollIndicator={false}
       >
         <View>
+
+          <View style={[globalStyles.aic]}>
+            <LanguageSelector />
+          </View>
+
           <View style={[styles.logoContainer, globalStyles.mb20]}>
             <View style={styles.logoImageContainer}>
               <FastImage

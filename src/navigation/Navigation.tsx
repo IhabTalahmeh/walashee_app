@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import LoginScreen from 'src/screens/auth/Login/LoginScreen';
 import MainScreen from 'src/screens/core/MainScreen/MainScreen';
@@ -31,6 +31,8 @@ import TermsOfUseScreen from 'src/screens/core/TermsOfUseScreen/TermsOfUseScreen
 import VerifyItsYouScreen from 'src/screens/auth/VerifyUser/VerifyItsYouScreen';
 import PhoneSignUpScreen from 'src/screens/auth/PhoneSignUpScreen/PhoneSignUpScreen';
 import VerifyAccountScreen from 'src/screens/auth/VerifyAccountScreen/VerifyAccountScreen';
+import { useTranslation } from 'react-i18next';
+import { LanguageContext } from 'src/context/LanguageContext';
 
 type GuestStackParamList = {
   Login: undefined;
@@ -73,6 +75,8 @@ type UserStackParamList = {
 const Stack = createStackNavigator<GuestStackParamList & UserStackParamList & NotVerifiedUserStack>();
 
 export const GuestStack = () => {
+  const { t } = useTranslation();
+  const { language } = useContext(LanguageContext);
   const { theme } = useTheme();
   const globalStyles = useGlobalStyles();
   const navigation: any = useNavigation();
@@ -100,7 +104,7 @@ export const GuestStack = () => {
           headerBackTitle: '',
           headerBackImage: () => (
             <TouchableOpacity style={[globalStyles.headerBackImage, globalStyles.ml10]} onPress={() => navigation.goBack()}>
-              <Ionicons name='arrow-back' size={24} color={theme.colors.text} />
+              <Ionicons name={language == 'ar' ? 'arrow-forward' : 'arrow-back'} size={24} color={theme.colors.text} />
             </ TouchableOpacity>
           )
         }}>
@@ -109,7 +113,7 @@ export const GuestStack = () => {
 
         <Stack.Screen options={{
           headerShown: true,
-          title: 'Sign Up'
+          title: t('create-account')
         }}
           name="PhoneSignUpScreen"
           component={PhoneSignUpScreen}
@@ -202,6 +206,7 @@ export const GuestStack = () => {
 };
 
 export const NotVerifiedUserStack = () => {
+  const { language } = useContext(LanguageContext);
   const { theme } = useTheme();
   const globalStyles = useGlobalStyles();
   const navigation: any = useNavigation();
@@ -229,7 +234,7 @@ export const NotVerifiedUserStack = () => {
           headerBackTitle: '',
           headerBackImage: () => (
             <TouchableOpacity style={[globalStyles.headerBackImage, globalStyles.ml10]} onPress={() => navigation.goBack()}>
-              <Ionicons name='arrow-back' size={24} color={theme.colors.text} />
+              <Ionicons name={language == 'ar' ? 'arrow-forward' : 'arrow-back'} size={24} color={theme.colors.text} />
             </ TouchableOpacity>
           )
         }}>
@@ -248,6 +253,7 @@ export const NotVerifiedUserStack = () => {
 };
 
 export const UserStack = () => {
+  const { language } = useContext(LanguageContext);
   const { theme } = useTheme();
   const globalStyles = useGlobalStyles();
   const navigation: any = useNavigation();
@@ -275,7 +281,7 @@ export const UserStack = () => {
           headerBackTitle: '',
           headerBackImage: () => (
             <TouchableOpacity style={[globalStyles.headerBackImage, globalStyles.ml10]} onPress={() => navigation.goBack()}>
-              <Ionicons name='arrow-back' size={24} color={theme.colors.text} />
+              <Ionicons name={language == 'ar' ? 'arrow-forward' : 'arrow-back'} size={24} color={theme.colors.text} />
             </ TouchableOpacity>
           )
         }}>

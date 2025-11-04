@@ -1,6 +1,6 @@
 import { View, KeyboardAvoidingView } from 'react-native'
 import React, { useEffect, useMemo, useRef, useState } from 'react'
-import {  Field, Formik } from 'formik';
+import { Field, Formik } from 'formik';
 import { PhoneDto } from 'src/types/dto';
 import { useSendPhoneLoginVerificationCode, useSignUpWithPhone } from 'src/hooks/useUserAuth';
 import { createStyles } from './styles';
@@ -13,6 +13,7 @@ import { useNavigation } from '@react-navigation/native';
 import CountryCode from 'src/components/common/CountryCode/CountryCode';
 import CustomFormTextInput from 'src/components/common/CustomFormTextInput/CustomFormTextInput';
 import { CountryType } from 'src/types/types/Types';
+import { useTranslation } from 'react-i18next';
 
 const initialValues = {
   phoneCode: '',
@@ -20,6 +21,7 @@ const initialValues = {
 }
 
 export default function PhoneSignUpForm() {
+  const { t } = useTranslation();
   const globalStyles = useGlobalStyles();
   const { theme, toggleTheme } = useTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
@@ -34,12 +36,10 @@ export default function PhoneSignUpForm() {
 
 
   const onSuccess = async (result: any) => {
-    console.log('res', result);
     navigation.navigate('VerifyAccountScreen', formRef.current.values);
   }
 
   const onError = (error: any) => {
-    console.log('error', error);
     appService.showToast(error.message, 'error');
   }
 
@@ -72,13 +72,13 @@ export default function PhoneSignUpForm() {
                 required={true}
                 name="number"
                 component={CustomFormTextInput}
-                label="Phone Number"
-                placeholder="Enter phone number"
+                label={t('phone-number')}
+                placeholder={t('enter-phone-number')}
                 keyboardType='numeric'
                 leftIcon={
                   <KeyboardAvoidingView>
                     <CountryCode
-                      title={'Select country'}
+                      title={t('select-country')}
                       country={country}
                       setCountry={setCountry} />
                   </KeyboardAvoidingView>
@@ -93,7 +93,7 @@ export default function PhoneSignUpForm() {
 
           <View style={[globalStyles.ph20, globalStyles.pv15]}>
             <PrimaryButton
-              text={'Sign Up'}
+              text={t('create-account')}
               onPress={props.submitForm}
               fontWeight='semiBold'
               disabled={!props.isValid || isLoading}
@@ -110,8 +110,8 @@ export default function PhoneSignUpForm() {
           </View>
 
         </View>
-  )
-}
+      )
+      }
 
     </Formik >
 

@@ -1,6 +1,6 @@
 import { View, KeyboardAvoidingView } from 'react-native'
 import React, { useEffect, useMemo, useRef, useState } from 'react'
-import {  Field, Formik } from 'formik';
+import { Field, Formik } from 'formik';
 import { useAuth } from 'src/context/AuthContext';
 import { useSendPhoneLoginVerificationCode } from 'src/hooks/useUserAuth';
 import { createStyles } from './styles';
@@ -15,6 +15,7 @@ import CustomFormTextInput from 'src/components/common/CustomFormTextInput/Custo
 import { CountryType } from 'src/types/types/Types';
 import PagerView from 'react-native-pager-view';
 import { PhoneDto } from 'src/types/dto';
+import { useTranslation } from 'react-i18next';
 
 const initialValues = {
   phoneCode: '',
@@ -22,26 +23,18 @@ const initialValues = {
 }
 
 export default function LoginForm() {
-  const { login } = useAuth();
+  const { t } = useTranslation();
   const globalStyles = useGlobalStyles();
-  const { theme, toggleTheme } = useTheme();
+  const { theme } = useTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
-  const [showPassword, setShowPassword] = useState<boolean>(false);
-  const [checked, setChecked] = useState<boolean>(false);
   const navigation: any = useNavigation();
   const formRef = useRef<any>(null);
   const [country, setCountry] = useState<CountryType | null>(null);
-  const pagerRef = useRef<PagerView>(null);
-  const [step, setStep] = useState<number>(0);
 
   const validationSchema = Yup.object({
     phoneCode: Yup.string().required(),
     number: Yup.string().required(),
   });
-
-  const navigateToForgotPassword = () => {
-    navigation.navigate('ForgotPasswordScreen');
-  }
 
   const onSuccess = async (result: any) => {
     console.log('formvalues', formRef.current.values)
@@ -63,10 +56,6 @@ export default function LoginForm() {
     formRef.current.values.phoneCode = country?.phoneCode || '';
   }, [country])
 
-  useEffect(() => {
-    console.log('step', step)
-  }, [step])
-
   return (
     <Formik
       innerRef={formRef}
@@ -86,13 +75,13 @@ export default function LoginForm() {
                 required={true}
                 name="number"
                 component={CustomFormTextInput}
-                label="Phone Number"
-                placeholder="Enter phone number"
+                label={t('phone-number')}
+                placeholder={t('enter-phone-number')}
                 keyboardType='numeric'
                 leftIcon={
                   <KeyboardAvoidingView>
                     <CountryCode
-                      title={'Select country'}
+                      title={t('select-country')}
                       country={country}
                       setCountry={setCountry} />
                   </KeyboardAvoidingView>
@@ -107,7 +96,7 @@ export default function LoginForm() {
 
           <View style={[globalStyles.ph20, globalStyles.pv15]}>
             <PrimaryButton
-              text={'Log In'}
+              text={t('log-in')}
               onPress={props.submitForm}
               fontWeight='semiBold'
               disabled={!props.isValid || isLoading}
@@ -124,8 +113,8 @@ export default function LoginForm() {
           </View>
 
         </View>
-  )
-}
+      )
+      }
 
     </Formik >
 

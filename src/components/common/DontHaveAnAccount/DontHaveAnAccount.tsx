@@ -5,8 +5,10 @@ import { useTheme } from 'src/context/ThemeContext'
 import { createStyles } from './styles';
 import { useGlobalStyles } from 'src/hooks/useGlobalStyles';
 import { useNavigation } from '@react-navigation/native';
+import { useTranslation } from 'react-i18next';
 
 export default function DontHaveAnAccount() {
+  const { t } = useTranslation();
   const globalStyles = useGlobalStyles();
   const { theme } = useTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
@@ -18,9 +20,9 @@ export default function DontHaveAnAccount() {
 
   return (
     <View style={styles.container}>
-      <CustomText text={"Don't have an account?"} size={16} fontWeight='medium' color={theme.colors.text}/>
+      <CustomText text={t('dont-have-an-account?')} size={16} fontWeight='medium' color={theme.colors.text} />
       <TouchableOpacity style={globalStyles.ml5} onPress={navigate}>
-        <CustomText text='Sign Up' size={16} fontWeight='semiBold' color={theme.colors.primary} />
+        <CustomText text={t('create-account')} size={16} fontWeight='semiBold' color={theme.colors.primary} />
       </TouchableOpacity>
     </View>
   )

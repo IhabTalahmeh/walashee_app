@@ -1,10 +1,11 @@
 import { View, Text, TouchableOpacity } from 'react-native'
-import React, { useMemo } from 'react'
+import React, { useContext, useMemo } from 'react'
 import CustomText from '../CustomText/CustomText';
 import { useTheme } from 'src/context/ThemeContext';
 import { useGlobalStyles } from 'src/hooks/useGlobalStyles';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { createStyles } from './styles';
+import { LanguageContext } from 'src/context/LanguageContext';
 
 interface Props {
   title: string;
@@ -12,6 +13,7 @@ interface Props {
 }
 
 export default function CustomHeader({ title, onBackPress }: Props) {
+  const { language } = useContext(LanguageContext);
   const { theme } = useTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const globalStyles = useGlobalStyles();
@@ -19,7 +21,7 @@ export default function CustomHeader({ title, onBackPress }: Props) {
   return (
     <View style={styles.container}>
       <TouchableOpacity style={globalStyles.headerBackImage} onPress={onBackPress}>
-        <Ionicons name='arrow-back' size={24} color={theme.colors.text} />
+        <Ionicons name={language == 'ar' ? 'arrow-forward' : 'arrow-back'} size={24} color={theme.colors.text} />
       </ TouchableOpacity>
 
       <View style={styles.titleContainer}>

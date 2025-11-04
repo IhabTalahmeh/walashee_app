@@ -1,6 +1,6 @@
 import { useMutation, useQuery } from 'react-query';
 import * as authService from '../services/authService';
-import { LoginDto, LoginPhoneDto, PhoneDto } from 'src/types/dto';
+import { LoginDto, LoginPhoneDto, PhoneDto, PhoneWithCodeDto } from 'src/types/dto';
 import { ChangePasswordDto } from 'src/types/dto/ChangePasswordDto';
 import { VerifyEmailDto } from 'src/types/dto/VerifyEmailDto';
 import { ResetPasswordDto } from 'src/types/dto/ResetPasswordDto';
@@ -42,11 +42,8 @@ const resendVerificationCode = async (dto: PhoneDto) => {
   return await authService.resendVerificationCode(dto);
 }
 
-const verifyAccount = async ({ userId, dto }: {
-  userId: number,
-  dto: VerifyAccountDto,
-}) => {
-  return await authService.verifyAccount(dto, userId);
+const verifyAccount = async (dto: PhoneWithCodeDto) => {
+  return await authService.verifyAccount(dto);
 }
 
 const deleteAccount = async (userId: number) => {

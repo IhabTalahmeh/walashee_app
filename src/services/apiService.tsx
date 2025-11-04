@@ -25,6 +25,8 @@ const get = async (url: string, config: AxiosRequestConfig = {}) => {
 
 const post = async (url: string, data: any, config: AxiosRequestConfig = {}) => {
   try {
+    console.log('url', getFullUrl(url));
+    console.log('data', data);
     const response = await axiosInstance.post(getFullUrl(url), data, config);
     return response.data;
   } catch (error) {

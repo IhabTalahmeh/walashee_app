@@ -1,4 +1,4 @@
-import { LoginDto, LoginPhoneDto } from "src/types/dto";
+import { LoginDto, LoginPhoneDto, PhoneWithCodeDto } from "src/types/dto";
 import { ApiService } from "./apiService";
 import { ChangePasswordDto } from "src/types/dto/ChangePasswordDto";
 import { VerifyEmailDto } from "src/types/dto/VerifyEmailDto";
@@ -8,12 +8,7 @@ import { VerifyAccountDto } from "src/types/dto/VerifyAccountDto";
 import { PhoneDto } from "src/types/dto/PhoneDto";
 
 export const loginWithPhoneCode = async (dto: LoginPhoneDto) => {
-  try {
-    return await ApiService.post('auth/login/mobile', dto);
-  } catch (error) {
-    console.log('error is', JSON.stringify(error))
-    throw error;
-  }
+  return await ApiService.post('auth/login/mobile', dto);
 }
 
 export const sendPhoneLoginVerificationCode = async (dto: PhoneDto) => {
@@ -54,8 +49,8 @@ export const resendVerificationCode = async (dto: PhoneDto) => {
   return await ApiService.post(`auth/mobile/resend-code`, dto);
 }
 
-export const verifyAccount = async (dto: VerifyAccountDto, userId: number) => {
-  return await ApiService.post(`users/${userId}/verification`, dto);
+export const verifyAccount = async (dto: PhoneWithCodeDto) => {
+  return await ApiService.post(`auth/mobile/verify`, dto);
 }
 
 export const isEmailAvailable = async (email: string) => {

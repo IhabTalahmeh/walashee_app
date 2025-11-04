@@ -4,3 +4,4 @@ export * from './GetCasesDto';
 export * from './ExportDto';
 export * from './LoginPhoneDto';
 export * from './PhoneDto';
+export * from './PhoneWithCodeDto';

@@ -8,12 +8,12 @@ import { useTheme } from 'src/context/ThemeContext';
 import { useRoute } from '@react-navigation/native';
 import * as Yup from 'yup';
 import CustomText from 'src/components/common/CustomText/CustomText';
-import { useLoginWithPhoneCode, useResendVerificationCode } from 'src/hooks/useUserAuth';
+import { useLoginWithPhoneCode, useResendVerificationCode, useVerifyAccount } from 'src/hooks/useUserAuth';
 import { createStyles } from './styles';
 import { useAuth } from 'src/context/AuthContext';
 import CustomFormTextInput from 'src/components/common/CustomFormTextInput/CustomFormTextInput';
 import { getPhoneNumberWithoutLeadingZero } from 'src/common/utils';
-import { LoginPhoneDto } from 'src/types/dto';
+import { LoginPhoneDto, PhoneWithCodeDto } from 'src/types/dto';
 
 const initialTimer = 59;
 
@@ -34,11 +34,9 @@ export default function VerifyAccountScreen() {
   const [timer, setTimer] = useState<number>(0);
   const [error, setError] = useState<boolean>(false);
 
-  const { mutate: loginWithPhoneCode, isLoading } = useLoginWithPhoneCode(
+  const { mutate: verifyAccount, isLoading } = useVerifyAccount(
     (data: any) => {
-      console.log('data', data);
-      // const newUser = { ...user };
-      // login(newUser);
+      login(data);
     },
     (error: any) => {
       console.log('error', error);
@@ -61,9 +59,9 @@ export default function VerifyAccountScreen() {
     code: Yup.string().min(6).required(),
   });
 
-  const handleSubmit = (dto: LoginPhoneDto) => {
+  const handleSubmit = (dto: PhoneWithCodeDto) => {
     setError(false);
-    loginWithPhoneCode(dto)
+    verifyAccount(dto)
   }
 
   const onResendPress = () => {
@@ -108,7 +106,7 @@ export default function VerifyAccountScreen() {
             initialValues={initialValues}
             validationSchema={validationSchema}
             validateOnMount={true}
-            onSubmit={(values: LoginPhoneDto) => handleSubmit(values)}
+            onSubmit={(values: PhoneWithCodeDto) => handleSubmit(values)}
           >
             {(props) => (
               <View style={globalStyles.flex1}>

@@ -13,7 +13,7 @@ export const lightTheme = {
         error: '#F7403C',
         card: '#f9f9f9',
         border: hexWithOpacity('#60709F', 0.15),
-        pureBorder: '#60709F',
+        pureBorder: '#7381AB',
         white: '#ffffff',
         black: '#000000',
         link: '#0095F6',

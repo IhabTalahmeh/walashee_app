@@ -11,6 +11,8 @@ import { LabelValueType } from 'src/types/types/Types';
 import CustomText from 'src/components/common/CustomText/CustomText';
 import { bigInputHeight, smallInputHeight } from 'src/styles/globalStyles';
 import { useNavigation } from '@react-navigation/native';
+import { toTitleCase } from 'src/common/utils';
+import { useTranslation } from 'react-i18next';
 
 interface FastFieldProps {
   field: any;
@@ -28,8 +30,9 @@ interface FastFieldProps {
   placeholder?: string;
   containerStyle?: any;
   height?: number;
-  lightBorder?: boolean;
+  withBorder?: boolean;
   leftIconWidth?: number;
+  titleCase?: boolean;
 }
 
 export const CustomSelectList = ({
@@ -42,28 +45,25 @@ export const CustomSelectList = ({
   valueField = 'value',
   containerStyle = {},
   height = smallInputHeight,
-  lightBorder = false,
+  withBorder = false,
   leftIcon,
   leftIconWidth = 40,
+  titleCase,
   ...props
 }: FastFieldProps) => {
+  const { t } = useTranslation();
   const { theme } = useTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const globalStyles = useGlobalStyles();
   const [selected, setSelected] = useState(field.value ?? "");
-  const navigation: any = useNavigation();
 
   const transformed = data.map(item => ({
-    key: item.key,
-    value: item.label
+    key: item.label.toLowerCase(),
+    value: titleCase ? toTitleCase(t(item.label)) : t(item.label),
   }));
 
   useEffect(() => {
     form.setFieldValue(field.name, selected);
-    if(field.name == 'hospital_id' && selected == 'ADD_POSITION'){
-      form.setFieldValue('hospital_id', null);
-      navigation.navigate('AddPosition');
-    }
   }, [selected]);
 
   useEffect(() => {
@@ -75,7 +75,7 @@ export const CustomSelectList = ({
       ...styles.dropdown,
       ...containerStyle,
       height,
-      borderColor: lightBorder ? theme.colors.border : theme.colors.pureBorder,
+      borderColor: withBorder ? theme.colors.pureBorder : theme.colors.border,
     }
   }, [containerStyle]);
 
@@ -103,8 +103,8 @@ export const CustomSelectList = ({
         <View style={[
           styles.leftIconContainer,
           { height },
-          { width: leftIconWidth + 15},
-          {paddingLeft: 2},
+          { width: leftIconWidth + 15 },
+          { paddingLeft: 2 },
           globalStyles.flexRow,
           globalStyles.aic,
           globalStyles.jcc,
@@ -128,7 +128,7 @@ export const CustomSelectList = ({
         save="key"
         fontFamily={fonts.medium}
         dropdownTextStyles={styles.placeholderStyle}
-        dropdownStyles={{ borderWidth: 1, borderColor: theme.colors.pureBorder }}
+        dropdownStyles={{ borderWidth: 1, borderColor: withBorder ? theme.colors.pureBorder : theme.colors.border }}
         arrowicon={
           <View style={[globalStyles.aic, globalStyles.jcc]}>
             <Ionicons

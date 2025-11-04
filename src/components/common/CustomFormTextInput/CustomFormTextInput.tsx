@@ -26,7 +26,7 @@ interface FastFieldProps extends TextInputProps {
   selectTextOnFocus?: boolean;
   leftIconContainerStyle?: any;
   rightIconWidth?: number;
-  lightBorder?: boolean;
+  withBorder?: boolean;
 }
 
 export default function CustomFormTextInput({
@@ -45,7 +45,7 @@ export default function CustomFormTextInput({
   leftIconContainerStyle = {},
   rightIconWidth = 40,
   note = '',
-  lightBorder = false,
+  withBorder = false,
   ...props
 }: FastFieldProps) {
   const { t } = useTranslation();
@@ -106,6 +106,7 @@ export default function CustomFormTextInput({
           <View
             style={[
               styles.container,
+              withBorder ? { borderColor: theme.colors.pureBorder } : null,
               error ? { borderColor: theme.colors.error } : null,
               { height }
             ]}

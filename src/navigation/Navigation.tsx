@@ -33,6 +33,7 @@ import PhoneSignUpScreen from 'src/screens/auth/PhoneSignUpScreen/PhoneSignUpScr
 import VerifyAccountScreen from 'src/screens/auth/VerifyAccountScreen/VerifyAccountScreen';
 import { useTranslation } from 'react-i18next';
 import { LanguageContext } from 'src/context/LanguageContext';
+import CompleteProfileScreen from 'src/screens/user/CompleteProfileScreen/CompleteProfileScreen';
 
 type GuestStackParamList = {
   Login: undefined;
@@ -46,8 +47,8 @@ type GuestStackParamList = {
   TermsOfUseScreen: undefined;
 };
 
-type NotVerifiedUserStack = {
-  VerifyItsYouScreen: undefined;
+type NotCompletedProfileStack = {
+  CompleteProfileScreen: undefined;
 }
 
 type UserStackParamList = {
@@ -72,7 +73,7 @@ type UserStackParamList = {
   TermsOfUseScreen: undefined;
 };
 
-const Stack = createStackNavigator<GuestStackParamList & UserStackParamList & NotVerifiedUserStack>();
+const Stack = createStackNavigator<GuestStackParamList & UserStackParamList & NotCompletedProfileStack>();
 
 export const GuestStack = () => {
   const { t } = useTranslation();
@@ -205,7 +206,8 @@ export const GuestStack = () => {
   )
 };
 
-export const NotVerifiedUserStack = () => {
+export const NotCompletedProfileStack = () => {
+  const { t } = useTranslation();
   const { language } = useContext(LanguageContext);
   const { theme } = useTheme();
   const globalStyles = useGlobalStyles();
@@ -241,10 +243,10 @@ export const NotVerifiedUserStack = () => {
 
         <Stack.Screen options={{
           headerShown: true,
-          title: ''
+          title: t('complete-your-profile')
         }}
-          name="VerifyItsYouScreen"
-          component={VerifyItsYouScreen}
+          name="CompleteProfileScreen"
+          component={CompleteProfileScreen}
         />
 
       </Stack.Navigator>

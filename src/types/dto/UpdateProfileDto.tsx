@@ -1,6 +1,8 @@
+import { EGender } from "src/enum/EGender";
+
 export interface UpdateProfileDto {
-    first_name: string;
-    last_name: string;
-    speciality_id: number;
-    email: string;
+    firstName: string;
+    lastName: string;
+    dateOfBirth: Date;
+    gender: string;
 }

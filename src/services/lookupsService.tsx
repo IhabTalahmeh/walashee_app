@@ -2,8 +2,7 @@ import { Platform } from "react-native";
 import { ApiService } from "./apiService";
 
 export const getGenders = async () => {
-  const { data } = await ApiService.get(`gender_lookups`);
-  return data;
+  return await ApiService.get(`lookups/genders`);
 }
 
 export const getRaceList = async () => {

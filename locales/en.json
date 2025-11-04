@@ -25,5 +25,17 @@
     "phone-is-required": "Phone number is required",
     "phone-already-used": "Phone number is already used by another account",
     "verify": "Verify",
-    "verify-account": "Verify account"
+    "verify-account": "Verify account",
+    "complete-your-profile": "Complete your profile",
+    "first-name": "First name",
+    "enter-first-name": "Enter first name",
+    "family-name": "Family name",
+    "enter-family-name": "Enter family name",
+    "date-of-birth": "Date of birth",
+    "enter-date-of-birth": "Enter date of birth",
+    "gender": "Gender",
+    "select-gender": "Select gender",
+    "finish": "Finish",
+    "male": "Male",
+    "female": "Female"
 }

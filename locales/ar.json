@@ -25,5 +25,17 @@
     "phone-is-required": "رقم الهاتف مطلوب",
     "phone-already-used": "رقم الهاتف مستخدم بالفعل بواسطة حساب آخر",
     "verify": "تأكيد",
-    "verify-account": "تأكيد الحساب"
+    "verify-account": "تأكيد الحساب",
+    "complete-your-profile": "أكمل ملفك الشخصي",
+    "first-name": "الإسم الأول",
+    "enter-first-name": "أدخل الأسم الأول",
+    "family-name": "إسم العائلة",
+    "enter-family-name": "أدخل إسم العائلة",
+    "date-of-birth": "تاريخ الميلاد",
+    "enter-date-of-birth": "أدخل تاريخ الميلاد",
+    "gender": "الجنس",
+    "select-gender": "إختر الجنس",
+    "finish": "إنهاء",
+    "male": "ذكر",
+    "female": "أنثى"
 }

@@ -12,6 +12,10 @@ interface FormikDatePickerProps {
   label?: string;
   required?: boolean;
   placeholder?: string;
+  height?: number;
+  withBorder?: boolean;
+  leftIcon?: React.ReactNode,
+  leftIconWidth?: number;
 }
 
 export default function CustomDatePicker({
@@ -20,6 +24,10 @@ export default function CustomDatePicker({
   label,
   required,
   placeholder,
+  height = 55,
+  withBorder = false,
+  leftIcon,
+  leftIconWidth = 40,
 }: FormikDatePickerProps) {
   const [show, setShow] = useState(false);
   const { theme } = useTheme();
@@ -49,6 +57,10 @@ export default function CustomDatePicker({
           defaultValue={!isNewDate && field.name == 'date_of_birth' ? 'DD / MM / YYYY' : dateToString(field.value as Date)}
           editable={false}
           placeholder={placeholder}
+          height={height}
+          withBorder={withBorder}
+          leftIcon={leftIcon}
+          leftIconWidth={leftIconWidth}
         />
       </View>
 

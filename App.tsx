@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import 'react-native-gesture-handler';
@@ -17,6 +17,7 @@ import { PrimaryButton } from 'src/components/buttons/CustomButton/variants';
 import { Linking, Platform } from 'react-native';
 import { useGetAppVersion } from 'src/hooks/useLookups';
 import DeviceInfo from 'react-native-device-info';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 LogBox.ignoreLogs(['[Reanimated]']);
 LogBox.ignoreLogs(['AxiosError']);
@@ -29,6 +30,19 @@ const queryClient = new QueryClient();
 const appVersion = DeviceInfo.getVersion();
 
 function App(): React.JSX.Element {
+
+  // useEffect(() => {
+  //   const clearStorage = async () => {
+  //     try {
+  //       await AsyncStorage.clear();
+  //       console.log('✅ AsyncStorage cleared on app launch');
+  //     } catch (e) {
+  //       console.log('❌ Error clearing storage:', e);
+  //     }
+  //   };
+
+  //   clearStorage();
+  // }, []);
 
   return (
     <QueryClientProvider client={queryClient}>

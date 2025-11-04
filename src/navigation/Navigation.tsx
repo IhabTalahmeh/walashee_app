@@ -24,28 +24,28 @@ import SharedDashboardScreen from 'src/screens/user/SharedDashboardScreen/Shared
 import ChangePasswordScreen from 'src/screens/auth/ChangePassword/ChangePasswordScreen';
 import NotificationsScreen from 'src/screens/core/NotificationsScreen/NotificationsScreen';
 import ForgotPasswordScreen from 'src/screens/auth/ForgotPassword/ForgotPasswordScreen';
-import VerifyEmailScreen from 'src/screens/auth/VerifyEmail/VerifyEmailScreen';
 import ResetPasswordScreen from 'src/screens/auth/ResetPassword/ResetPasswordScreen';
-import SignUpScreen from 'src/screens/auth/SignUp/SignUpScreen';
-import VerifyUserScreen from 'src/screens/auth/VerifyUser/VerifyUserScreen';
 import PlansScreen from 'src/screens/auth/PlansScreen/PlansScreen';
 import PrivacyPolicyScreen from 'src/screens/core/PrivacyPolicyScreen/PrivacyPolicyScreen';
 import TermsOfUseScreen from 'src/screens/core/TermsOfUseScreen/TermsOfUseScreen';
+import VerifyItsYouScreen from 'src/screens/auth/VerifyUser/VerifyItsYouScreen';
+import PhoneSignUpScreen from 'src/screens/auth/PhoneSignUpScreen/PhoneSignUpScreen';
+import VerifyAccountScreen from 'src/screens/auth/VerifyAccountScreen/VerifyAccountScreen';
 
 type GuestStackParamList = {
   Login: undefined;
   ForgotPasswordScreen: undefined;
-  VerifyEmailScreen: undefined;
+  VerifyAccountScreen: undefined;
   ResetPasswordScreen: undefined;
-  SignUpScreen: undefined;
-  VerifyUserScreen: undefined;
+  PhoneSignUpScreen: undefined;
+  VerifyItsYouScreen: undefined;
   PlansScreen: undefined;
   PrivacyPolicyScreen: undefined;
   TermsOfUseScreen: undefined;
 };
 
 type NotVerifiedUserStack = {
-  VerifyUserScreen: undefined;
+  VerifyItsYouScreen: undefined;
 }
 
 type UserStackParamList = {
@@ -83,7 +83,7 @@ export const GuestStack = () => {
       <Stack.Navigator
         screenOptions={{
           cardStyle: {
-            backgroundColor: theme.colors.topBackground
+            backgroundColor: theme.colors.background
           },
           headerStyle: {
             height: headerHeight,
@@ -108,17 +108,11 @@ export const GuestStack = () => {
         <Stack.Screen options={{ headerShown: false }} name="Login" component={LoginScreen} />
 
         <Stack.Screen options={{
-          headerStyle: {
-            height: headerHeight,
-            backgroundColor: theme.colors.background,
-            borderRadius: 0,
-            shadowOpacity: 0,
-          },
           headerShown: true,
           title: 'Sign Up'
         }}
-          name="SignUpScreen"
-          component={SignUpScreen}
+          name="PhoneSignUpScreen"
+          component={PhoneSignUpScreen}
         />
 
         <Stack.Screen options={{
@@ -141,12 +135,13 @@ export const GuestStack = () => {
             backgroundColor: theme.colors.background,
             borderRadius: 0,
             shadowOpacity: 0,
+            elevation: 0,
           },
           headerShown: true,
-          title: 'Verify'
+          title: ''
         }}
-          name="VerifyUserScreen"
-          component={VerifyUserScreen}
+          name="VerifyItsYouScreen"
+          component={VerifyItsYouScreen}
         />
 
         <Stack.Screen options={{
@@ -164,17 +159,11 @@ export const GuestStack = () => {
         />
 
         <Stack.Screen options={{
-          headerStyle: {
-            height: headerHeight,
-            backgroundColor: theme.colors.background,
-            borderRadius: 0,
-            shadowOpacity: 0,
-          },
           headerShown: true,
-          title: ''
+          title: 'Verify'
         }}
-          name="VerifyEmailScreen"
-          component={VerifyEmailScreen}
+          name="VerifyAccountScreen"
+          component={VerifyAccountScreen}
         />
 
         <Stack.Screen options={{
@@ -246,17 +235,11 @@ export const NotVerifiedUserStack = () => {
         }}>
 
         <Stack.Screen options={{
-          headerStyle: {
-            height: headerHeight,
-            backgroundColor: theme.colors.background,
-            borderRadius: 0,
-            shadowOpacity: 0,
-          },
           headerShown: true,
           title: 'Verify'
         }}
-          name="VerifyUserScreen"
-          component={VerifyUserScreen}
+          name="VerifyItsYouScreen"
+          component={VerifyItsYouScreen}
         />
 
       </Stack.Navigator>

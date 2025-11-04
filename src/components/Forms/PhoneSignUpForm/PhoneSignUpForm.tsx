@@ -1,8 +1,8 @@
 import { View, KeyboardAvoidingView } from 'react-native'
 import React, { useEffect, useMemo, useRef, useState } from 'react'
 import {  Field, Formik } from 'formik';
-import { useAuth } from 'src/context/AuthContext';
-import { useSendPhoneLoginVerificationCode } from 'src/hooks/useUserAuth';
+import { PhoneDto } from 'src/types/dto';
+import { useSendPhoneLoginVerificationCode, useSignUpWithPhone } from 'src/hooks/useUserAuth';
 import { createStyles } from './styles';
 import { useTheme } from 'src/context/ThemeContext';
 import { useGlobalStyles } from 'src/hooks/useGlobalStyles';
@@ -13,59 +13,45 @@ import { useNavigation } from '@react-navigation/native';
 import CountryCode from 'src/components/common/CountryCode/CountryCode';
 import CustomFormTextInput from 'src/components/common/CustomFormTextInput/CustomFormTextInput';
 import { CountryType } from 'src/types/types/Types';
-import PagerView from 'react-native-pager-view';
-import { PhoneDto } from 'src/types/dto';
 
 const initialValues = {
   phoneCode: '',
   number: '',
 }
 
-export default function LoginForm() {
-  const { login } = useAuth();
+export default function PhoneSignUpForm() {
   const globalStyles = useGlobalStyles();
   const { theme, toggleTheme } = useTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
-  const [showPassword, setShowPassword] = useState<boolean>(false);
-  const [checked, setChecked] = useState<boolean>(false);
   const navigation: any = useNavigation();
   const formRef = useRef<any>(null);
   const [country, setCountry] = useState<CountryType | null>(null);
-  const pagerRef = useRef<PagerView>(null);
-  const [step, setStep] = useState<number>(0);
 
   const validationSchema = Yup.object({
     phoneCode: Yup.string().required(),
     number: Yup.string().required(),
   });
 
-  const navigateToForgotPassword = () => {
-    navigation.navigate('ForgotPasswordScreen');
-  }
 
   const onSuccess = async (result: any) => {
-    console.log('formvalues', formRef.current.values)
-    navigation.navigate('VerifyItsYouScreen', formRef.current.values);
+    console.log('res', result);
+    navigation.navigate('VerifyAccountScreen', formRef.current.values);
   }
 
   const onError = (error: any) => {
     console.log('error', error);
-    appService.showToast('Invalid email or password', 'error');
+    appService.showToast(error.message, 'error');
   }
 
-  const { mutate, isLoading } = useSendPhoneLoginVerificationCode(onSuccess, onError);
+  const { mutate: signUpWithPhone, isLoading } = useSignUpWithPhone(onSuccess, onError);
 
-  const handleSendCode = (dto: PhoneDto) => {
-    mutate(dto);
+  const handleSignUp = (dto: PhoneDto) => {
+    signUpWithPhone(dto);
   }
 
   useEffect(() => {
     formRef.current.values.phoneCode = country?.phoneCode || '';
   }, [country])
-
-  useEffect(() => {
-    console.log('step', step)
-  }, [step])
 
   return (
     <Formik
@@ -73,8 +59,8 @@ export default function LoginForm() {
       initialValues={initialValues}
       validationSchema={validationSchema}
       validateOnMount
-      onSubmit={(values: PhoneDto) => {
-        handleSendCode(values);
+      onSubmit={(dto: PhoneDto) => {
+        handleSignUp(dto);
       }}>
       {(props) => (
         <View style={styles.container}>
@@ -107,7 +93,7 @@ export default function LoginForm() {
 
           <View style={[globalStyles.ph20, globalStyles.pv15]}>
             <PrimaryButton
-              text={'Log In'}
+              text={'Sign Up'}
               onPress={props.submitForm}
               fontWeight='semiBold'
               disabled={!props.isValid || isLoading}

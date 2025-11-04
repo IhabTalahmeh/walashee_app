@@ -9,6 +9,8 @@ import LoginForm from 'src/components/Forms/LoginForm/LoginForm';
 import NewToMSLogger from 'src/components/common/DontHaveAnAccount/DontHaveAnAccount';
 import { ScrollView } from 'react-native-gesture-handler';
 import DontHaveAnAccount from 'src/components/common/DontHaveAnAccount/DontHaveAnAccount';
+import PhoneSignUpForm from 'src/components/Forms/PhoneSignUpForm/PhoneSignUpForm';
+import SignUpNote from 'src/components/SignUpNote/SignUpNote';
 
 export default function LoginScreen() {
   const globalStyles = useGlobalStyles();
@@ -24,35 +26,21 @@ export default function LoginScreen() {
   const renderContent = () => {
     return (
       <ScrollView
-        contentContainerStyle={globalStyles.scrollView}
+        contentContainerStyle={[globalStyles.flexGrow1]}
         keyboardShouldPersistTaps="handled"
         showsVerticalScrollIndicator={false}
       >
-        <View>
-          <View style={[styles.logoContainer, globalStyles.mb20]}>
-            <View style={styles.logoImageContainer}>
-              <FastImage
-                source={logo}
-                style={globalStyles.full}
-                resizeMode={FastImage.resizeMode.contain}
-              />
-            </View>
-            <CustomText
-              text={'Walashee'}
-              size={24}
-              color={theme.colors.text}
-              fontWeight="bold"
-            />
+        <View style={[globalStyles.flex1, globalStyles.jcc]}>
+
+          {/* Sign Up Form */}
+          <View>
+            <PhoneSignUpForm />
           </View>
 
-          <View style={[globalStyles.flex1, globalStyles.mt20]}>
-            <LoginForm />
+          {/* Sign Up Note */}
+          <View style={[globalStyles.jcc, globalStyles.aic]}>
+            <SignUpNote />
           </View>
-        </View>
-
-        {/* Bottom-aligned in ScrollView */}
-        <View style={[globalStyles.flex1, globalStyles.jcc, globalStyles.aic, globalStyles.pv20]}>
-          <DontHaveAnAccount />
         </View>
       </ScrollView>
     )

@@ -1,21 +1,22 @@
 import { useMutation, useQuery } from 'react-query';
 import * as authService from '../services/authService';
-import { LoginDto, LoginPhoneDto } from 'src/types/dto';
+import { LoginDto, LoginPhoneDto, PhoneDto } from 'src/types/dto';
 import { ChangePasswordDto } from 'src/types/dto/ChangePasswordDto';
 import { VerifyEmailDto } from 'src/types/dto/VerifyEmailDto';
 import { ResetPasswordDto } from 'src/types/dto/ResetPasswordDto';
 import { RegisterDto } from 'src/types/dto/RegisterDto';
 import { VerifyAccountDto } from 'src/types/dto/VerifyAccountDto';
-import { SendPhoneVerificationCodeDto } from 'src/types/dto/SendPhoneVerificationCodeDto';
 
-const login = async (credentials: LoginPhoneDto) => {
-  const result = await authService.login(credentials);
-  if (result.status_code == 200) {
-    result.data.verified = true;
-  } else if (result.status_code == 603) {
-    result.data.verified = false;
-  }
-  return await result;
+const loginWithPhoneCode = async (dto: LoginPhoneDto) => {
+  return await authService.loginWithPhoneCode(dto);
+}
+
+const sendPhoneLoginVerificationCode = async (dto: PhoneDto) => {
+  return await authService.sendPhoneLoginVerificationCode(dto);
+}
+
+const signUpWithPhone = async (dto: PhoneDto) => {
+  return await authService.signUpWithPhone(dto);
 }
 
 const changePassword = async ({ userId, dto }: {
@@ -37,11 +38,7 @@ const resetPassword = async (dto: ResetPasswordDto) => {
   return await authService.resetPassword(dto);
 }
 
-const signup = async (dto: RegisterDto) => {
-  return await authService.signup(dto);
-}
-
-const resendVerificationCode = async (dto: SendPhoneVerificationCodeDto) => {
+const resendVerificationCode = async (dto: PhoneDto) => {
   return await authService.resendVerificationCode(dto);
 }
 
@@ -61,8 +58,15 @@ const deleteAccount = async (userId: number) => {
 
 
 
-export const useLogin = (onSuccess: any, onError: any) => {
-  return useMutation(login, {
+export const useLoginWithPhoneCode = (onSuccess: any, onError: any) => {
+  return useMutation(loginWithPhoneCode, {
+    onSuccess,
+    onError
+  });
+}
+
+export const useSendPhoneLoginVerificationCode = (onSuccess: any, onError: any) => {
+  return useMutation(sendPhoneLoginVerificationCode, {
     onSuccess,
     onError
   });
@@ -100,15 +104,15 @@ export const useResetPassword = (onSuccess: any, onError: any, options = {}) => 
   })
 }
 
-export const useSignUp = (onSuccess: any, onError: any, options = {}) => {
-  return useMutation(signup, {
+export const useSignUpWithPhone = (onSuccess: any, onError: any, options = {}) => {
+  return useMutation(signUpWithPhone, {
     onSuccess,
     onError,
     ...options
   })
 }
 
-export const useResendVerificationCode = (dto: SendPhoneVerificationCodeDto, options = {}) => {
+export const useResendVerificationCode = (dto: PhoneDto, options = {}) => {
   return useQuery({
     queryKey: ['verificationCode'],
     queryFn: () => resendVerificationCode(dto),

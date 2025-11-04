@@ -153,3 +153,19 @@ export const isValidEmail = (email: string) => {
   const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
   return emailPattern.test(email);
 };
+
+export function removeLeadingZero(num: string) {
+  let numStr = num.toString();
+  if (numStr.charAt(0) === '0') {
+    return numStr.substring(1);
+  }
+  return numStr;
+}
+
+export function getPhoneNumberWithoutLeadingZero(num: string) {
+  let numStr = num.toString();
+  if (numStr.charAt(0) === '0') {
+    return numStr.substring(1);
+  }
+  return numStr;
+}

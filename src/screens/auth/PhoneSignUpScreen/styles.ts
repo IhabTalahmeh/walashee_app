@@ -6,12 +6,20 @@ export const createStyles = (theme: Theme) => {
     container: {
       flex: 1,
       backgroundColor: theme.colors.background,
-      paddingHorizontal: 10
     },
-    topSection: {
-      marginVertical: 30,
+    logoContainer: {
       justifyContent: 'center',
       alignItems: 'center',
-    }
+      marginTop: 100
+    },
+    logoImageContainer: {
+      width: 128,
+      height: 128,
+    },
+    logoText: {
+      color: theme.colors.text,
+      fontSize: 24,
+      fontFamily: fonts.black
+    },
   });
 }

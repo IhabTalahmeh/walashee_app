@@ -9,9 +9,9 @@ export const createStyles = (theme: Theme) => {
       paddingHorizontal: 20,
     },
     topSection: {
-      marginTop: 30,
       justifyContent: 'center',
       alignItems: 'center',
+      flex: 1,
     }
   });
 }

@@ -10,5 +10,20 @@
     "&": "&",
     "select-country": "Select country",
     "search": "Search",
-    "optional": "Optional"
+    "optional": "Optional",
+    "verify-your-account": "Verify your account",
+    "verify-note": "Enter the 6 digit code sent to",
+    "didnt-receive-code": "If you didn't receive a code,",
+    "resend": "Resend",
+    "enter-verification-code": "Enter verification code",
+    "code-is-required": "Verification code is required",
+    "six-digits-code-error": "Verification code must be exactly 6 digits",
+    "invalid-verification-code": "Invalid verification code",
+    "resend-code-in": "You can resend code in,",
+    "seconds": "seconds",
+    "verify-its-you": "Verify it's you",
+    "phone-is-required": "Phone number is required",
+    "phone-already-used": "Phone number is already used by another account",
+    "verify": "Verify",
+    "verify-account": "Verify account"
 }

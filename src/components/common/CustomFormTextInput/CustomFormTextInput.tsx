@@ -53,6 +53,7 @@ export default function CustomFormTextInput({
   const { theme } = useTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const inputRef = useRef<TextInput>(null);
+  const error = form.touched[field.name] && form.errors[field.name];
 
   const handlePress = () => {
     inputRef.current?.focus();
@@ -101,56 +102,62 @@ export default function CustomFormTextInput({
         </View>
       )}
       <TouchableWithoutFeedback onPress={handlePress}>
-        <View
-          style={[
-            styles.container,
-            lightBorder ? { borderColor: theme.colors.border } : null,
-            { height }
-          ]}
-        >
-          {leftIcon && (
-            <View style={[
-              { height: '100%' },
-              { width: leftIconWidth },
-              leftIconContainerStyle,
-              globalStyles.flexRow,
-              globalStyles.aic,
-              globalStyles.jcc,
-            ]}>
-              {leftIcon}
-            </View>
-          )}
-          <TextInput
-            ref={inputRef}
-            {...props}
-            value={field.value}
-            onChangeText={form.handleChange(field.name)}
-            onBlur={form.handleBlur(field.name)}
-            placeholderTextColor={hexWithOpacity(theme.colors.text, 1)}
+        <>
+          <View
             style={[
-              styles.textInput,
-              {
-                fontSize,
-                color: textColor ?? theme.colors.text,
-                fontFamily: fonts[fontWeight],
-                flex: 1,
-                paddingLeft: leftIcon ? 0 : 10,
-              },
+              styles.container,
+              error ? { borderColor: theme.colors.error } : null,
+              { height }
             ]}
-            pointerEvents='none'
-            autoCorrect={false}
-          />
-          {rightIcon && (
-            <View style={[
-              { width: rightIconWidth },
-              globalStyles.flexRow,
-              globalStyles.aic,
-              globalStyles.jcc,
-            ]}>
-              {rightIcon}
-            </View>
-          )}
-        </View>
+          >
+            {leftIcon && (
+              <View style={[
+                { height: '100%' },
+                { width: leftIconWidth },
+                leftIconContainerStyle,
+                globalStyles.flexRow,
+                globalStyles.aic,
+                globalStyles.jcc,
+              ]}>
+                {leftIcon}
+              </View>
+            )}
+            <TextInput
+              ref={inputRef}
+              {...props}
+              value={field.value}
+              onChangeText={form.handleChange(field.name)}
+              onBlur={form.handleBlur(field.name)}
+              placeholderTextColor={hexWithOpacity(theme.colors.text, 1)}
+              style={[
+                styles.textInput,
+                globalStyles.text,
+                {
+                  fontSize,
+                  color: error ? theme.colors.error : textColor ?? theme.colors.text,
+                  fontFamily: fonts[fontWeight],
+                  flex: 1,
+                  paddingLeft: leftIcon ? 0 : 10,
+                },
+              ]}
+              pointerEvents='none'
+              autoCorrect={false}
+            />
+            {rightIcon && (
+              <View style={[
+                { width: rightIconWidth },
+                globalStyles.flexRow,
+                globalStyles.aic,
+                globalStyles.jcc,
+              ]}>
+                {rightIcon}
+              </View>
+            )}
+          </View>
+          <View style={globalStyles.mt2}>
+            {error && <CustomText text={error} color={theme.colors.error} size={14} />}
+          </View>
+        </>
       </TouchableWithoutFeedback >
     </>
   );

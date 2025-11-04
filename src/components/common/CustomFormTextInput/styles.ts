@@ -21,16 +21,6 @@ export const createStyles = (theme: Theme) => {
       fontFamily: fonts.medium,
       color: theme.colors.text,
     },
-    errorContainer: {
-      display: 'flex',
-      flexDirection: 'row',
-      alignItems: 'center',
-    },
-    errorMessage: {
-      color: theme.colors.error,
-      marginLeft: 5,
-      fontSize: 13
-    }
 
   });
 }

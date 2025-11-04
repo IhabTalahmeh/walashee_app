@@ -2,6 +2,8 @@ import { Platform, StyleSheet, I18nManager, Dimensions } from 'react-native';
 import { fonts, Theme } from './theme';
 import { hexWithOpacity } from 'src/common/utils';
 
+const isRTL: boolean = I18nManager.isRTL;
+
 const itemWidth = '100%';
 export const smallInputHeight = 55;
 export const bigInputHeight = 68;
@@ -14,6 +16,9 @@ export const fixedHeaderHeight = 70;
 
 export const createGlobalStyles = (theme: Theme) =>
   StyleSheet.create({
+    text: {
+      textAlign: isRTL ? 'right' : 'left',
+    },
     header: {
       height: headerHeight,
       backgroundColor: theme.colors.background,
@@ -152,6 +157,7 @@ export const createGlobalStyles = (theme: Theme) =>
     mh20: { marginHorizontal: 20 },
 
     // Margin Top
+    mt2: { marginTop: 2 },
     mt5: { marginTop: 5 },
     mt10: { marginTop: 10 },
     mt15: { marginTop: 15 },

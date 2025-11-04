@@ -164,7 +164,7 @@ export const GuestStack = () => {
 
         <Stack.Screen options={{
           headerShown: true,
-          title: 'Verify'
+          title: ''
         }}
           name="VerifyAccountScreen"
           component={VerifyAccountScreen}
@@ -241,7 +241,7 @@ export const NotVerifiedUserStack = () => {
 
         <Stack.Screen options={{
           headerShown: true,
-          title: 'Verify'
+          title: ''
         }}
           name="VerifyItsYouScreen"
           component={VerifyItsYouScreen}

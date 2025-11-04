@@ -31,7 +31,7 @@ export default function PhoneSignUpForm() {
 
   const validationSchema = Yup.object({
     phoneCode: Yup.string().required(),
-    number: Yup.string().required(),
+    number: Yup.string().required(t('phone-is-required')),
   });
 
 
@@ -40,7 +40,13 @@ export default function PhoneSignUpForm() {
   }
 
   const onError = (error: any) => {
-    appService.showToast(error.message, 'error');
+    switch(error?.status){
+      case 409:
+        formRef.current.setFieldError('number', t('phone-already-used'));
+        break;
+      default:
+        appService.showToast(error.message, 'error');
+    }
   }
 
   const { mutate: signUpWithPhone, isLoading } = useSignUpWithPhone(onSuccess, onError);

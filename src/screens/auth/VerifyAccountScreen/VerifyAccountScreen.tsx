@@ -14,6 +14,7 @@ import { useAuth } from 'src/context/AuthContext';
 import CustomFormTextInput from 'src/components/common/CustomFormTextInput/CustomFormTextInput';
 import { getPhoneNumberWithoutLeadingZero } from 'src/common/utils';
 import { LoginPhoneDto, PhoneWithCodeDto } from 'src/types/dto';
+import { useTranslation } from 'react-i18next';
 
 const initialTimer = 59;
 
@@ -24,6 +25,7 @@ const initialValues = {
 };
 
 export default function VerifyAccountScreen() {
+  const { t } = useTranslation();
   const { user, login, logout } = useAuth();
   const { theme } = useTheme();
   const globalStyles = useGlobalStyles();
@@ -39,6 +41,7 @@ export default function VerifyAccountScreen() {
       login(data);
     },
     (error: any) => {
+      formRef.current.setFieldError('code', t('invalid-verification-code'))
       console.log('error', error);
       // setError(true);
     }
@@ -50,13 +53,13 @@ export default function VerifyAccountScreen() {
   }, {
     enabled: false,
     onSuccess: (data: any) => console.log('resend result', data),
-    onError: (error: any) => console.log('error', error),
+    onError: (error: any) => formRef.current.setFieldError(t('invalid-verification-code')),
   })
 
   const validationSchema = Yup.object({
     phoneCode: Yup.string().required(),
     number: Yup.string().required(),
-    code: Yup.string().min(6).required(),
+    code: Yup.string().length(6, t('six-digits-code-error')).required(t('code-is-required')),
   });
 
   const handleSubmit = (dto: PhoneWithCodeDto) => {
@@ -118,11 +121,11 @@ export default function VerifyAccountScreen() {
                     </View>
 
                     <View style={globalStyles.mt10}>
-                      <CustomText text="Verify your account" size={20} fontWeight='bold' color={theme.colors.text} />
+                      <CustomText text={t('verify-your-account')} size={20} fontWeight='bold' color={theme.colors.text} />
                     </View>
 
                     <View style={globalStyles.mt10}>
-                      <CustomText text='Enter the 6 digit code sent to' size={16} fontWeight='regular' color={theme.colors.pureBorder} style={globalStyles.centerText} />
+                      <CustomText text={t('verify-note')} size={16} fontWeight='regular' color={theme.colors.pureBorder} style={globalStyles.centerText} />
                       <CustomText text={`+${phoneCode}${getPhoneNumberWithoutLeadingZero(number)}`} size={16} fontWeight='regular' color={theme.colors.primary} style={[globalStyles.centerText, globalStyles.mt5]} />
                     </View>
                   </View>
@@ -133,7 +136,7 @@ export default function VerifyAccountScreen() {
                       name="code"
                       component={CustomFormTextInput}
                       required
-                      placeholder='Enter verification code'
+                      placeholder={t('enter-verification-code')}
                       keyboardType='numeric'
                       height={68}
                       maxLength={6}
@@ -144,8 +147,7 @@ export default function VerifyAccountScreen() {
 
                     <CustomText
                       text={
-                        error ? `Please try again or resend code,` :
-                          timer == 0 ? `If you didn't receive a code,` : `You can resend code in,`
+                          timer == 0 ? t('didnt-receive-code') : t('resend-code-in')
                       }
                       size={16}
                       color={error ? theme.colors.error : theme.colors.text}
@@ -154,12 +156,12 @@ export default function VerifyAccountScreen() {
                     <TouchableOpacity style={globalStyles.ml5} onPress={onResendPress} disabled={timer > 0}>
                       {timer == 0 ? (
                         <CustomText
-                          text={'Resend'}
+                          text={t('resend')}
                           size={16}
                           color={theme.colors.primary} />
                       ) : (
                         <CustomText
-                          text={`${timer} seconds`}
+                          text={`${timer} ${t('seconds')}`}
                           size={16}
                           color={theme.colors.primary}
                         />
@@ -175,7 +177,7 @@ export default function VerifyAccountScreen() {
                 <View style={globalStyles.continueButtonContainer}>
 
                   <CustomButton
-                    text='Verify'
+                    text={t('verify')}
                     onPress={props.submitForm}
                     fontSize={18}
                     fontWeight='semiBold'

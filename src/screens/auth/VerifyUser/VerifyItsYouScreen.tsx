@@ -14,6 +14,7 @@ import { useAuth } from 'src/context/AuthContext';
 import CustomFormTextInput from 'src/components/common/CustomFormTextInput/CustomFormTextInput';
 import { getPhoneNumberWithoutLeadingZero } from 'src/common/utils';
 import { LoginPhoneDto } from 'src/types/dto';
+import { useTranslation } from 'react-i18next';
 
 const initialTimer = 59;
 
@@ -24,6 +25,7 @@ const initialValues = {
 };
 
 export default function VerifyItsYouScreen() {
+  const { t } = useTranslation();
   const { user, login, logout } = useAuth();
   const { theme } = useTheme();
   const globalStyles = useGlobalStyles();
@@ -32,7 +34,6 @@ export default function VerifyItsYouScreen() {
   const route: any = useRoute();
   const { phoneCode, number } = route?.params || {};
   const [timer, setTimer] = useState<number>(0);
-  const [error, setError] = useState<boolean>(false);
 
   const { mutate: loginWithPhoneCode, isLoading } = useLoginWithPhoneCode(
     (data: any) => {
@@ -41,8 +42,7 @@ export default function VerifyItsYouScreen() {
       login(newUser);
     },
     (error: any) => {
-      console.log('error', error);
-      setError(true);
+      formRef.current.setFieldError('code', t('invalid-verification-code'));
     }
   );
 
@@ -52,23 +52,21 @@ export default function VerifyItsYouScreen() {
   }, {
     enabled: false,
     onSuccess: (data: any) => console.log('resend result', data),
-    onError: (error: any) => console.log('error', error),
+    onError: (error: any) => formRef.current.setFieldError(t('invalid-verification-code')),
   })
 
   const validationSchema = Yup.object({
     phoneCode: Yup.string().required(),
-    number: Yup.string().required(),
-    code: Yup.string().min(6).required(),
+    number: Yup.string().required(t('phone-is-required')),
+    code: Yup.string().min(6, t('six-digits-code-error')).required(t('code-is-required')),
   });
 
   const handleSubmit = (dto: LoginPhoneDto) => {
-    setError(false);
     loginWithPhoneCode(dto)
   }
 
   const onResendPress = () => {
     resendCode();
-    setError(false);
     formRef.current?.setFieldValue('code', '');
     setTimer(initialTimer);
     const interval = setInterval(() => {
@@ -120,11 +118,11 @@ export default function VerifyItsYouScreen() {
                     </View>
 
                     <View style={globalStyles.mt10}>
-                      <CustomText text="Verify it's you" size={20} fontWeight='bold' color={theme.colors.text} />
+                      <CustomText text={t('verify-its-you')} size={20} fontWeight='bold' color={theme.colors.text} />
                     </View>
 
                     <View style={globalStyles.mt10}>
-                      <CustomText text='Enter the 6 digit code sent to' size={16} fontWeight='regular' color={theme.colors.pureBorder} style={globalStyles.centerText} />
+                      <CustomText text={t('verify-note')} size={16} fontWeight='regular' color={theme.colors.pureBorder} style={globalStyles.centerText} />
                       <CustomText text={`+${phoneCode}${getPhoneNumberWithoutLeadingZero(number)}`} size={16} fontWeight='regular' color={theme.colors.primary} style={[globalStyles.centerText, globalStyles.mt5]} />
                     </View>
                   </View>
@@ -135,7 +133,7 @@ export default function VerifyItsYouScreen() {
                       name="code"
                       component={CustomFormTextInput}
                       required
-                      placeholder='Enter verification code'
+                      placeholder={t('enter-verification-code')}
                       keyboardType='numeric'
                       height={68}
                       maxLength={6}
@@ -146,22 +144,21 @@ export default function VerifyItsYouScreen() {
 
                     <CustomText
                       text={
-                        error ? `Please try again or resend code,` :
-                          timer == 0 ? `If you didn't receive a code,` : `You can resend code in,`
+                          timer == 0 ? t('didnt-receive-code') : t('resend-code-in')
                       }
                       size={16}
-                      color={error ? theme.colors.error : theme.colors.text}
+                      color={theme.colors.text}
                     />
 
                     <TouchableOpacity style={globalStyles.ml5} onPress={onResendPress} disabled={timer > 0}>
                       {timer == 0 ? (
                         <CustomText
-                          text={'Resend'}
+                          text={t('resend')}
                           size={16}
                           color={theme.colors.primary} />
                       ) : (
                         <CustomText
-                          text={`${timer} seconds`}
+                          text={`${timer} ${t('seconds')}`}
                           size={16}
                           color={theme.colors.primary}
                         />
@@ -177,7 +174,7 @@ export default function VerifyItsYouScreen() {
                 <View style={globalStyles.continueButtonContainer}>
 
                   <CustomButton
-                    text='Verify'
+                    text={t('verify')}
                     onPress={props.submitForm}
                     fontSize={18}
                     fontWeight='semiBold'

@@ -33,7 +33,7 @@ export default function LoginForm() {
 
   const validationSchema = Yup.object({
     phoneCode: Yup.string().required(),
-    number: Yup.string().required(),
+    number: Yup.string().required(t('phone-is-required')),
   });
 
   const onSuccess = async (result: any) => {

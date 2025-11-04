@@ -12,13 +12,13 @@ const isIOS = Platform.OS == 'ios';
 interface LanguageContextProps {
     language: string;
     changeLanguage: (lng: string) => void;
-    isArabic: boolean;
+    isAR: boolean;
 }
 
 export const LanguageContext = createContext<LanguageContextProps>({
-    language: 'en',
+    language: 'ar',
     changeLanguage: () => { },
-    isArabic: false,
+    isAR: false,
 });
 
 export const languageResources = {
@@ -53,7 +53,7 @@ interface LanguageProviderProps {
 export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) => {
     const [language, setLanguage] = useState<string>(i18next.language);
 
-    const isArabic = useMemo(() => {
+    const isAR = useMemo(() => {
         return language === 'ar';
     }, [language]);
 
@@ -91,7 +91,7 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
     };
 
     return (
-        <LanguageContext.Provider value={{ language, changeLanguage, isArabic }}>
+        <LanguageContext.Provider value={{ language, changeLanguage, isAR }}>
             {children}
         </LanguageContext.Provider>
     );

@@ -10,5 +10,20 @@
     "&": "و",
     "select-country": "إختر دولة",
     "search": "بحث",
-    "optional": "اختياري"
+    "optional": "اختياري",
+    "verify-your-account": "تأكيد حسابك",
+    "verify-note": "أدخل رمز التحقق الذي تم إرساله للتو إلى",
+    "didnt-receive-code": "إذا لم تتلقّ الرمز،",
+    "resend": "أعد الإرسال",
+    "enter-verification-code": "أدخل رمز التحقق",
+    "code-is-required": "رمز التحقق مطلوب",
+    "six-digits-code-error": "يجب أن يتكون رمز التحقق من 6 أرقام",
+    "invalid-verification-code": "رمز التحقق غير صحيح",
+    "resend-code-in": "يمكنك إرسال رمز خلال،",
+    "seconds": "ثانية",
+    "verify-its-you": "تأكيد أنك انت",
+    "phone-is-required": "رقم الهاتف مطلوب",
+    "phone-already-used": "رقم الهاتف مستخدم بالفعل بواسطة حساب آخر",
+    "verify": "تأكيد",
+    "verify-account": "تأكيد الحساب"
 }

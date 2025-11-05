@@ -1,14 +1,40 @@
 import axios, { AxiosRequestConfig, AxiosInstance } from 'axios';
 import Config from 'react-native-config';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const BASE_URL = Config.BASE_URL;
+
+let user: any = null;
+
+export const getUser = async () => {
+  const localUser = await AsyncStorage.getItem('@user');
+  user = JSON.parse(localUser as string);
+
+  return user;
+};
 
 // Create an Axios instance
 const axiosInstance: AxiosInstance = axios.create({
   baseURL: BASE_URL,
   withCredentials: true,
-  headers: { Accept: 'application/json' }
 });
+
+// Add a request interceptor
+axiosInstance.interceptors.request.use(
+  async (config: any) => {
+    const _user: any = await getUser();
+    if (_user) {
+      config.headers = {
+        ...config.headers,
+        'Authorization': `Bearer ${_user.apiToken}`,
+      };
+    }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
 
 const getFullUrl = (url: string) => {
   return `${BASE_URL}/${url}`;
@@ -25,8 +51,6 @@ const get = async (url: string, config: AxiosRequestConfig = {}) => {
 
 const post = async (url: string, data: any, config: AxiosRequestConfig = {}) => {
   try {
-    console.log('url', getFullUrl(url));
-    console.log('data', data);
     const response = await axiosInstance.post(getFullUrl(url), data, config);
     return response.data;
   } catch (error) {

@@ -180,11 +180,8 @@ const deleteReimbursement = async (userId: number) => {
   return await usersService.deleteReimbursement(userId);
 }
 
-const updateProfile = async ({ userId, dto }: {
-  userId: number,
-  dto: UpdateProfileDto,
-}) => {
-  return await usersService.updateProfile(userId, dto);
+const updateProfile = async (dto: UpdateProfileDto) => {
+  return await usersService.updateProfile(dto);
 }
 
 const updateProfilePicture = async ({

@@ -5,7 +5,6 @@ import { useTranslation } from 'react-i18next';
 import { useGlobalStyles } from 'src/hooks/useGlobalStyles';
 import { useTheme } from 'src/context/ThemeContext';
 import { createStyles } from './styles';
-import { useNavigation } from '@react-navigation/native';
 import { UpdateProfileDto } from 'src/types/dto/UpdateProfileDto';
 import * as Yup from 'yup';
 import { PrimaryButton } from 'src/components/buttons/CustomButton/variants';
@@ -15,10 +14,10 @@ import CustomDatePicker from 'src/components/common/CustomDatePicker/CustomDateP
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { CustomSelectList } from 'src/components/InputFields/CustomSelectList/CustomSelectList';
 import { useGetGenders } from 'src/hooks/useLookups';
-import ProfileTopCard from 'src/components/User/ProfileTopCard/ProfileTopCard';
-import CustomText from 'src/components/common/CustomText/CustomText';
-import { useAuth } from 'src/context/AuthContext';
 import Spacer from 'src/components/common/Spacer/Spacer';
+import { useUpdateProfile } from 'src/hooks/useUsers';
+import { updateLocalUser } from 'src/services/localStorageService';
+import { useAuth } from 'src/context/AuthContext';
 
 const initialValues = {
   fullName: '',
@@ -27,16 +26,25 @@ const initialValues = {
 }
 
 export default function CompleteProfileScreen() {
-  const { user } = useAuth();
   const { t } = useTranslation();
+  const { user, login } = useAuth();
   const globalStyles = useGlobalStyles();
   const { theme } = useTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const formRef = useRef<any>(null);
   const [isLoading] = useState<boolean>(false);
-  const [imagePath, setImagePath] = useState<string>('');
 
-  const { data: genders } = useGetGenders({ onSuccess: (data: any) => console.log('data', data) });
+  const { data: genders } = useGetGenders();
+
+  const { mutate: updateProfile } = useUpdateProfile(
+    (data: any) => {
+      const updatedUser = updateLocalUser(data);
+      login(updatedUser);
+    },
+    (error: any) => {
+      console.log('error', error);
+    }
+  )
 
   const validationSchema = Yup.object({
     fullName: Yup.string().required(t('full-name-is-required')),
@@ -44,13 +52,16 @@ export default function CompleteProfileScreen() {
     gender: Yup.string().required(t('gender-is-required')),
   });
 
-  const handleSubmit = (dto: UpdateProfileDto) => {
+  const handleSubmit = (values: UpdateProfileDto) => {
+    const payload = {
+      ...values,
+      dateOfBirth: new Date(values.dateOfBirth).toISOString().split('T')[0],
+    };
 
-  }
+    updateProfile(payload);
+  };
 
-  const filePath = useMemo(() => {
-    return imagePath ? imagePath : user?.profile_image?.href_big || null;
-  }, [user, imagePath]);
+
 
   const renderContent = () => {
     return (
@@ -65,8 +76,7 @@ export default function CompleteProfileScreen() {
           validationSchema={validationSchema}
           validateOnMount
           onSubmit={(values: UpdateProfileDto) => {
-            console.log('values', values);
-            // handleSubmit(values);
+            handleSubmit(values);
           }}>
           {(props) => (
             <View style={styles.container}>

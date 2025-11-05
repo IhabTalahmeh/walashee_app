@@ -1,10 +1,9 @@
-import { LoginDto, LoginPhoneDto, PhoneWithCodeDto } from "src/types/dto";
+import { LoginPhoneDto, PhoneWithCodeDto } from "src/types/dto";
 import { ApiService } from "./apiService";
 import { ChangePasswordDto } from "src/types/dto/ChangePasswordDto";
 import { VerifyEmailDto } from "src/types/dto/VerifyEmailDto";
 import { ResetPasswordDto } from "src/types/dto/ResetPasswordDto";
 import { RegisterDto } from "src/types/dto/RegisterDto";
-import { VerifyAccountDto } from "src/types/dto/VerifyAccountDto";
 import { PhoneDto } from "src/types/dto/PhoneDto";
 
 export const loginWithPhoneCode = async (dto: LoginPhoneDto) => {

@@ -100,10 +100,6 @@ function CountryCode({
     [country, globalStyles, styles, theme.colors.text]
   );
 
-  useEffect(() => {
-    console.log('country', country);
-  }, [country])
-
   return (
     <>
       <View>

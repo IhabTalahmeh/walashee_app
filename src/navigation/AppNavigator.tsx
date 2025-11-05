@@ -8,16 +8,16 @@ const AppNavigator = () => {
 
   return (
     <NavigationContainer>
-      {
-        user?.firstName ? <UserStack />
-          : !user?.firstName ? <NotCompletedProfileStack />
-            : (user && !user?.verified) ? <UserStack />
-              : <GuestStack />
-      }
+      {!user ? (
+        <GuestStack />
+      ) : !user.fullName ? (
+        <NotCompletedProfileStack />
+      ) : (
+        <UserStack />
+      )}
     </NavigationContainer>
-
-
   );
+
 };
 
 export default AppNavigator;

@@ -102,8 +102,8 @@ export const deleteReimbursement = async (userId: number) => {
   return await ApiService.delete(`users/${userId}/reimbursement`);
 }
 
-export const updateProfile = async (userId: number, dto: UpdateProfileDto) => {
-  return await ApiService.put(`users/${userId}`, dto);
+export const updateProfile = async (dto: UpdateProfileDto) => {
+  return await ApiService.patch(`users/me/profile`, dto);
 }
 
 export const updateProfilePicture = async (userId: number, formData: FormData) => {

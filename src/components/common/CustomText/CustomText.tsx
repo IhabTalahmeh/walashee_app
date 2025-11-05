@@ -3,6 +3,7 @@ import React, { useMemo } from 'react';
 import { useTheme } from 'src/context/ThemeContext';
 import { createStyles } from './styles';
 import { fonts } from 'src/styles/theme';
+import { useGlobalStyles } from 'src/hooks/useGlobalStyles';
 
 interface Props extends TextProps {
   text: string;
@@ -22,6 +23,7 @@ export default function CustomText({
 }: Props) {
   const { theme }: any = useTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
+  const globalStyles = useGlobalStyles();
 
   const fontFamily = fonts[fontWeight] ?? fonts.medium;
 
@@ -30,6 +32,7 @@ export default function CustomText({
       {...props}
       style={[
         styles.text,
+        globalStyles.text,
         style,
         {
           fontSize: size,

@@ -138,18 +138,6 @@ export default function MyTabBar({ state, descriptors, navigation, position, dat
                 >
                   {label}
                 </Animated.Text>
-                {index === 1 && (
-                  <TouchableOpacity
-                    onPress={togglePeriod}
-                    style={globalStyles.p5}
-                  >
-                    <Ionicons
-                      name="caret-down-outline"
-                      size={16}
-                      color={theme.colors.text}
-                    />
-                  </TouchableOpacity>
-                )}
               </View>
             </TouchableOpacity>
           );

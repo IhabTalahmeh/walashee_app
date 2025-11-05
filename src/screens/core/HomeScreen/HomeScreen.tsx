@@ -19,28 +19,19 @@ import PeriodCasesScreen from '../CasesScreen/PeriodCasesScreen';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import ProcedureNotificationsIcon from 'src/components/Case/ProcedureNotificationsIcon/ProcedureNotificationsIcon';
 import { ECaseFilter } from 'src/enum/ECaseFilter';
+import { useTranslation } from 'react-i18next';
+import { LanguageSelector } from 'src/components/common/LanguageSelector/LanguageSelector';
 
-const data = [
-  { id: '1', title: 'Today', route: ECaseFilter.TODAY },
-  { id: '2', title: 'This Week', route: ECaseFilter.THIS_WEEK },
-  { id: '3', title: 'This Month', route: ECaseFilter.THIS_MONTH },
-];
-
-type PeriodFilterItem = {
-  id: string;
-  title: string;
-  route: ECaseFilter;
-};
 
 const Tab = createMaterialTopTabNavigator();
 
 export default function HomeScreen() {
+  const { t } = useTranslation();
+  const { user } = useAuth();
   const globalStyles = useGlobalStyles();
   const { theme, toggleTheme } = useTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const navigation: any = useNavigation();
-  const { user } = useAuth();
-  const [selected, setSelected] = useState<PeriodFilterItem>(data[0]);
 
   const openMenu = () => {
     navigation.navigate('MenuScreen');
@@ -57,7 +48,7 @@ export default function HomeScreen() {
       headerTitle: () => (
         <TouchableOpacity style={globalStyles.ml10} onPress={openMenu}>
           <CustomText
-            text={`${user.first_name} ${user.last_name}`}
+            text={`${user.fullName}`}
             size={18}
             color={theme.colors.text}
             fontWeight="semiBold"
@@ -70,15 +61,12 @@ export default function HomeScreen() {
     });
   }, [user, theme.mode]);
 
-  const PeriodCasesScreen2 = () => {
-    return (
-      <PeriodCasesScreen selected={selected} />
-    )
-  }
 
   const CasesScreen2 = () => {
     return (
-      <CasesScreen selected={selected} />
+      <View>
+        <LanguageSelector />
+      </View>
     )
   }
 
@@ -86,12 +74,6 @@ export default function HomeScreen() {
     <SafeAreaView style={styles.container}>
       <View style={styles.flashListWrapper}>
         <Tab.Navigator
-          tabBar={props => <MyTabBar
-            {...props}
-            data={data}
-            selected={selected}
-            setSelected={setSelected}
-          />}
           screenOptions={{
             swipeEnabled: true,
             tabBarIndicatorStyle: {
@@ -104,7 +86,6 @@ export default function HomeScreen() {
               textTransform: 'none',
               fontSize: 14,
               fontFamily: fonts.medium,
-              minWidth: 125,
               textAlignVertical: 'center',
               height: 35,
             },
@@ -113,7 +94,7 @@ export default function HomeScreen() {
               borderBottomRightRadius: 20,
               borderBottomLeftRadius: 20,
               backgroundColor: theme.colors.background,
-              overflow: 'visible'
+              overflow: 'hidden'
             },
             tabBarItemStyle: {
               flex: 1,
@@ -123,9 +104,9 @@ export default function HomeScreen() {
           }}
         >
           {/* 👇 HERE ARE YOUR TABS */}
-          <Tab.Screen name="OLDER" options={{ title: 'Older (0)' }} component={CasesScreen2} />
-          <Tab.Screen name="THIS_MONTH" options={{ title: 'This Month (0)' }} component={PeriodCasesScreen2} />
-          <Tab.Screen name="UPCOMING" options={{ title: 'Upcoming (0)' }} component={CasesScreen2} />
+          <Tab.Screen name="Delivered" options={{ title: t('delivered') }} component={CasesScreen2} />
+          <Tab.Screen name="Preparing" options={{ title: t('preparing') }} component={CasesScreen2} />
+          <Tab.Screen name="OnTheWay" options={{ title: t('on-the-way') }} component={CasesScreen2} />
         </Tab.Navigator>
         <TouchableOpacity style={styles.addButton} onPress={() => navigation.navigate('AddCase')}>
           <Ionicons name='add-outline' size={30} color={theme.colors.white} />

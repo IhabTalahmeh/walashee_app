@@ -44,5 +44,8 @@
     "profile-picture": "صورة الملف الشخصي",
     "full-name": "الإسم الكامل",
     "enter-full-name": "أدخل الإسم الكامل",
-    "save": "حفظ"
+    "save": "حفظ",
+    "delivered": "تم التسليم",
+    "preparing": "قيد التجهيز",
+    "on-the-way": "في الطريق"
 }

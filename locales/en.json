@@ -44,5 +44,8 @@
     "profile-picture": "Profile picture",
     "full-name": "Full name",
     "enter-full-name": "Enter full name",
-    "save": "Save"
+    "save": "Save",
+    "delivered": "Delivered",
+    "preparing": "Preparing",
+    "on-the-way": "On the way"
 }

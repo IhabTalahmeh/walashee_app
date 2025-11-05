@@ -85,23 +85,6 @@ function CasesScreen({ selected }: Props) {
     refetch();
   }, [route.name]);
 
-
-  const title = useMemo(() => {
-    switch (route.name) {
-      case 'OLDER':
-        return 'Older';
-      case 'THIS_MONTH':
-        return 'This Month';
-      case 'THIS_WEEK':
-        return 'This Week';
-      case 'UPCOMING':
-        return 'Upcoming';
-      case 'TODAY':
-        return 'Today';
-    }
-  }, []);
-
-
   const loadMore = () => {
     if (!isFetching && hasMore) {
       setPage((prev) => prev + 1);
@@ -172,13 +155,6 @@ function CasesScreen({ selected }: Props) {
     ),
     []
   );
-
-
-  useEffect(() => {
-    navigation.setOptions({
-      title: `${title} (${casesLength})`
-    })
-  }, [casesLength])
 
   return (
     <>

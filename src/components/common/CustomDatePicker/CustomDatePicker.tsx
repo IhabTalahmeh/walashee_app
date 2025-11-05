@@ -1,10 +1,11 @@
-import { TouchableOpacity, View } from 'react-native';
-import React, { useEffect, useMemo, useState } from 'react';
+import { View } from 'react-native';
+import React, { useContext, useMemo, useState } from 'react';
 import { useTheme } from 'src/context/ThemeContext';
 import CustomFormTextInput from '../CustomFormTextInput/CustomFormTextInput';
 import DatePicker from 'react-native-date-picker';
-import { dateToString } from 'src/common/utils';
-import { Pressable } from 'react-native-gesture-handler';
+import { dateToString, toRegularDateFormat } from 'src/common/utils';
+import { LanguageContext } from 'src/context/LanguageContext';
+import { useTranslation } from 'react-i18next';
 
 interface FormikDatePickerProps {
   field: { name: string; value?: Date };
@@ -29,6 +30,8 @@ export default function CustomDatePicker({
   leftIcon,
   leftIconWidth = 40,
 }: FormikDatePickerProps) {
+  const { t } = useTranslation();
+  const { language } = useContext(LanguageContext);
   const [show, setShow] = useState(false);
   const { theme } = useTheme();
 
@@ -40,10 +43,6 @@ export default function CustomDatePicker({
 
   const [today, setToday] = useState<string>(dateToString(new Date()));
 
-  const isNewDate = useMemo(() => {
-    return dateToString(field.value as Date) != today;
-  }, [field.value]);
-
   return (
     <>
       <View onTouchEnd={() => {
@@ -54,7 +53,7 @@ export default function CustomDatePicker({
           form={form}
           label={label}
           required={required}
-          defaultValue={!isNewDate && field.name == 'date_of_birth' ? 'DD / MM / YYYY' : dateToString(field.value as Date)}
+          defaultValue={toRegularDateFormat(field.value as Date, language)}
           editable={false}
           placeholder={placeholder}
           height={height}
@@ -71,10 +70,10 @@ export default function CustomDatePicker({
         open={show}
         date={field.value ?? new Date()}
         title={label}
-        locale={'en-US'}
+        locale={language == 'ar' ? 'ar' : 'en-US'}
         minimumDate={new Date(1900, 0, 1)}
-        confirmText={'Confirm'}
-        cancelText={'Cancel'}
+        confirmText={t('confirm')}
+        cancelText={t('cancel')}
         onConfirm={(selectedDate) => {
           setShow(false);
           form.setFieldValue(field.name, selectedDate);

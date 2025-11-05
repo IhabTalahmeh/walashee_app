@@ -26,7 +26,7 @@
     "phone-already-used": "رقم الهاتف مستخدم بالفعل بواسطة حساب آخر",
     "verify": "تأكيد",
     "verify-account": "تأكيد الحساب",
-    "complete-your-profile": "أكمل ملفك الشخصي",
+    "complete-your-profile": "إكمال الملف الشخصي",
     "first-name": "الإسم الأول",
     "enter-first-name": "أدخل الأسم الأول",
     "family-name": "إسم العائلة",
@@ -37,5 +37,12 @@
     "select-gender": "إختر الجنس",
     "finish": "إنهاء",
     "male": "ذكر",
-    "female": "أنثى"
+    "female": "أنثى",
+    "confirm": "تأكيد",
+    "cancel": "إلغاء",
+    "edit-profile-picture": "تعديل الصورة",
+    "profile-picture": "صورة الملف الشخصي",
+    "full-name": "الإسم الكامل",
+    "enter-full-name": "أدخل الإسم الكامل",
+    "save": "حفظ"
 }

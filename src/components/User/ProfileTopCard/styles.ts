@@ -4,10 +4,11 @@ import { Theme } from "src/styles/theme";
 export const createStyles = (theme: Theme) => {
   return StyleSheet.create({
     container: {
-      backgroundColor: theme.colors.background,
+      backgroundColor: theme.colors.transparent,
       padding: 15,
       borderRadius: 20,
       alignItems: 'center',
+      // paddingVertical: 30,
     },
     editProfileButton: {
       backgroundColor: theme.colors.border,

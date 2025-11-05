@@ -24,6 +24,14 @@ export const getBase64FromUri = async (uri: string): Promise<string> => {
 export const hexWithOpacity = (hex: string, opacity: number) =>
   hex + Math.round(opacity * 255).toString(16).padStart(2, '0');
 
+export function toRegularDateFormat(date: Date, lang = 'en'): string {
+  const day = date.getUTCDate();
+  const month = date.getUTCMonth();
+  const year = date.getUTCFullYear();
+
+  return `${day}/${month + 1}/${year}`;
+}
+
 export function dateToString(date: Date): string {
   const months = [
     'Jan', 'Feb', 'Mar', 'Apr',

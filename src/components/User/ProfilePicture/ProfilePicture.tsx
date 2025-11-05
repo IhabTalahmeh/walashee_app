@@ -64,7 +64,7 @@ export default function ProfilePicture({ onSelect, onCancel, crop = false, size,
 						<UserAvatar size={120} uri={filePath} />
 					</View>
 					<TouchableOpacity style={styles.circleButton} onPress={openCameraPhoto}>
-						<Ionicons name={icon} color={theme.colors.primary} size={18} />
+						<Ionicons name={icon} color={theme.colors.primary} size={22} />
 					</TouchableOpacity>
 				</View>
 			</View>

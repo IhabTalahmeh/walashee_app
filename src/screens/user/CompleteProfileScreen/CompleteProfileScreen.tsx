@@ -1,4 +1,4 @@
-import { View, Text, KeyboardAvoidingView, Platform, ScrollView } from 'react-native'
+import { View, KeyboardAvoidingView, Platform, ScrollView } from 'react-native'
 import React, { useMemo, useRef, useState } from 'react'
 import { FastField, Formik } from 'formik';
 import { useTranslation } from 'react-i18next';
@@ -15,29 +15,31 @@ import CustomDatePicker from 'src/components/common/CustomDatePicker/CustomDateP
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { CustomSelectList } from 'src/components/InputFields/CustomSelectList/CustomSelectList';
 import { useGetGenders } from 'src/hooks/useLookups';
-import { LanguageSelector } from 'src/components/common/LanguageSelector/LanguageSelector';
+import ProfileTopCard from 'src/components/User/ProfileTopCard/ProfileTopCard';
+import CustomText from 'src/components/common/CustomText/CustomText';
+import { useAuth } from 'src/context/AuthContext';
+import Spacer from 'src/components/common/Spacer/Spacer';
 
 const initialValues = {
-  firstName: '',
-  lastName: '',
+  fullName: '',
   dateOfBirth: new Date(),
   gender: '',
 }
 
 export default function CompleteProfileScreen() {
+  const { user } = useAuth();
   const { t } = useTranslation();
   const globalStyles = useGlobalStyles();
   const { theme } = useTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
-  const navigation: any = useNavigation();
   const formRef = useRef<any>(null);
   const [isLoading] = useState<boolean>(false);
+  const [imagePath, setImagePath] = useState<string>('');
 
   const { data: genders } = useGetGenders({ onSuccess: (data: any) => console.log('data', data) });
 
   const validationSchema = Yup.object({
-    firstName: Yup.string().required(t('firstname-is-required')),
-    lastName: Yup.string().required(t('lastname-is-required')),
+    fullName: Yup.string().required(t('full-name-is-required')),
     dateOfBirth: Yup.date().required(t('date-of-birth-is-required')),
     gender: Yup.string().required(t('gender-is-required')),
   });
@@ -45,6 +47,10 @@ export default function CompleteProfileScreen() {
   const handleSubmit = (dto: UpdateProfileDto) => {
 
   }
+
+  const filePath = useMemo(() => {
+    return imagePath ? imagePath : user?.profile_image?.href_big || null;
+  }, [user, imagePath]);
 
   const renderContent = () => {
     return (
@@ -65,32 +71,17 @@ export default function CompleteProfileScreen() {
           {(props) => (
             <View style={styles.container}>
 
-              <LanguageSelector />
+              {/* <LanguageSelector /> */}
 
               <View style={[globalStyles.ph20]}>
-                {/* First name */}
-                <View style={globalStyles.mt20}>
-                  <FastField
-                    name="firstName"
-                    component={CustomFormTextInput}
-                    required
-                    label={t('first-name')}
-                    placeholder={t('enter-first-name')}
-                    leftIcon={<UserIconOutline size={22} color={theme.colors.primary} />}
-                    leftIconWidth={50}
-                    height={68}
-                    withBorder
-                  />
-                </View>
-
-                {/* Last name */}
+                {/* Full name */}
                 <View style={globalStyles.mt10}>
                   <FastField
-                    name="familyName"
+                    name="fullName"
                     component={CustomFormTextInput}
                     required
-                    label={t('family-name')}
-                    placeholder={t('enter-family-name')}
+                    label={t('full-name')}
+                    placeholder={t('enter-full-name')}
                     leftIcon={<UserIconOutline size={22} color={theme.colors.primary} />}
                     leftIconWidth={50}
                     height={68}
@@ -130,9 +121,11 @@ export default function CompleteProfileScreen() {
                 </View>
               </View>
 
+              <Spacer flex={true} />
+
               <View style={[globalStyles.ph20, globalStyles.pv15]}>
                 <PrimaryButton
-                  text={t('finish')}
+                  text={t('save')}
                   onPress={props.submitForm}
                   fontWeight='semiBold'
                   disabled={!props.isValid || isLoading}

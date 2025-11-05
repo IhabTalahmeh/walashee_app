@@ -29,12 +29,12 @@ export const createStyles = (theme: Theme) => {
       borderRadius: 100, padding: 2
     },
     circleButton: {
-      width: 32,
-      height: 32,
+      width: 40,
+      height: 40,
       backgroundColor: theme.colors.background,
       position: 'absolute',
-      right: 4,
-      bottom: 4,
+      right: -2,
+      bottom: -2,
       justifyContent: 'center',
       alignItems: 'center',
       borderRadius: 100,

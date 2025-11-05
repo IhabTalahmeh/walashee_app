@@ -249,7 +249,15 @@ export const NotCompletedProfileStack = () => {
           component={CompleteProfileScreen}
         />
 
-      </Stack.Navigator>
+        <Stack.Screen
+          options={{
+            headerShown: false,
+            animation: 'fade_from_bottom'
+          }}
+          name="CameraScreen"
+          component={CameraScreen} />
+
+    </Stack.Navigator >
     </>
   )
 };

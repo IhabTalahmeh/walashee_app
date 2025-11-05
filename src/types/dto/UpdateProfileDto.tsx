@@ -1,8 +1,7 @@
 import { EGender } from "src/enum/EGender";
 
 export interface UpdateProfileDto {
-    firstName: string;
-    lastName: string;
+    fullName: string;
     dateOfBirth: Date;
     gender: string;
 }

@@ -186,6 +186,18 @@ export const createGlobalStyles = (theme: Theme) =>
     ml15: { marginLeft: 15 },
     ml20: { marginLeft: 20 },
 
+    // Margin Start
+    ms5: { marginStart: 5 },
+    ms10: { marginStart: 10 },
+    ms15: { marginStart: 15 },
+    ms20: { marginStart: 20 },
+
+    // Margin End
+    me5: { marginEnd: 5 },
+    me10: { marginEnd: 10 },
+    me15: { marginEnd: 15 },
+    me20: { marginEnd: 20 },
+
     settingsNoteText: {
       color: theme.colors.black,
       fontSize: 13,

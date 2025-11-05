@@ -26,7 +26,7 @@
     "phone-already-used": "Phone number is already used by another account",
     "verify": "Verify",
     "verify-account": "Verify account",
-    "complete-your-profile": "Complete your profile",
+    "complete-your-profile": "Complete profile",
     "first-name": "First name",
     "enter-first-name": "Enter first name",
     "family-name": "Family name",
@@ -37,5 +37,12 @@
     "select-gender": "Select gender",
     "finish": "Finish",
     "male": "Male",
-    "female": "Female"
+    "female": "Female",
+    "confirm": "Confirm",
+    "cancel": "Cancel",
+    "edit-profile-picture": "Edit picture",
+    "profile-picture": "Profile picture",
+    "full-name": "Full name",
+    "enter-full-name": "Enter full name",
+    "save": "Save"
 }

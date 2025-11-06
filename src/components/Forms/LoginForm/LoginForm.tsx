@@ -36,14 +36,18 @@ export default function LoginForm() {
     number: Yup.string().required(t('phone-is-required')),
   });
 
-  const onSuccess = async (result: any) => {
-    console.log('formvalues', formRef.current.values)
+  const onSuccess = async () => {
     navigation.navigate('VerifyItsYouScreen', formRef.current.values);
   }
 
   const onError = (error: any) => {
-    console.log('error', error);
-    appService.showToast('Invalid email or password', 'error');
+    switch (error.status) {
+      case 404:
+        formRef.current.setFieldError('number', t('phone-number-not-found-error'));
+        break;
+      default:
+        appService.showToast('Invalid email or password', 'error');
+    }
   }
 
   const { mutate, isLoading } = useSendPhoneLoginVerificationCode(onSuccess, onError);

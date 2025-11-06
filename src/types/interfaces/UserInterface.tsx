@@ -6,6 +6,7 @@ export interface IUser {
     dateOfBirth: string | Date;
     gender: EGender;
     role: string;
+    useAs: string;
     avatar: string;
     languageCode: string;
     verified: string;

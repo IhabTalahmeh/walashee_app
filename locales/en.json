@@ -47,5 +47,6 @@
     "save": "Save",
     "delivered": "Delivered",
     "preparing": "Preparing",
-    "on-the-way": "On the way"
+    "on-the-way": "On the way",
+    "phone-number-not-found-error": "Phone number does not belong to an account"
 }

@@ -8,6 +8,9 @@ import HomeIcon from 'src/icons/HomeIcon';
 import HomeIconOutline from 'src/icons/HomeIconOutline';
 import { fonts } from 'src/styles/theme';
 import { Host } from 'react-native-portalize';
+import UsersScreen from '../UsersScreen/UsersScreen';
+import UsersIcon from 'src/icons/UsersIcon';
+import UsersIconOutline from 'src/icons/UsersIconOutline';
 
 const Tab = createBottomTabNavigator();
 
@@ -50,7 +53,19 @@ export default function MainScreen() {
                     : <HomeIconOutline size={26} color={color} />,
               }}
               component={HomeScreen} />
-              
+
+            <Tab.Screen
+              name="Team"
+              options={{
+                title: 'My team',
+                headerTitleAlign: 'left',
+                tabBarIcon: ({ color, size, focused }) =>
+                  focused
+                    ? <UsersIcon size={26} color={color} />
+                    : <UsersIconOutline size={26} color={color} />,
+              }}
+              component={UsersScreen} />
+
           </Tab.Navigator>
         </View>
       </Host>

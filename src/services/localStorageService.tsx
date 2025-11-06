@@ -17,7 +17,7 @@ export const updateLocalUser = async (userInfo: Partial<IUser>) => {
 
   const updatedUser: IUser = { 
     ...(user ?? {}), 
-    ...userInfo 
+    ...userInfo,
   } as IUser;
 
   await saveLocalUser(updatedUser);

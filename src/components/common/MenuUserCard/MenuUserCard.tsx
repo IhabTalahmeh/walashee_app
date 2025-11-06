@@ -12,11 +12,10 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import { useNavigation } from '@react-navigation/native'
 
 export default function MenuUserCard() {
+  const { user } = useAuth();
   const { theme } = useTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const globalStyles = useGlobalStyles();
-  const { user } = useAuth();
-  const speciality = user.user_profile[0].speciality?.name;
   const navigation: any = useNavigation();
 
   const navigate = () => {
@@ -34,8 +33,7 @@ export default function MenuUserCard() {
 
         {/* Name and Edit Profile */}
         <View style={styles.nameContainer}>
-          <CustomText text={`${user.first_name} ${user.last_name}`} size={18} color={theme.colors.text} fontWeight='semiBold' />
-          {speciality && <CustomText text={speciality} size={16} color={hexWithOpacity(theme.colors.text, 0.6)} fontWeight='medium' style={globalStyles.mt5}/>}
+          <CustomText text={`${user.fullName}`} size={18} color={theme.colors.text} fontWeight='semiBold' />
         </View>
 
         <View style={globalStyles.flex1} />

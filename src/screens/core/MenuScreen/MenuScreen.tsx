@@ -7,9 +7,11 @@ import { useTheme } from 'src/context/ThemeContext'
 import { createStyles } from './styles'
 import { useGlobalStyles } from 'src/hooks/useGlobalStyles'
 import GearIconOutline from 'src/icons/GearIconOutline'
-import SharedDashboards from 'src/components/User/SharedDashboards/SharedDashboards'
+import { PrimaryButton } from 'src/components/buttons/CustomButton/variants'
+import { useAuth } from 'src/context/AuthContext'
 
 export default function MenuScreen() {
+  const { logout } = useAuth();
   const { theme } = useTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const globalStyles = useGlobalStyles();
@@ -36,7 +38,13 @@ export default function MenuScreen() {
 
       <View style={globalStyles.flex1}>
         {/* Dashboards */}
-        <SharedDashboards />
+      </View>
+
+      <View>
+        <PrimaryButton
+          text='Logout'
+          onPress={logout}
+        />
       </View>
 
     </View>

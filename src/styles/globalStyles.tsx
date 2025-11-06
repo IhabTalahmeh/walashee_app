@@ -17,7 +17,7 @@ export const fixedHeaderHeight = 70;
 export const createGlobalStyles = (theme: Theme) =>
   StyleSheet.create({
     text: {
-      textAlign: 'left',
+      textAlign: isRTL ? 'right' : 'left',
     },
     header: {
       height: headerHeight,

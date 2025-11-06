@@ -18,6 +18,7 @@ import Spacer from 'src/components/common/Spacer/Spacer';
 import { useUpdateProfile } from 'src/hooks/useUsers';
 import { updateLocalUser } from 'src/services/localStorageService';
 import { useAuth } from 'src/context/AuthContext';
+import { useNavigation } from '@react-navigation/native';
 
 const initialValues = {
   fullName: '',
@@ -32,13 +33,12 @@ export default function CompleteProfileScreen() {
   const { theme } = useTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const formRef = useRef<any>(null);
-  const [isLoading] = useState<boolean>(false);
 
   const { data: genders } = useGetGenders();
 
-  const { mutate: updateProfile } = useUpdateProfile(
-    (data: any) => {
-      const updatedUser = updateLocalUser(data);
+  const { mutate: updateProfile, isLoading } = useUpdateProfile(
+    async (data: any) => {
+      const updatedUser = await updateLocalUser(data);
       login(updatedUser);
     },
     (error: any) => {

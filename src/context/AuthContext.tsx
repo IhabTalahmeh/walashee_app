@@ -2,8 +2,7 @@ import React, { createContext, useContext, ReactNode, useState, useEffect } from
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as authService from '../services/authService';
 import { EventRegister } from 'react-native-event-listeners';
-import Loading from '../components/common/Loading';
-import SplashScreen from 'src/screens/core/SplashScreen/SplashScreen';
+import { Text, View } from 'react-native';
 
 const AuthContext = createContext<any>(undefined);
 
@@ -33,7 +32,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     setUser(null);
     try {
       EventRegister.removeAllListeners();
-      await authService.logout();
       await AsyncStorage.removeItem('@user');
     } catch (e) {
     }
@@ -44,50 +42,36 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       const jsonUser = JSON.stringify(user);
       await AsyncStorage.setItem('@user', jsonUser);
     } catch (e) {
-      console.error('Saving error', e);
+      // saving error
     }
   };
 
   const loadUser = async () => {
     try {
-      const userString = await AsyncStorage.getItem('@user');
-      if (userString) {
-        const parsedUser = JSON.parse(userString);
-        return parsedUser;
-      }
-      return null;
+      const user = await authService.refreshToken();
+      return user;
     } catch (e) {
-      console.error('Error loading user:', e);
+      console.log('error', e);
+      // error reading value
       return null;
     }
   };
 
+  useEffect(() => {
+    const checkAuthState = async () => {
 
-useEffect(() => {
-  const checkAuthState = async () => {
-    const start = Date.now();
+      const storedAuthState = await loadUser();
 
-    const storedAuthState = await loadUser();
-    if (storedAuthState) {
-      login(storedAuthState);
-    }
-
-    const elapsed = Date.now() - start;
-    const remaining = 1500 - elapsed;
-
-    if (remaining > 0) {
-      setTimeout(() => setLoading(false), remaining);
-    } else {
+      if (storedAuthState) {
+        login(storedAuthState);
+      }
       setLoading(false);
-    }
-  };
-
-  checkAuthState();
-}, []);
-
+    };
+    checkAuthState();
+  }, []);
 
   if (loading) {
-    return (<SplashScreen />)
+    return (<View><Text>Loading...</Text></View>)
   }
 
   return (

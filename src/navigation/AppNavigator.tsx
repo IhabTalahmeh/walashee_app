@@ -1,7 +1,8 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { useAuth } from '../context/AuthContext';
-import { GuestStack, NotCompletedProfileStack, UserStack } from './Navigation';
+import { CustomerStack, DriverStack, GuestStack, NotCompletedProfileStack } from './Navigation';
+import { ERoleType } from 'src/enum/ERoleType';
 
 const AppNavigator = () => {
   const { user } = useAuth();
@@ -12,8 +13,12 @@ const AppNavigator = () => {
         <GuestStack />
       ) : !user.fullName ? (
         <NotCompletedProfileStack />
+      ) : user.useAs == ERoleType.CUSTOMER ? (
+        <CustomerStack />
+      ): user.useAs == ERoleType.DRIVER ? (
+        <DriverStack />
       ) : (
-        <UserStack />
+          <CustomerStack />
       )}
     </NavigationContainer>
   );

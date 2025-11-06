@@ -21,6 +21,9 @@ import ProcedureNotificationsIcon from 'src/components/Case/ProcedureNotificatio
 import { ECaseFilter } from 'src/enum/ECaseFilter';
 import { useTranslation } from 'react-i18next';
 import { LanguageSelector } from 'src/components/common/LanguageSelector/LanguageSelector';
+import PreparingScreen from '../PreparingScreen/PreparingScreen';
+import OnTheWayScreen from '../OnTheWayScreen/OnTheWayScreen';
+import DeliveredScreen from '../DeliveredScreen/DeliveredScreen';
 
 
 const Tab = createMaterialTopTabNavigator();
@@ -104,9 +107,9 @@ export default function HomeScreen() {
           }}
         >
           {/* 👇 HERE ARE YOUR TABS */}
-          <Tab.Screen name="Preparing" options={{ title: t('preparing') }} component={CasesScreen2} />
-          <Tab.Screen name="OnTheWay" options={{ title: t('on-the-way') }} component={CasesScreen2} />
-          <Tab.Screen name="Delivered" options={{ title: t('delivered') }} component={CasesScreen2} />
+          <Tab.Screen name="Preparing" options={{ title: t('preparing') }} component={PreparingScreen} />
+          <Tab.Screen name="OnTheWay" options={{ title: t('on-the-way') }} component={OnTheWayScreen} />
+          <Tab.Screen name="Delivered" options={{ title: t('delivered') }} component={DeliveredScreen} />
         </Tab.Navigator>
         <TouchableOpacity style={styles.addButton} onPress={() => navigation.navigate('AddCase')}>
           <Ionicons name='add-outline' size={30} color={theme.colors.white} />

@@ -11,10 +11,12 @@ import { Host } from 'react-native-portalize';
 import UsersScreen from '../UsersScreen/UsersScreen';
 import UsersIcon from 'src/icons/UsersIcon';
 import UsersIconOutline from 'src/icons/UsersIconOutline';
+import { useTranslation } from 'react-i18next';
 
 const Tab = createBottomTabNavigator();
 
 export default function MainScreen() {
+  const { t } = useTranslation();
   const { theme } = useTheme();
   const globalStyles = useGlobalStyles();
 
@@ -46,6 +48,7 @@ export default function MainScreen() {
             <Tab.Screen
               name="Home"
               options={{
+                title: t('home'),
                 headerTitleAlign: 'left',
                 tabBarIcon: ({ color, size, focused }) =>
                   focused
@@ -57,7 +60,7 @@ export default function MainScreen() {
             <Tab.Screen
               name="Team"
               options={{
-                title: 'My team',
+                title: t('my-team'),
                 headerTitleAlign: 'left',
                 tabBarIcon: ({ color, size, focused }) =>
                   focused

@@ -48,5 +48,7 @@
     "delivered": "Delivered",
     "preparing": "Preparing",
     "on-the-way": "On the way",
-    "phone-number-not-found-error": "Phone number does not belong to an account"
+    "phone-number-not-found-error": "Phone number does not belong to an account",
+    "my-team": "My team",
+    "home": "Home"
 }

@@ -5,6 +5,27 @@ import { VerifyEmailDto } from "src/types/dto/VerifyEmailDto";
 import { ResetPasswordDto } from "src/types/dto/ResetPasswordDto";
 import { RegisterDto } from "src/types/dto/RegisterDto";
 import { PhoneDto } from "src/types/dto/PhoneDto";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
+export const refreshToken = async () => {
+  try {
+    const userStr = await AsyncStorage.getItem('@user');
+    const userJson = JSON.parse(userStr as string);
+    const { apiToken, refreshToken, role, useAs } = await ApiService.put('auth/token/refresh', {
+      refreshToken: userJson.refreshToken
+    });
+
+    console.log('refresh', apiToken, refreshToken, role, useAs)
+    userJson.apiToken = apiToken;
+    userJson.refreshToken = refreshToken;
+    userJson.role = role;
+    userJson.useAs = useAs;
+    await AsyncStorage.setItem('@user', JSON.stringify(userJson));
+    return userJson;
+  } catch (error) {
+    throw error;
+  }
+}
 
 export const loginWithPhoneCode = async (dto: LoginPhoneDto) => {
   return await ApiService.post('auth/login/mobile', dto);

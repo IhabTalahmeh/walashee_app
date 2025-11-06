@@ -48,5 +48,7 @@
     "delivered": "تم التسليم",
     "preparing": "قيد التجهيز",
     "on-the-way": "في الطريق",
-    "phone-number-not-found-error": "رقم الهاتف لا ينتمي إلى حساب"
+    "phone-number-not-found-error": "رقم الهاتف لا ينتمي إلى حساب",
+    "my-team": "فريقي",
+    "home": "الرئيسية"
 }

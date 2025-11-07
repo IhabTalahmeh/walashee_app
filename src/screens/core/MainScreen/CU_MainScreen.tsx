@@ -15,7 +15,7 @@ import { useTranslation } from 'react-i18next';
 
 const Tab = createBottomTabNavigator();
 
-export default function MainScreen() {
+export default function CU_MainScreen() {
   const { t } = useTranslation();
   const { theme } = useTheme();
   const globalStyles = useGlobalStyles();
@@ -57,17 +57,6 @@ export default function MainScreen() {
               }}
               component={HomeScreen} />
 
-            <Tab.Screen
-              name="Team"
-              options={{
-                title: t('my-team'),
-                headerTitleAlign: 'left',
-                tabBarIcon: ({ color, size, focused }) =>
-                  focused
-                    ? <UsersIcon size={26} color={color} />
-                    : <UsersIconOutline size={26} color={color} />,
-              }}
-              component={UsersScreen} />
 
           </Tab.Navigator>
         </View>

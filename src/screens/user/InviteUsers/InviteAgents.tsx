@@ -20,6 +20,7 @@ import CountryCode from 'src/components/common/CountryCode/CountryCode';
 import { CountryType } from 'src/types/types/Types';
 import { PhoneDto } from 'src/types/dto';
 import { useGetAgentTeam } from 'src/hooks/useAgent';
+import { getErrorCode } from 'src/common/utils';
 
 const initialValues = {
   phoneCode: '',
@@ -48,15 +49,7 @@ export default function InviteAgents() {
       console.log('data', data);
     },
     (err: any) => {
-      console.log('error status', err.status);
-      switch (err?.status) {
-        case 400:
-          formRef.current.setFieldError('number', t('cant-invite-person'));
-          break;
-        case 404:
-          formRef.current.setFieldError('number', t(err.response.data.code))
-      }
-      console.log('error', err);
+      formRef.current.setFieldError('number', t(getErrorCode(err)));
     },
   )
 
@@ -80,7 +73,7 @@ export default function InviteAgents() {
         nestedScrollEnabled
         showsVerticalScrollIndicator={false}
       >
-        <View style={globalStyles.mv20}>
+        <View style={[globalStyles.mv20, globalStyles.ph20]}>
           <CustomText
             text={t('invite-agent-title')}
             size={20}

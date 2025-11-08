@@ -3,7 +3,7 @@ import { fonts, Theme } from './theme';
 import { hexWithOpacity } from 'src/common/utils';
 
 const isRTL: boolean = I18nManager.isRTL;
-
+const { height: SCREEN_HEIGHT } = Dimensions.get('window');
 const itemWidth = '100%';
 export const smallInputHeight = 55;
 export const bigInputHeight = 68;
@@ -408,5 +408,12 @@ export const createGlobalStyles = (theme: Theme) =>
       marginRight: 15,
       height: '60%',
       paddingLeft: 15,
-    }
+    },
+    flashListWrapper: {
+      flex: 1,
+      height: SCREEN_HEIGHT - 50,
+      backgroundColor: theme.colors.topBackground,
+      borderBottomRightRadius: 20,
+      borderBottomLeftRadius: 20,
+    },
   });

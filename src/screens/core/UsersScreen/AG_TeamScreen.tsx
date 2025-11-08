@@ -15,6 +15,8 @@ import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import LoadingScreen from '../LoadingScreen/LoadingScreen';
 import CustomText from 'src/components/common/CustomText/CustomText';
 import { useTranslation } from 'react-i18next';
+import { useGetAgentTeam, useGetAgentTeamInvitations } from 'src/hooks/useAgent';
+import { EInvitationType } from 'src/enum/EInvitationType';
 
 export default function AG_TeamScreen() {
   const { t } = useTranslation();
@@ -26,52 +28,37 @@ export default function AG_TeamScreen() {
   const [keyword, setKeyword] = useState<string>('');
   const [refreshing, setRefreshing] = useState(false);
 
-  const [staff, setStaff] = useState<any[]>([]);
+  const { data: team } = useGetAgentTeam(user.id);
 
-  const { data, refetch: refetchStaff, isLoading } = useGetStaff(user.id, {
-    onSuccess: (data: any) => {
-      const filtered = data?.data?.user_staff?.filter((staff: any) => staff.end_user !== null);
-      const sorted = filtered.sort((a: any, b: any) => {
-        return a.status.localeCompare(b.status);
-      });
-      setStaff(sorted);
-      setRefreshing(false);
-    },
-    onError: (err: any) => console.log('err', err),
+  const { data: invitations, isLoading, refetch: refetchInvitations } = useGetAgentTeamInvitations({
+    userId: user.id,
+    teamId: team?.id,
+    page: 1,
+    size: 10,
+    type: EInvitationType.SENT,
+  }, {
+    onSuccess: (res: any) => { console.log('res', res) },
+    onError: (err: any) => { console.log('err', err) },
   });
 
   const renderUser = useCallback(({ item }: any) => {
     return (
       <View style={globalStyles.mb10}>
-        <UserCard item={item} refetchStaff={refetchStaff} />
+        <UserCard item={item} />
       </View>
     )
   }, []);
 
   const onRefresh = useCallback(() => {
     setRefreshing(true);
-    refetchStaff();
+    refetchInvitations();
   }, []);
 
   useFocusEffect(
     useCallback(() => {
-      refetchStaff();
+      refetchInvitations();
     }, [])
   );
-
-  const memoizedStaff = useMemo(() => {
-    return staff?.filter((item: any) => {
-      const email = item?.end_user?.email || '';
-      const name = `${item?.end_user?.first_name} ${item?.end_user?.last_name}`;
-      const permission = item?.permission;
-      return (
-        email.toLowerCase().includes(keyword.toLowerCase())
-        || name.toLowerCase().includes(keyword.toLowerCase())
-        || permission.toLowerCase().includes(keyword.toLowerCase())
-      )
-    });
-  }, [keyword, staff]);
-
 
   return (
     <View style={styles.container}>
@@ -79,7 +66,7 @@ export default function AG_TeamScreen() {
       <View style={[globalStyles.mv20]}>
         <SearchInput
           onChangeText={setKeyword}
-          placeholder="Search"
+          placeholder={t('search')}
           value={keyword}
         />
       </View>
@@ -90,7 +77,7 @@ export default function AG_TeamScreen() {
             <LoadingScreen />
           </View>)
         : (<FlatList
-          data={memoizedStaff || []}
+          data={invitations || []}
           keyExtractor={(item) => item.id}
           renderItem={renderUser}
           showsVerticalScrollIndicator={false}
@@ -104,7 +91,7 @@ export default function AG_TeamScreen() {
             />
           }
           ListEmptyComponent={() => (
-            (keyword && memoizedStaff.length == 0) && <View style={[globalStyles.mt10, globalStyles.mb20]}>
+            (keyword && invitations.length == 0) && <View style={[globalStyles.mt10, globalStyles.mb20]}>
               <CustomText text='No users found' size={16} style={globalStyles.centerText} color={theme.colors.text} />
             </View>
           )}

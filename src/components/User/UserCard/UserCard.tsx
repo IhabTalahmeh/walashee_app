@@ -21,13 +21,14 @@ import { EPermission } from 'src/enum/EPermission';
 import { PrimaryButtonProps } from 'src/types/props/PrimaryButtonProps';
 import BottomSheetButtons from 'src/components/buttons/BottomSheetButtons/BottomSheetButtons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
   item: any;
-  refetchStaff: () => void;
 }
 
-export default function UserCard({ item, refetchStaff }: Props) {
+export default function UserCard({ item }: Props) {
+  const { t } = useTranslation();
   const { user } = useAuth();
   const { theme } = useTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
@@ -39,7 +40,6 @@ export default function UserCard({ item, refetchStaff }: Props) {
   const { mutate: updateMutation, isLoading } = useUpdatePermission(
     (data: any) => {
       appService.showToast('Permission updated successfully', 'success');
-      refetchStaff();
     },
     (err: any) => {
       appService.showToast(err, 'error');
@@ -58,7 +58,6 @@ export default function UserCard({ item, refetchStaff }: Props) {
     (data: any) => {
       setRevokeOpen(false);
       appService.showToast('User access revoked successfully', 'success');
-      refetchStaff();
     },
     (err: any) => console.log('err', err),
   )
@@ -92,8 +91,6 @@ export default function UserCard({ item, refetchStaff }: Props) {
         return theme.colors.success;
       case EInviteStatus.PENDING:
         return theme.colors.warning;
-      case EInviteStatus.REJECTED:
-        return theme.colors.error;
       default:
         return theme.colors.text
     }
@@ -148,12 +145,11 @@ export default function UserCard({ item, refetchStaff }: Props) {
             <FastImage source={item?.profile_image?.href_small ? { uri: item.profile_image.href_small } : require('assets/images/doctor-placeholder.png')} resizeMode='cover' style={globalStyles.full} />
           </View>
           <View style={[globalStyles.ph10, globalStyles.flex1]}>
-            <CustomText text={`${item.end_user.last_name}, ${item.end_user.first_name}`} size={20} fontWeight='medium' color={theme.colors.text} />
-            <CustomText text={item.end_user.email} size={16} fontWeight='regular' color={theme.colors.gray} style={globalStyles.mt5} numberOfLines={1} ellipsizeMode='tail' />
+            <CustomText text={item.invitee.fullName} size={20} fontWeight='medium' color={theme.colors.text} />
             <View style={[globalStyles.flexRow, globalStyles.aic, globalStyles.mt5]}>
-              <CustomText text={toTitleCase(item.permission)} size={15} fontWeight='regular' color={theme.colors.text}/>
+              <CustomText text={t(item.as)} size={15} fontWeight='regular' color={theme.colors.text} />
               <CustomText text={' | '} fontWeight='regular' color={hexWithOpacity(theme.colors.text, 0.8)} />
-              <CustomText text={toTitleCase(item.status)} size={15} fontWeight='regular' color={getStatusColor(item.status)} numberOfLines={1} ellipsizeMode='tail' />
+              <CustomText text={t(item.status)} size={15} fontWeight='regular' color={getStatusColor(item.status)} numberOfLines={1} ellipsizeMode='tail' />
             </View>
           </View>
         </View>
@@ -175,7 +171,7 @@ export default function UserCard({ item, refetchStaff }: Props) {
       <CustomDialog
         visible={revokeOpen}
         title={'Revoke User'}
-        message={`Are you sure you want to revoke ${item.end_user.last_name}, ${item.end_user.first_name}'s access to your dashboard?`}
+        message={`Are you sure you want to revoke ${item.fullName}'s access to your dashboard?`}
         buttons={revokeButtons}
         onClose={() => setRevokeOpen(false)}
       />

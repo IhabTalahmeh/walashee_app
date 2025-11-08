@@ -5,3 +5,4 @@ export * from './ExportDto';
 export * from './LoginPhoneDto';
 export * from './PhoneDto';
 export * from './PhoneWithCodeDto';
+export * from './ListDto';

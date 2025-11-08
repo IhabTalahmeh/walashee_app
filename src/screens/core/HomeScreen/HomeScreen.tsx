@@ -1,4 +1,4 @@
-import { View, TouchableOpacity, SafeAreaView } from 'react-native';
+import { View, TouchableOpacity, SafeAreaView, Dimensions } from 'react-native';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { useAuth } from 'src/context/AuthContext';
@@ -25,7 +25,7 @@ import PreparingScreen from '../PreparingScreen/PreparingScreen';
 import OnTheWayScreen from '../OnTheWayScreen/OnTheWayScreen';
 import DeliveredScreen from '../DeliveredScreen/DeliveredScreen';
 
-
+const initialLayout = { width: Dimensions.get('window').width };
 const Tab = createMaterialTopTabNavigator();
 
 export default function HomeScreen() {
@@ -77,6 +77,7 @@ export default function HomeScreen() {
     <SafeAreaView style={styles.container}>
       <View style={styles.flashListWrapper}>
         <Tab.Navigator
+          {...({ initialLayout } as any)}
           screenOptions={{
             swipeEnabled: true,
             tabBarIndicatorStyle: {
@@ -101,6 +102,7 @@ export default function HomeScreen() {
             },
             tabBarItemStyle: {
               flex: 1,
+              height: 60,
             },
             tabBarActiveTintColor: theme.colors.primary,
             tabBarInactiveTintColor: theme.colors.text,

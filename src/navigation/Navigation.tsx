@@ -352,7 +352,6 @@ export const CustomerStack = () => {
         <Stack.Screen options={{ headerShown: false }} name="CU_Main" component={CU_MainScreen} />
         <Stack.Screen options={{ headerShown: true, title: 'Case' }} name="AddCase" component={AddCaseScreen} />
         <Stack.Screen options={{ headerShown: true, title: '' }} name="CaseDetails" component={CaseDetailsScreen} />
-        <Stack.Screen options={{ headerShown: true, title: 'Invitations' }} name="InvitationsScreen" component={InvitationsScreen} />
         <Stack.Screen options={{ headerShown: true, title: 'Menu', animation: 'slide_from_left' }} name="MenuScreen" component={MenuScreen} />
         <Stack.Screen options={{ headerShown: true, title: 'My Profile' }} name="ProfileScreen" component={ProfileScreen} />
         <Stack.Screen options={{ headerShown: true, title: 'Position' }} name="AddPosition" component={AddPosition} />
@@ -546,7 +545,6 @@ export const AgentStack = () => {
         <Stack.Screen options={{ headerShown: true, title: 'Case' }} name="AddCase" component={AddCaseScreen} />
         <Stack.Screen options={{ headerShown: true, title: '' }} name="CaseDetails" component={CaseDetailsScreen} />
         <Stack.Screen options={{ headerShown: true, title: t('invite-agent') }} name="InviteAgents" component={InviteAgents} />
-        <Stack.Screen options={{ headerShown: true, title: 'Invitations' }} name="InvitationsScreen" component={InvitationsScreen} />
         <Stack.Screen options={{ headerShown: true, title: 'Menu', animation: 'slide_from_left' }} name="MenuScreen" component={MenuScreen} />
         <Stack.Screen options={{ headerShown: true, title: 'My Profile' }} name="ProfileScreen" component={ProfileScreen} />
         <Stack.Screen options={{ headerShown: true, title: 'Position' }} name="AddPosition" component={AddPosition} />
@@ -555,6 +553,22 @@ export const AgentStack = () => {
         <Stack.Screen options={{ headerShown: true, title: 'Reimbursement' }} name="AddReimbursement" component={AddReimbursement} />
         <Stack.Screen options={{ headerShown: true, title: 'Edit Profile' }} name="EditProfileScreen" component={EditProfileScreen} />
         <Stack.Screen options={{ headerShown: true, title: 'Notifications' }} name="NotificationsScreen" component={NotificationsScreen} />
+
+        <Stack.Screen
+          options={{
+            headerShown: true,
+            title: t('invitations'),
+            headerStyle: {
+              height: headerHeight,
+              backgroundColor: theme.colors.background,
+              borderRadius: 0,
+              shadowOpacity: 0,
+              elevation: 0,
+            },
+          }}
+          name="InvitationsScreen"
+          component={InvitationsScreen}
+        />
 
         <Stack.Screen
           options={{

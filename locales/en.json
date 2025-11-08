@@ -59,5 +59,15 @@
     "invite": "Invite",
     "cant-invite-person": "Sorry, this person can't be invited",
     "no-accounts-related-to-phone-number": "No account was found associated with this number",
-    "unknown-error": "Something went wrong"
+    "unknown-error": "Something went wrong",
+    "you-cant-invite-yourself": "You can't invite yourself",
+    "agent-already-invited": "Agent is already invited",
+    "agent-already-team-member": "Agent is already a member in your team",
+    "agent": "Agent",
+    "pending": "Pending",
+    "accepted": "Accepted",
+    "in-review": "In review",
+    "in_review": "In review",
+    "sent": "Sent",
+    "received": "Received"
 }

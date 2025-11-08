@@ -6,7 +6,6 @@ export const createStyles = (theme: Theme) => {
     container: {
       flex: 1,
       backgroundColor: theme.colors.topBackground,
-      paddingHorizontal: 20,
     },
   });
 };

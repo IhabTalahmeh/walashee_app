@@ -59,5 +59,15 @@
     "invite": "دعوة",
     "cant-invite-person": "عذراً، لا يمكن إتمام هذه الدعوة",
     "no-accounts-related-to-phone-number": "لم يتم العثور على حساب مرتبط بهذا الرقم",
-    "unknown-error": "حدث خطأ ما"
+    "unknown-error": "حدث خطأ ما",
+    "you-cant-invite-yourself": "لا يمكنك إرسال دعوة الى نفسك",
+    "agent-already-invited": "الوكيل مدعو بالفعل",
+    "agent-already-team-member": "الوكيل بالفعل عضو في فريقك",
+    "agent": "وكيل",
+    "pending": "قيد الإنتظار",
+    "accepted": "مقبول",
+    "in-review": "قيد المراجعة",
+    "in_review": "قيد المراجعة",
+    "sent-invitations": "الدعوات المرسلة",
+    "received-invitations": "الدعوات الواردة"
 }

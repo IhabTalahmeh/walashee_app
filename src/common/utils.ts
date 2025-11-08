@@ -180,3 +180,8 @@ export function getPhoneNumberWithoutLeadingZero(num: string) {
   }
   return numStr;
 }
+
+export function getErrorCode(error: any) {
+  const res = error?.response?.data;
+  return res?.code || res?.message || error?.message || 'unknown-error';
+}

@@ -50,5 +50,14 @@
     "on-the-way": "On the way",
     "phone-number-not-found-error": "Phone number does not belong to an account",
     "my-team": "Team",
-    "home": "Home"
+    "home": "Home",
+    "invitations": "Invitations",
+    "invite-new-agent": "Invite new agent",
+    "invite-agent": "Invite agent",
+    "invite-driver": "Invite driver",
+    "invite-agent-title": "Enter the agent's phone number you want to invite to your team",
+    "invite": "Invite",
+    "cant-invite-person": "Sorry, this person can't be invited",
+    "no-accounts-related-to-phone-number": "No account was found associated with this number",
+    "unknown-error": "Something went wrong"
 }

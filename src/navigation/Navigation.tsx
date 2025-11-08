@@ -13,7 +13,6 @@ import CaseDetailsScreen from 'src/screens/case/CaseDetails/CaseDetailsScreen';
 import AddCaseScreen from 'src/screens/case/AddCaseScreen/AddCaseScreen';
 import CameraScreen from 'src/screens/Camera/CameraScreen/CameraScreen';
 import { headerHeight } from 'src/styles/globalStyles';
-import InviteUsers from 'src/screens/user/InviteUsers/InviteUsers';
 import InvitationsScreen from 'src/screens/core/InvitationsScreen/InvitationsScreen';
 import MenuScreen from 'src/screens/core/MenuScreen/MenuScreen';
 import ProfileScreen from 'src/screens/core/ProfileScreen/ProfileScreen';
@@ -36,6 +35,8 @@ import { useTranslation } from 'react-i18next';
 import { LanguageContext } from 'src/context/LanguageContext';
 import CompleteProfileScreen from 'src/screens/user/CompleteProfileScreen/CompleteProfileScreen';
 import AG_MainScreen from 'src/screens/core/MainScreen/AG_MainScreen';
+import InviteAgents from 'src/screens/user/InviteUsers/InviteAgents';
+import InviteDrivers from 'src/screens/user/InviteUsers/InviteDrivers';
 
 type GuestStackParamList = {
   Login: undefined;
@@ -80,7 +81,7 @@ type AgentStackParamList = {
   AddCase: undefined;
   CaseDetails: undefined;
   CameraScreen: undefined;
-  InviteUsers: undefined;
+  InviteAgents: undefined;
   InvitationsScreen: undefined;
   MenuScreen: undefined;
   ProfileScreen: undefined;
@@ -98,6 +99,7 @@ type AgentStackParamList = {
 
 type DriverStackParamList = {
   DR_Main: undefined;
+  InviteDrivers: undefined;
   AddCase: undefined;
   CaseDetails: undefined;
   CameraScreen: undefined;
@@ -350,7 +352,6 @@ export const CustomerStack = () => {
         <Stack.Screen options={{ headerShown: false }} name="CU_Main" component={CU_MainScreen} />
         <Stack.Screen options={{ headerShown: true, title: 'Case' }} name="AddCase" component={AddCaseScreen} />
         <Stack.Screen options={{ headerShown: true, title: '' }} name="CaseDetails" component={CaseDetailsScreen} />
-        <Stack.Screen options={{ headerShown: true, title: 'Invite Users' }} name="InviteUsers" component={InviteUsers} />
         <Stack.Screen options={{ headerShown: true, title: 'Invitations' }} name="InvitationsScreen" component={InvitationsScreen} />
         <Stack.Screen options={{ headerShown: true, title: 'Menu', animation: 'slide_from_left' }} name="MenuScreen" component={MenuScreen} />
         <Stack.Screen options={{ headerShown: true, title: 'My Profile' }} name="ProfileScreen" component={ProfileScreen} />
@@ -411,6 +412,7 @@ export const CustomerStack = () => {
 };
 
 export const DriverStack = () => {
+  const { t } = useTranslation();
   const { language } = useContext(LanguageContext);
   const { theme } = useTheme();
   const globalStyles = useGlobalStyles();
@@ -446,7 +448,7 @@ export const DriverStack = () => {
         <Stack.Screen options={{ headerShown: false }} name="DR_Main" component={DR_MainScreen} />
         <Stack.Screen options={{ headerShown: true, title: 'Case' }} name="AddCase" component={AddCaseScreen} />
         <Stack.Screen options={{ headerShown: true, title: '' }} name="CaseDetails" component={CaseDetailsScreen} />
-        <Stack.Screen options={{ headerShown: true, title: 'Invite Users' }} name="InviteUsers" component={InviteUsers} />
+        <Stack.Screen options={{ headerShown: true, title: t('invite-driver') }} name="InviteDrivers" component={InviteDrivers} />
         <Stack.Screen options={{ headerShown: true, title: 'Invitations' }} name="InvitationsScreen" component={InvitationsScreen} />
         <Stack.Screen options={{ headerShown: true, title: 'Menu', animation: 'slide_from_left' }} name="MenuScreen" component={MenuScreen} />
         <Stack.Screen options={{ headerShown: true, title: 'My Profile' }} name="ProfileScreen" component={ProfileScreen} />
@@ -507,6 +509,7 @@ export const DriverStack = () => {
 };
 
 export const AgentStack = () => {
+  const { t } = useTranslation();
   const { language } = useContext(LanguageContext);
   const { theme } = useTheme();
   const globalStyles = useGlobalStyles();
@@ -542,7 +545,7 @@ export const AgentStack = () => {
         <Stack.Screen options={{ headerShown: false }} name="DR_Main" component={AG_MainScreen} />
         <Stack.Screen options={{ headerShown: true, title: 'Case' }} name="AddCase" component={AddCaseScreen} />
         <Stack.Screen options={{ headerShown: true, title: '' }} name="CaseDetails" component={CaseDetailsScreen} />
-        <Stack.Screen options={{ headerShown: true, title: 'Invite Users' }} name="InviteUsers" component={InviteUsers} />
+        <Stack.Screen options={{ headerShown: true, title: t('invite-agent') }} name="InviteAgents" component={InviteAgents} />
         <Stack.Screen options={{ headerShown: true, title: 'Invitations' }} name="InvitationsScreen" component={InvitationsScreen} />
         <Stack.Screen options={{ headerShown: true, title: 'Menu', animation: 'slide_from_left' }} name="MenuScreen" component={MenuScreen} />
         <Stack.Screen options={{ headerShown: true, title: 'My Profile' }} name="ProfileScreen" component={ProfileScreen} />

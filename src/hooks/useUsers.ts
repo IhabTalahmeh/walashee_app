@@ -12,6 +12,8 @@ import { UpdateProfileDto } from 'src/types/dto/UpdateProfileDto';
 import { UpdateReimbursementDto } from 'src/types/dto/UpdateReimbursementDto';
 import * as casesService from 'src/services/casesService';
 import { ESharedCaseFilter } from 'src/enum/ESharedCaseFilter';
+import { PhoneDto } from 'src/types/dto';
+import * as agentsService from 'src/services/agentsService';
 
 const searchUsers = async (keyword: string) => {
   return await usersService.searchUsers(keyword);
@@ -40,11 +42,12 @@ const revokeUser = async ({ userId, endUserId }: {
   return await usersService.revokeUser(userId, endUserId);
 }
 
-const inviteUsers = async ({ userId, dto }: {
-  userId: number,
-  dto: InviteUsersDto
+const inviteAgent = async ({ userId, teamId, dto }: {
+  userId: string,
+  teamId: string,
+  dto: PhoneDto,
 }) => {
-  return await usersService.inviteUsers(userId, dto);
+  return await agentsService.inviteAgent(userId, teamId, dto);
 }
 
 const updatePermission = async ({ userId, dto }: {
@@ -274,8 +277,8 @@ export const useRevokeUser = (onSuccess: any, onError: any, options = {}) => {
   })
 }
 
-export const useInviteUsers = (onSuccess: any, onError: any, options = {}) => {
-  return useMutation(inviteUsers, {
+export const useInviteAgent = (onSuccess: any, onError: any, options = {}) => {
+  return useMutation(inviteAgent, {
     onSuccess,
     onError,
     ...options,

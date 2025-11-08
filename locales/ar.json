@@ -50,5 +50,14 @@
     "on-the-way": "في الطريق",
     "phone-number-not-found-error": "رقم الهاتف لا ينتمي إلى حساب",
     "my-team": "الفريق",
-    "home": "الرئيسية"
+    "home": "الرئيسية",
+    "invitations": "الدعوات",
+    "invite-new-agent": "دعوة وكيل جديد",
+    "invite-agent": "دعوة وكيل",
+    "invite-driver": "دعوة سائق",
+    "invite-agent-title": "أدخل رقم الهاتف الخاص بالوكيل الذي ترغب في دعوته إلى فريقك",
+    "invite": "دعوة",
+    "cant-invite-person": "عذراً، لا يمكن إتمام هذه الدعوة",
+    "no-accounts-related-to-phone-number": "لم يتم العثور على حساب مرتبط بهذا الرقم",
+    "unknown-error": "حدث خطأ ما"
 }

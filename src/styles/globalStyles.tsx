@@ -17,7 +17,7 @@ export const fixedHeaderHeight = 70;
 export const createGlobalStyles = (theme: Theme) =>
   StyleSheet.create({
     text: {
-      textAlign: isRTL ? 'right' : 'left',
+      // textAlign: isRTL ? 'left' : 'left',
     },
     header: {
       height: headerHeight,
@@ -400,5 +400,13 @@ export const createGlobalStyles = (theme: Theme) =>
     },
     lineThrough: {
       textDecorationLine: 'line-through'
+    },
+    phoneCodeContainerStyle: {
+      width: 80,
+      borderRightWidth: 1,
+      borderColor: theme.colors.lightgray,
+      marginRight: 15,
+      height: '60%',
+      paddingLeft: 15,
     }
   });

@@ -12,6 +12,7 @@ import UsersScreen from '../UsersScreen/UsersScreen';
 import UsersIcon from 'src/icons/UsersIcon';
 import UsersIconOutline from 'src/icons/UsersIconOutline';
 import { useTranslation } from 'react-i18next';
+import AG_TeamScreen from '../UsersScreen/AG_TeamScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -70,7 +71,7 @@ export default function AG_MainScreen() {
                     ? <UsersIcon size={26} color={color} />
                     : <UsersIconOutline size={26} color={color} />,
               }}
-              component={UsersScreen} />
+              component={AG_TeamScreen} />
               
           </Tab.Navigator>
         </View>

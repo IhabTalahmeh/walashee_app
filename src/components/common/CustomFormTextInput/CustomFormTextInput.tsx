@@ -132,7 +132,7 @@ export default function CustomFormTextInput({
               placeholderTextColor={hexWithOpacity(theme.colors.text, 1)}
               style={[
                 styles.textInput,
-                globalStyles.text,
+                // globalStyles.text,
                 {
                   fontSize,
                   color: error ? theme.colors.error : textColor ?? theme.colors.text,

@@ -27,7 +27,7 @@ export default function AG_MainScreen() {
         <View style={globalStyles.flex1}>
           <Tab.Navigator
             screenOptions={{
-              lazy: true,
+              lazy: false,
               tabBarStyle: {
                 height: Platform.OS === 'ios' ? 90 : 75,
                 paddingTop: 10,
@@ -64,7 +64,8 @@ export default function AG_MainScreen() {
             <Tab.Screen
               name="Team"
               options={{
-                title: t('my-team'),
+                title: t('the-team'),
+                tabBarLabel: t('the-team'),
                 headerTitleAlign: 'left',
                 tabBarIcon: ({ color, size, focused }) =>
                   focused

@@ -49,7 +49,8 @@
     "preparing": "قيد التجهيز",
     "on-the-way": "في الطريق",
     "phone-number-not-found-error": "رقم الهاتف لا ينتمي إلى حساب",
-    "my-team": "الفريق",
+    "my-team": "فريقي",
+    "the-team": "الفريق",
     "home": "الرئيسية",
     "invitations": "الدعوات",
     "invite-new-agent": "دعوة وكيل جديد",
@@ -71,5 +72,11 @@
     "sent-invitations": "الدعوات المرسلة",
     "received-invitations": "الدعوات الواردة",
     "cant-send-invitation": "عذراً، لا يمكن إرسال هذه الدعوة",
-    "create-team": "إنشاء فريق"
+    "create-team": "إنشاء فريق",
+    "team-name": "إسم الفريق",
+    "enter-team-name": "أدخل اسم الفريق",
+    "create": "إنشاء",
+    "team-created-successfully": "تم إنشاء الفريق بنجاح",
+    "my-network": "الشبكة",
+    "higher-level-team": "الفريق الأعلى"
 }

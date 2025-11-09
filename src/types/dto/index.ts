@@ -6,3 +6,4 @@ export * from './LoginPhoneDto';
 export * from './PhoneDto';
 export * from './PhoneWithCodeDto';
 export * from './ListDto';
+export * from './CreateTeamDto';

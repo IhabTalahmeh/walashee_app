@@ -49,7 +49,8 @@
     "preparing": "Preparing",
     "on-the-way": "On the way",
     "phone-number-not-found-error": "Phone number does not belong to an account",
-    "my-team": "Team",
+    "my-team": "My team",
+    "the-team": "Team",
     "home": "Home",
     "invitations": "Invitations",
     "invite-new-agent": "Invite new agent",
@@ -71,5 +72,11 @@
     "sent": "Sent",
     "received": "Received",
     "cant-send-invitation": "Sorry, this invitation cannot be sent",
-    "create-team": "Create team"
+    "create-team": "Create team",
+    "team-name": "Team name",
+    "enter-team-name": "Enter team name",
+    "create": "Create",
+    "team-created-successfully": "Team created successfully",
+    "my-network": "Network",
+    "higher-level-team": "Higher-level team"
 }

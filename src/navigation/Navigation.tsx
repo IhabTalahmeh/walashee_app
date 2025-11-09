@@ -37,6 +37,7 @@ import CompleteProfileScreen from 'src/screens/user/CompleteProfileScreen/Comple
 import AG_MainScreen from 'src/screens/core/MainScreen/AG_MainScreen';
 import InviteAgents from 'src/screens/user/InviteUsers/InviteAgents';
 import InviteDrivers from 'src/screens/user/InviteUsers/InviteDrivers';
+import CreateTeamScreen from 'src/screens/core/CreateTeamScreen/CreateTeamScreen';
 
 type GuestStackParamList = {
   Login: undefined;
@@ -78,10 +79,11 @@ type CustomerStackParamList = {
 
 type AgentStackParamList = {
   AG_Main: undefined;
+  CreateTeamScreen: undefined;
+  InviteAgents: undefined;
   AddCase: undefined;
   CaseDetails: undefined;
   CameraScreen: undefined;
-  InviteAgents: undefined;
   InvitationsScreen: undefined;
   MenuScreen: undefined;
   ProfileScreen: undefined;
@@ -545,6 +547,7 @@ export const AgentStack = () => {
         <Stack.Screen options={{ headerShown: true, title: 'Case' }} name="AddCase" component={AddCaseScreen} />
         <Stack.Screen options={{ headerShown: true, title: '' }} name="CaseDetails" component={CaseDetailsScreen} />
         <Stack.Screen options={{ headerShown: true, title: t('invite-agent') }} name="InviteAgents" component={InviteAgents} />
+        <Stack.Screen options={{ headerShown: true, title: '' }} name="CreateTeamScreen" component={CreateTeamScreen} />
         <Stack.Screen options={{ headerShown: true, title: 'Menu', animation: 'slide_from_left' }} name="MenuScreen" component={MenuScreen} />
         <Stack.Screen options={{ headerShown: true, title: 'My Profile' }} name="ProfileScreen" component={ProfileScreen} />
         <Stack.Screen options={{ headerShown: true, title: 'Position' }} name="AddPosition" component={AddPosition} />

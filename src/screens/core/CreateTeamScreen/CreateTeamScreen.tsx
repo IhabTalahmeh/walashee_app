@@ -1,61 +1,88 @@
 import { View, ScrollView, ActivityIndicator, KeyboardAvoidingView, Platform, Keyboard } from 'react-native'
-import React, { useMemo, useState } from 'react'
-import { Formik } from 'formik'
+import React, { useEffect, useMemo, useState } from 'react'
+import { FastField, Formik } from 'formik'
 import { useTheme } from 'src/context/ThemeContext'
 import { useGlobalStyles } from 'src/hooks/useGlobalStyles'
-import { ErrorButton, PrimaryButton } from 'src/components/buttons/CustomButton/variants'
-import { useUpdateReimbursement } from 'src/hooks/useUsers'
+import { PrimaryButton } from 'src/components/buttons/CustomButton/variants'
 import { useAuth } from 'src/context/AuthContext'
 import * as appService from 'src/services/appService';
 import { useNavigation, useRoute } from '@react-navigation/native'
-import CustomDialog from 'src/components/Modals/CustomDialog/CustomDialog'
 import { createStyles } from './styles'
-import { UpdateReimbursementDto } from 'src/types/dto/UpdateReimbursementDto'
 import { CreateTeamDto } from 'src/types/dto/CreateTeamDto'
-import { useGetTeam } from 'src/hooks/useTeam'
+import { useCreateTeam, useGetTeam, useUpdateTeam } from 'src/hooks/useTeam'
+import CustomFormTextInput from 'src/components/common/CustomFormTextInput/CustomFormTextInput'
+import { useTranslation } from 'react-i18next'
+import Spacer from 'src/components/common/Spacer/Spacer'
+import CustomImagePicker from 'src/components/common/CustomImagePicker/CustomImagePicker'
 
 const defaultInitialValues: CreateTeamDto = {
   name: '',
 }
 
 export default function CreateTeamScreen() {
-  const { user, login } = useAuth();
+  const { t } = useTranslation();
+  const { user } = useAuth();
   const [initialValues, setInitialValues] = useState<any>(defaultInitialValues);
   const { theme } = useTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const globalStyles = useGlobalStyles();
   const navigation: any = useNavigation();
-  const route: any = useRoute();
-  const id = route?.params?.id;
-  const [deleteOpen, setDeleteOpen] = useState<boolean>(false);
+  const [avatar, setAvatar] = useState<string>('');
 
   const { data: team, isLoading } = useGetTeam(user?.id);
 
-  const { mutate: updateMutation, isLoading: isUpdating } = useUpdateReimbursement(
+  const { mutate: createMutation, isLoading: isCreating } = useCreateTeam(
     (data: any) => {
-      if (data?.status_code == 200) {
-        appService.showToast(`Reimbursement info updated successfully`, 'success');
-        navigation.goBack();
-      } else {
-        appService.showToast(data?.data ? data.data : 'Something went wrong', 'error');
-      }
+      appService.showToast('team-created-successfully', 'success');
+      navigation.goBack();
     },
     (err: any) => {
-      console.log('err', JSON.stringify(err));
+      appService.showToast(err, 'error');
     }
   );
 
-  const handleSubmit = (values: any) => {
+  const { mutate: updateMutation, isLoading: isUpdating } = useUpdateTeam(
+    (data: any) => {
+      console.log('data', data);
+    },
+    (err: any) => {
+      console.log('err', err);
+    }
+  );
+
+  const handleSubmit = (dto: CreateTeamDto) => {
     Keyboard.dismiss();
-    handleUpdate(values);
+    dto.filePath = avatar;
+    team ? handleUpdate(dto) : handleCreate(dto);
   }
 
-  const handleUpdate = (values: UpdateReimbursementDto) => {
+  const handleUpdate = (dto: CreateTeamDto) => {
     updateMutation({
       userId: user.id,
-      dto: { ...values },
+      dto,
     });
   }
+
+  const handleCreate = (dto: CreateTeamDto) => {
+    createMutation({
+      userId: user.id,
+      dto,
+    });
+  }
+
+  const handleAvatarSelect = (path: string) => {
+    setAvatar(path);
+  }
+
+  const handleAvatarCancel = () => {
+    setAvatar('');
+  }
+
+  useEffect(() => {
+    navigation.setOptions({
+      title: team ? team.name : t('create-team'),
+    })
+  }, [team]);
 
   return (
     <>
@@ -78,16 +105,37 @@ export default function CreateTeamScreen() {
               {(props) => {
 
                 return (
-                  <View>
+                  <View style={globalStyles.flex1}>
 
+                    <View style={globalStyles.mv20}>
+                      <CustomImagePicker
+                        size={120}
+                        icon='camera'
+                        crop={true}
+                        onSelect={handleAvatarSelect}
+                        onCancel={handleAvatarCancel} />
+                    </View>
 
+                    {/* Team name */}
+                    <View style={globalStyles.mt10}>
+                      <FastField
+                        name="name"
+                        component={CustomFormTextInput}
+                        required
+                        label={t('team-name')}
+                        placeholder={t('enter-team-name')}
+                        height={68}
+                        withBorder
+                      />
+                    </View>
 
+                    <Spacer flex={true} />
 
                     <View style={globalStyles.mt20}>
                       <PrimaryButton
-                        text={team ? 'Save' : 'Add'}
-                        disabled={!props.isValid || isUpdating}
-                        isLoading={isUpdating}
+                        text={team ? t('save') : t('create')}
+                        disabled={!props.isValid || isCreating || isUpdating}
+                        isLoading={isCreating || isUpdating}
                         onPress={props.submitForm}
                       />
                     </View>

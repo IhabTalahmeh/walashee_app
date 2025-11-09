@@ -100,6 +100,18 @@ export const createGlobalStyles = (theme: Theme) =>
     p15: { padding: 15 },
     p20: { padding: 20 },
 
+    // Padding Start
+    ps5: { paddingStart: 5 },
+    ps10: { paddingStart: 10 },
+    ps15: { paddingStart: 15 },
+    ps20: { paddingStart: 20 },
+
+    // Padding End
+    pe5: { paddingEnd: 5 },
+    pe10: { paddingEnd: 10 },
+    pe15: { paddingEnd: 15 },
+    pe20: { paddingEnd: 20 },
+
     // Padding Vertical
     pv5: { paddingVertical: 5 },
     pv10: { paddingVertical: 10 },
@@ -416,4 +428,5 @@ export const createGlobalStyles = (theme: Theme) =>
       borderBottomRightRadius: 20,
       borderBottomLeftRadius: 20,
     },
+
   });

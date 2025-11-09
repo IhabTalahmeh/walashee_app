@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from 'react-query';
-import { PhoneDto } from 'src/types/dto';
+import { CreateTeamDto, PhoneDto } from 'src/types/dto';
 import * as teamService from 'src/services/teamService';
 import { ListInvitationsDto } from 'src/types/dto/ListInvitationsDto';
 
@@ -17,6 +17,20 @@ const sendTeamInvite = async ({ userId, teamId, dto }: {
 
 const getTeamInvitations = async (dto: ListInvitationsDto) => {
     return await teamService.getTeamInvitations(dto);
+}
+
+const createTeam = async ({ userId, dto }: {
+    userId: string,
+    dto: CreateTeamDto,
+}) => {
+    return await teamService.createTeam(userId, dto);
+}
+
+const updateTeam = async ({ userId, dto }: {
+    userId: string,
+    dto: CreateTeamDto,
+}) => {
+    return await teamService.updateTeam(userId, dto);
 }
 
 // ******************************************************************************************************************************
@@ -43,6 +57,22 @@ export const useGetTeamInvitations = (dto: ListInvitationsDto, options = {}) => 
         queryKey: ['teamInvitations', dto],
         queryFn: () => getTeamInvitations(dto),
         keepPreviousData: false,
+        ...options,
+    })
+}
+
+export const useCreateTeam = (onSuccess: any, onError: any, options = {}) => {
+    return useMutation(createTeam, {
+        onSuccess,
+        onError,
+        ...options,
+    })
+}
+
+export const useUpdateTeam = (onSuccess: any, onError: any, options = {}) => {
+    return useMutation(updateTeam, {
+        onSuccess,
+        onError,
         ...options,
     })
 }

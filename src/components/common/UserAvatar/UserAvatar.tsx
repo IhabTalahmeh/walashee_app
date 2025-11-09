@@ -14,6 +14,7 @@ interface Props {
   borderColor?: string;
   borderWidth?: number;
   loading?: boolean;
+  radius?: number;
 }
 
 export default function UserAvatar({
@@ -23,6 +24,7 @@ export default function UserAvatar({
   borderColor = 'transparent',
   borderWidth = 0,
   loading=false,
+  radius=100,
 }: Props) {
 
   const { user } = useAuth();
@@ -35,7 +37,7 @@ export default function UserAvatar({
       {
         height: size,
         width: size,
-        borderRadius: 100,
+        borderRadius: radius,
         overflow: 'hidden',
         borderColor,
         borderWidth

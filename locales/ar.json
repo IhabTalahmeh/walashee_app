@@ -69,5 +69,7 @@
     "in-review": "قيد المراجعة",
     "in_review": "قيد المراجعة",
     "sent-invitations": "الدعوات المرسلة",
-    "received-invitations": "الدعوات الواردة"
+    "received-invitations": "الدعوات الواردة",
+    "cant-send-invitation": "عذراً، لا يمكن إرسال هذه الدعوة",
+    "create-team": "إنشاء فريق"
 }

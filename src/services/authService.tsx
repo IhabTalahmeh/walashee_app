@@ -15,7 +15,6 @@ export const refreshToken = async () => {
       refreshToken: userJson.refreshToken
     });
 
-    console.log('refresh', apiToken, refreshToken, role, useAs)
     userJson.apiToken = apiToken;
     userJson.refreshToken = refreshToken;
     userJson.role = role;

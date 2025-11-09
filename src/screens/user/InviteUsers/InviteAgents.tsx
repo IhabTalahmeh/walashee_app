@@ -1,26 +1,21 @@
-import { View, Text, KeyboardAvoidingView, Platform, ScrollView } from 'react-native'
+import { View, KeyboardAvoidingView, Platform, ScrollView } from 'react-native'
 import React, { useEffect, useMemo, useRef, useState } from 'react'
 import CustomText from 'src/components/common/CustomText/CustomText'
 import { useTheme } from 'src/context/ThemeContext'
 import { createStyles } from './styles';
 import { useGlobalStyles } from 'src/hooks/useGlobalStyles';
-import { FastField, Field, Formik } from 'formik';
+import { Field, Formik } from 'formik';
 import CustomFormTextInput from 'src/components/common/CustomFormTextInput/CustomFormTextInput';
-import { PERMISSIONS_LIST } from 'src/common/constants';
-import { CustomSelectList } from 'src/components/InputFields/CustomSelectList/CustomSelectList';
 import { PrimaryButton } from 'src/components/buttons/CustomButton/variants';
 import * as Yup from 'yup';
-import { useInviteAgent } from 'src/hooks/useUsers';
-import { InviteUserDto } from 'src/types/dto/InviteUsersDto';
 import { useAuth } from 'src/context/AuthContext';
-import * as appService from 'src/services/appService';
 import { useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 import CountryCode from 'src/components/common/CountryCode/CountryCode';
 import { CountryType } from 'src/types/types/Types';
 import { PhoneDto } from 'src/types/dto';
-import { useGetAgentTeam } from 'src/hooks/useAgent';
 import { getErrorCode } from 'src/common/utils';
+import { useGetTeam, useSendTeamInvite } from 'src/hooks/useTeam';
 
 const initialValues = {
   phoneCode: '',
@@ -42,9 +37,9 @@ export default function InviteAgents() {
     number: Yup.string().required(t('phone-is-required')),
   });
 
-  const { data: team } = useGetAgentTeam(user.id);
+  const { data: team } = useGetTeam(user.id);
 
-  const { mutate: inviteMutation, isLoading } = useInviteAgent(
+  const { mutate: inviteMutation, isLoading } = useSendTeamInvite(
     (data: any) => {
       console.log('data', data);
     },

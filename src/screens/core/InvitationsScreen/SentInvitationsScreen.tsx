@@ -8,9 +8,9 @@ import { createStyles } from './styles';
 import { useGlobalStyles } from 'src/hooks/useGlobalStyles';
 import EmptyView from 'src/components/common/EmptyView/EmptyView';
 import LoadingScreen from '../LoadingScreen/LoadingScreen';
-import { useGetAgentTeam, useGetAgentTeamInvitations } from 'src/hooks/useAgent';
 import { EInvitationType } from 'src/enum/EInvitationType';
 import UserCard from 'src/components/User/UserCard/UserCard';
+import { useGetTeam, useGetTeamInvitations } from 'src/hooks/useTeam';
 
 export default function SentInvitationsScreen() {
     const { user } = useAuth();
@@ -18,9 +18,9 @@ export default function SentInvitationsScreen() {
     const styles = useMemo(() => createStyles(theme), [theme]);
     const globalStyles = useGlobalStyles();
 
-    const { data: team } = useGetAgentTeam(user.id);
+    const { data: team } = useGetTeam(user.id);
 
-    const { data: invitations, isLoading, refetch: refetchInvitations } = useGetAgentTeamInvitations({
+    const { data: invitations, isLoading, refetch: refetchInvitations } = useGetTeamInvitations({
         userId: user.id,
         teamId: team?.id,
         type: EInvitationType.SENT,

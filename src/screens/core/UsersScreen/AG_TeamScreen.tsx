@@ -1,6 +1,5 @@
 import { View, FlatList, Keyboard, RefreshControl } from 'react-native'
 import React, { useCallback, useMemo, useState } from 'react'
-import { useGetStaff } from 'src/hooks/useUsers'
 import { useAuth } from 'src/context/AuthContext'
 import { useTheme } from 'src/context/ThemeContext';
 import { createStyles } from './styles';
@@ -15,8 +14,10 @@ import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import LoadingScreen from '../LoadingScreen/LoadingScreen';
 import CustomText from 'src/components/common/CustomText/CustomText';
 import { useTranslation } from 'react-i18next';
-import { useGetAgentTeam, useGetAgentTeamInvitations } from 'src/hooks/useAgent';
 import { EInvitationType } from 'src/enum/EInvitationType';
+import UserIconOutline from 'src/icons/UserIconOutline';
+import UsersIconOutline from 'src/icons/UsersIconOutline';
+import { useGetTeam, useGetTeamInvitations } from 'src/hooks/useTeam';
 
 export default function AG_TeamScreen() {
   const { t } = useTranslation();
@@ -28,9 +29,9 @@ export default function AG_TeamScreen() {
   const [keyword, setKeyword] = useState<string>('');
   const [refreshing, setRefreshing] = useState(false);
 
-  const { data: team } = useGetAgentTeam(user.id);
+  const { data: team } = useGetTeam(user.id);
 
-  const { data: invitations, isLoading, refetch: refetchInvitations } = useGetAgentTeamInvitations({
+  const { data: invitations, isLoading, refetch: refetchInvitations } = useGetTeamInvitations({
     userId: user.id,
     teamId: team?.id,
     page: 1,
@@ -98,22 +99,32 @@ export default function AG_TeamScreen() {
           ListFooterComponent={() => (
             <View>
 
-              <View style={globalStyles.mt10}>
+              {!team && <View style={globalStyles.mt10}>
                 <PrimaryButton
-                  text={t('invitations')}
-                  icon={<CalendarIcon size={26} color={theme.colors.white} />}
+                  text={t('create-team')}
+                  icon={<UsersIconOutline color={theme.colors.white} size={22} />}
                   onPress={() => navigation.navigate('InvitationsScreen')}
                 />
-              </View>
+              </View>}
 
-              <View style={[globalStyles.mt10, globalStyles.mb20]}>
-                <NeutralButton
-                  variant='outlined'
-                  text={t('invite-new-agent')}
-                  icon={<Ionicons name='add-circle-outline' color={theme.colors.text} size={26} />}
-                  onPress={() => navigation.navigate('InviteAgents')}
-                />
-              </View>
+              {team && <View>
+                <View style={globalStyles.mt10}>
+                  <PrimaryButton
+                    text={t('invitations')}
+                    icon={<CalendarIcon size={26} color={theme.colors.white} />}
+                    onPress={() => navigation.navigate('InvitationsScreen')}
+                  />
+                </View>
+
+                <View style={[globalStyles.mt10, globalStyles.mb20]}>
+                  <NeutralButton
+                    variant='outlined'
+                    text={t('invite-new-agent')}
+                    icon={<Ionicons name='add-circle-outline' color={theme.colors.text} size={26} />}
+                    onPress={() => navigation.navigate('InviteAgents')}
+                  />
+                </View>
+              </View>}
             </View>
           )}
         />)}

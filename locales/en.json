@@ -69,5 +69,7 @@
     "in-review": "In review",
     "in_review": "In review",
     "sent": "Sent",
-    "received": "Received"
+    "received": "Received",
+    "cant-send-invitation": "Sorry, this invitation cannot be sent",
+    "create-team": "Create team"
 }

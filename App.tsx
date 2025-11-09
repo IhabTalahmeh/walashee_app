@@ -91,15 +91,6 @@ function App(): React.JSX.Element {
 const MainApp = () => {
   const { theme } = useTheme();
   const [visible, setVisible] = useState<boolean>(false);
-  useGetAppVersion({
-    onSuccess: (data: any) => {
-      const latestVersion = parseFloat(data.message);
-      const currentVersion = parseFloat(appVersion);
-      setVisible(latestVersion > currentVersion);
-    },
-    onError: (error: any) => console.log('error', error),
-  });
-
 
   const openAppStore = () => {
     const appStoreUrl =

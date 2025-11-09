@@ -1,9 +1,12 @@
-import { View, Text, TextStyle, TextProps } from 'react-native';
-import React, { useMemo } from 'react';
+import { View, Text, TextStyle, TextProps, Platform } from 'react-native';
+import React, { useContext, useMemo } from 'react';
 import { useTheme } from 'src/context/ThemeContext';
 import { createStyles } from './styles';
 import { fonts } from 'src/styles/theme';
 import { useGlobalStyles } from 'src/hooks/useGlobalStyles';
+import { LanguageContext } from 'src/context/LanguageContext';
+
+const isIOS = Platform.OS == 'ios';
 
 interface Props extends TextProps {
   text: string;
@@ -22,8 +25,10 @@ export default function CustomText({
   ...props
 }: Props) {
   const { theme }: any = useTheme();
+  const { language } = useContext(LanguageContext);
   const styles = useMemo(() => createStyles(theme), [theme]);
   const globalStyles = useGlobalStyles();
+  const isArabic = language == 'ar';
 
   const fontFamily = fonts[fontWeight] ?? fonts.medium;
 
@@ -32,7 +37,7 @@ export default function CustomText({
       {...props}
       style={[
         styles.text,
-        globalStyles.text,
+        true ? globalStyles.text : null,
         style,
         {
           fontSize: size,

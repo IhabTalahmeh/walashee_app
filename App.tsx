@@ -19,6 +19,13 @@ import { useGetAppVersion } from 'src/hooks/useLookups';
 import DeviceInfo from 'react-native-device-info';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { LanguageProvider } from 'src/context/LanguageContext';
+import * as notificationsService from './src/services/notificationsService';
+import { getApp } from '@react-native-firebase/app';
+import {
+  getMessaging,
+  setBackgroundMessageHandler,
+  onTokenRefresh,
+} from '@react-native-firebase/messaging';
 
 LogBox.ignoreLogs(['[Reanimated]']);
 LogBox.ignoreLogs(['AxiosError']);
@@ -27,8 +34,22 @@ LogBox.ignoreLogs(['Sending `onAnimatedValueUpdate`',]);
 LogBox.ignoreLogs([
   '[Reanimated] Reading from `value` during component render.'
 ]);
+
 const queryClient = new QueryClient();
 const appVersion = DeviceInfo.getVersion();
+
+const app = getApp();
+const messaging = getMessaging(app);
+
+// background handler
+setBackgroundMessageHandler(messaging, async (message) => {
+  await notificationsService.sendNotification(message);
+});
+
+// token refresh
+onTokenRefresh(messaging, (token: string) => {
+  console.log('token refresh', token);
+});
 
 function App(): React.JSX.Element {
 
@@ -44,6 +65,8 @@ function App(): React.JSX.Element {
 
   //   clearStorage();
   // }, []);
+
+
 
   return (
     <LanguageProvider>

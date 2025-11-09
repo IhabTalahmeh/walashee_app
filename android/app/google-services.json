@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1018669117742",
+    "project_id": "fcmnotifications-36769",
+    "storage_bucket": "fcmnotifications-36769.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1018669117742:android:ea3d382ba7616a13588abf",
+        "android_client_info": {
+          "package_name": "com.walashee.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCU_bsrCs6JKoZ1hV8Oc7uFV9Qn0WMjJns"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

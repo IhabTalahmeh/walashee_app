@@ -3,6 +3,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as authService from '../services/authService';
 import { EventRegister } from 'react-native-event-listeners';
 import { Text, View } from 'react-native';
+import * as notificationsService from 'src/services/notificationsService';
 
 const AuthContext = createContext<any>(undefined);
 
@@ -66,6 +67,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         login(storedAuthState);
       }
       setLoading(false);
+      notificationsService.registerToken();
     };
     checkAuthState();
   }, []);

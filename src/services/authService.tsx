@@ -81,3 +81,13 @@ export const isEmailAvailable = async (email: string) => {
 export const deleteAccount = async (userId: number) => {
   return await ApiService.delete(`users/${userId}`);
 }
+
+export const registerForPushNotifications = async (token: string) => {
+  return await ApiService.post(`fcm/register`, {
+    token
+  });
+}
+
+export const unRegisterforPushNotifications = async () => {
+  return await ApiService.delete(`fcm/unregister`);
+}

@@ -78,5 +78,7 @@
     "create": "Create",
     "team-created-successfully": "Team created successfully",
     "my-network": "Network",
-    "higher-level-team": "Higher-level team"
+    "higher-level-team": "Higher-level team",
+    "dont-have-team-yet": "You don’t have your own team yet",
+    "create-your-own-team": "Create your team to start inviting your own agents and grow your network"
 }

@@ -1,5 +1,5 @@
 import { View, FlatList, Keyboard, RefreshControl } from 'react-native'
-import React, { useCallback, useMemo, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { useAuth } from 'src/context/AuthContext'
 import { useTheme } from 'src/context/ThemeContext';
 import { createStyles } from './styles';
@@ -18,6 +18,7 @@ import UsersIconOutline from 'src/icons/UsersIconOutline';
 import { useGetTeam, useGetTeamInvitations } from 'src/hooks/useTeam';
 import ParentTeam from 'src/screens/Team/ParentTeam/ParentTeam';
 import MyTeam from 'src/screens/Team/MyTeam/MyTeam';
+import HeaderCircleButton from 'src/components/buttons/HeaderCircleButton/HeaderCircleButton';
 
 export default function AG_TeamScreen() {
   const { t } = useTranslation();
@@ -49,6 +50,16 @@ export default function AG_TeamScreen() {
       refetchTeam()
     }, [])
   );
+
+  useEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <View>
+          <HeaderCircleButton icon={<CalendarIcon size={24} color={theme.colors.text}/>} />
+        </View>
+      )
+    })
+  }, [team]);
 
   return (
     <View style={styles.container}>

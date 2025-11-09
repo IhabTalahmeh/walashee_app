@@ -78,5 +78,7 @@
     "create": "إنشاء",
     "team-created-successfully": "تم إنشاء الفريق بنجاح",
     "my-network": "الشبكة",
-    "higher-level-team": "الفريق الأعلى"
+    "higher-level-team": "الفريق الأعلى",
+    "dont-have-team-yet": "ليس لديك فريق خاص بعد",
+    "create-your-own-team": "أنشئ فريقك الخاص لبدء دعوة وكلائك وتنمية شبكتك"
 }

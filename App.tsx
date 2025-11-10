@@ -26,6 +26,8 @@ import {
   setBackgroundMessageHandler,
   onTokenRefresh,
 } from '@react-native-firebase/messaging';
+import { NavigationContainer } from '@react-navigation/native';
+import { navigationRef } from './src/services/notificationsService';
 
 LogBox.ignoreLogs(['[Reanimated]']);
 LogBox.ignoreLogs(['AxiosError']);
@@ -66,6 +68,19 @@ function App(): React.JSX.Element {
   //   clearStorage();
   // }, []);
 
+  const linking = {
+    prefixes: ['walashee://'],
+    config: {
+      screens: {
+        Home: 'home',
+        NotificationsScreen: 'NotificationsScreen',
+      },
+    },
+    getInitialURL: async () => {
+      return 'walashee://AG_Main';
+    },
+  };
+
 
 
   return (
@@ -74,12 +89,14 @@ function App(): React.JSX.Element {
         <SafeAreaProvider>
           <GestureHandlerRootView style={{ flex: 1 }}>
             <ThemeProvider>
-              <AuthProvider>
-                <BottomSheetModalProvider>
-                  <MainApp />
-                  <Toast config={toastConfig} />
-                </BottomSheetModalProvider>
-              </AuthProvider>
+              <NavigationContainer ref={navigationRef} linking={linking}>
+                <AuthProvider>
+                  <BottomSheetModalProvider>
+                    <MainApp />
+                    <Toast config={toastConfig} />
+                  </BottomSheetModalProvider>
+                </AuthProvider>
+              </NavigationContainer>
             </ThemeProvider>
           </GestureHandlerRootView>
         </SafeAreaProvider>

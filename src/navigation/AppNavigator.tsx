@@ -8,7 +8,7 @@ const AppNavigator = () => {
   const { user } = useAuth();
 
   return (
-    <NavigationContainer>
+    <>
       {!user ? (
         <GuestStack />
       ) : !user.fullName ? (
@@ -22,7 +22,7 @@ const AppNavigator = () => {
       ) : (
         <CustomerStack />
       )}
-    </NavigationContainer>
+    </>
   );
 
 };

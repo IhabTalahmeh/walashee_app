@@ -100,6 +100,7 @@ export const registerToken = async () => {
 
   /* Handle notification open (background → foreground) */
   onNotificationOpenedApp(messaging, async (remoteMessage: any) => {
+    console.log('remote message', remoteMessage?.data);
     if (remoteMessage?.data) {
       switch (remoteMessage.data.receiverType) {
         case 'user':
@@ -120,7 +121,7 @@ export const registerToken = async () => {
   const initialNotification: any = await notifee.getInitialNotification();
   if (initialNotification) {
     const { type } = initialNotification.notification?.data || {};
-    if (type === 'app') {
+    if (type === 'team_invitation') {
       navigateToAppScreen(initialNotification.notification.data);
     } else if (type === 'new-version') {
       openStore();
@@ -137,7 +138,7 @@ export const registerToken = async () => {
         break;
       case EventType.PRESS:
         const data = detail?.notification?.data;
-        if (data?.type === 'app') {
+        if (data?.type === 'team_invitation') {
           navigateToAppScreen(data);
         } else if (data?.type === 'new-version') {
           openStore();
@@ -154,7 +155,7 @@ export const registerToken = async () => {
 
   /* Foreground FCM messages */
   onMessage(messaging, async (message: any) => {
-    if (message?.data?.type === 'app') {
+    if (message?.data?.type === 'team_invitation') {
       await sendAppNotification(message);
     } else if (shouldSendNotification(message)) {
       await onMessageReceived(message);
@@ -170,7 +171,7 @@ async function onMessageReceived(message: any) {
 export const sendNotification = async (message?: any) => {
   await notifee.requestPermission();
 
-  if (message?.data?.type === 'app') {
+  if (message?.data?.type === 'team_invitation') {
     sendAppNotification(message);
   } else if (message?.data?.type === 'new-version') {
     sendNewAppVersionNotification(message);

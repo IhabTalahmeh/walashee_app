@@ -34,10 +34,6 @@ export default function AG_TeamScreen() {
     )
   }, []);
 
-  useEffect(() => {
-    console.log('user is', user);
-  }, [user])
-
   const onRefresh = useCallback(() => {
     setRefreshing(true);
   }, []);

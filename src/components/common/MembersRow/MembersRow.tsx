@@ -1,15 +1,13 @@
 import { View, Text } from 'react-native'
-import React from 'react'
+import React, { useMemo } from 'react'
 import UserAvatar from '../UserAvatar/UserAvatar'
 import { useTheme } from 'src/context/ThemeContext'
 import { createStyles } from './styles';
-import { useGlobalStyles } from 'src/hooks/useGlobalStyles';
 
 export default function MembersRow() {
 
   const { theme } = useTheme();
-  const styles = createStyles(theme);
-  const globalStyles = useGlobalStyles();
+  const styles = useMemo(() => createStyles(theme), [theme]);
 
   const data = [
     "https://images.pexels.com/photos/45201/kitty-cat-kitten-pet-45201.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",

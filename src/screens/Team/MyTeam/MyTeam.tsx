@@ -1,5 +1,5 @@
-import { View, Text, TouchableOpacity } from 'react-native'
-import React from 'react'
+import { View, Text, TouchableOpacity, FlatList } from 'react-native'
+import React, { useCallback } from 'react'
 import SectionTitle from 'src/components/common/SectionTitle/SectionTitle'
 import { useTranslation } from 'react-i18next'
 import UsersIcon from 'src/icons/UsersIcon';
@@ -12,6 +12,7 @@ import NeutralButton from 'src/components/buttons/CustomButton/variants/NeutralB
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import UserItem from 'src/components/User/UserItem/UserItem';
 
 export default function MyTeam() {
   const { t } = useTranslation();
@@ -21,6 +22,14 @@ export default function MyTeam() {
   const globalStyles = useGlobalStyles();
   const navigation: any = useNavigation();
 
+  const renderItem = useCallback(({ item }: any) => {
+    return (
+      <View style={globalStyles.mt10}>
+        <UserItem />
+      </View>
+    )
+  }, [])
+
   return (
     <View>
       <SectionTitle
@@ -28,12 +37,12 @@ export default function MyTeam() {
         icon={<UsersIcon size={22} color={theme.colors.text} />}
         rightButtons={
           <>
-            {team && <View style={[globalStyles.flexRow, { gap: 5 }]}>
+            {team && <View style={[globalStyles.flexRow, { gap: 10 }]}>
               <TouchableOpacity onPress={() => navigation.navigate('InviteAgents')}>
                 <MaterialIcons name='person-add-alt-1' size={24} color={theme.colors.text} />
               </TouchableOpacity>
               <TouchableOpacity onPress={() => navigation.navigate('InviteAgents')}>
-                <Ionicons name='chatbubble-ellipses-outline' size={24} color={theme.colors.text} />
+                <Ionicons name='chatbubble-ellipses' size={24} color={theme.colors.text} />
               </TouchableOpacity>
             </View>}
           </>
@@ -59,6 +68,14 @@ export default function MyTeam() {
               />
             </View>
           </View>
+        )}
+
+        {team && (
+          <FlatList
+            data={[1, 2, 3]}
+            keyExtractor={item => item.toString()}
+            renderItem={renderItem}
+          />
         )}
       </View>
     </View>

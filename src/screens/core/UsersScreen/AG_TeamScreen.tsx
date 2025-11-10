@@ -55,7 +55,10 @@ export default function AG_TeamScreen() {
     navigation.setOptions({
       headerRight: () => (
         <View>
-          <HeaderCircleButton icon={<CalendarIcon size={24} color={theme.colors.text}/>} />
+          <HeaderCircleButton
+            icon={<CalendarIcon size={24} color={theme.colors.text} />}
+            onPress={() => navigation.navigate('InvitationsScreen')}
+          />
         </View>
       )
     })
@@ -80,24 +83,6 @@ export default function AG_TeamScreen() {
               <MyTeam />
             </View>
 
-            {team && <View>
-              <View style={globalStyles.mt10}>
-                <PrimaryButton
-                  text={t('invitations')}
-                  icon={<CalendarIcon size={26} color={theme.colors.white} />}
-                  onPress={() => navigation.navigate('InvitationsScreen')}
-                />
-              </View>
-
-              <View style={[globalStyles.mt10, globalStyles.mb20]}>
-                <NeutralButton
-                  variant='outlined'
-                  text={t('invite-new-agent')}
-                  icon={<Ionicons name='add-circle-outline' color={theme.colors.text} size={26} />}
-                  onPress={() => navigation.navigate('InviteAgents')}
-                />
-              </View>
-            </View>}
           </View>
         )}
     </View>

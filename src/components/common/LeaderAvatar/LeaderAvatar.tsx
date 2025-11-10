@@ -1,5 +1,5 @@
-import { View, Text } from 'react-native'
-import React from 'react'
+import { View } from 'react-native'
+import React, { useMemo } from 'react'
 import { useTheme } from 'src/context/ThemeContext'
 import { createStyles } from './styles';
 import UserAvatar from '../UserAvatar/UserAvatar';
@@ -11,7 +11,7 @@ interface Props {
 
 export default function LeaderAvatar({ uri }: Props) {
     const { theme } = useTheme();
-    const styles = createStyles(theme);
+    const styles = useMemo(() => createStyles(theme), [theme]);
 
     return (
         <View style={styles.container}>

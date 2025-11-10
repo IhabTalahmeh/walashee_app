@@ -13,6 +13,7 @@ import LeaderAvatar from 'src/components/common/LeaderAvatar/LeaderAvatar';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/native';
 import Spacer from 'src/components/common/Spacer/Spacer';
+import UserItem from 'src/components/User/UserItem/UserItem';
 
 export default function ParentTeam() {
   const { t } = useTranslation();
@@ -28,7 +29,7 @@ export default function ParentTeam() {
         rightButtons={
           <View style={[globalStyles.flexRow]}>
             <TouchableOpacity onPress={() => navigation.navigate('InviteAgents')}>
-              <Ionicons name='chatbubble-ellipses-outline' size={24} color={theme.colors.text} />
+              <Ionicons name='chatbubble-ellipses' size={24} color={theme.colors.text} />
             </TouchableOpacity>
           </View>
         }
@@ -37,22 +38,7 @@ export default function ParentTeam() {
         <View style={[globalStyles.flexRow,]}>
 
           {/* Leader */}
-          <View style={[globalStyles.flexRow, globalStyles.aic, globalStyles.flex1]}>
-            <UserAvatar
-              size={50}
-              borderColor={theme.colors.white}
-              borderWidth={1.2}
-              uri={'https://images.unsplash.com/photo-1529778873920-4da4926a72c2?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Y3V0ZSUyMGNhdHxlbnwwfHwwfHx8MA%3D%3D&fm=jpg&q=60&w=3000'} />
-            <View style={globalStyles.ms10}>
-              <CustomText text='Ihab Talahmeh' size={18} />
-            </View>
-
-            <Spacer flex={true} />
-
-            <TouchableOpacity onPress={() => navigation.navigate('InviteAgents')}>
-              <Ionicons name='chatbubble-ellipses' size={24} color={theme.colors.text} />
-            </TouchableOpacity>
-          </View>
+          <UserItem />
 
         </View>
       </View>

@@ -16,6 +16,7 @@ import { CountryType } from 'src/types/types/Types';
 import { PhoneDto } from 'src/types/dto';
 import { getErrorCode } from 'src/common/utils';
 import { useGetTeam, useSendTeamInvite } from 'src/hooks/useTeam';
+import * as appService from 'src/services/appService';
 
 const initialValues = {
   phoneCode: '',
@@ -41,7 +42,8 @@ export default function InviteAgents() {
 
   const { mutate: inviteMutation, isLoading } = useSendTeamInvite(
     (data: any) => {
-      console.log('data', data);
+      appService.showToast(t('invitation-sent-successfully'), 'success');
+      navigation.goBack();
     },
     (err: any) => {
       formRef.current.setFieldError('number', t(getErrorCode(err)));

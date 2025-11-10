@@ -39,6 +39,7 @@ export const signUpWithPhone = async (dto: PhoneDto) => {
 }
 
 export const logout = async () => {
+  await unRegisterforPushNotifications();
   return await ApiService.post(`logout`, {});
 }
 

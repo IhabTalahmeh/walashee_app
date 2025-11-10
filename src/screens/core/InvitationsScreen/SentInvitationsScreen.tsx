@@ -1,8 +1,6 @@
-import { View, Text, FlatList } from 'react-native'
+import { View, FlatList } from 'react-native'
 import React, { useCallback, useMemo } from 'react'
-import { useGetInvitations } from 'src/hooks/useUsers'
 import { useAuth } from 'src/context/AuthContext'
-import InvitationItem from 'src/components/User/InvitationItem/InvitationItem';
 import { useTheme } from 'src/context/ThemeContext';
 import { createStyles } from './styles';
 import { useGlobalStyles } from 'src/hooks/useGlobalStyles';
@@ -11,6 +9,7 @@ import LoadingScreen from '../LoadingScreen/LoadingScreen';
 import { EInvitationType } from 'src/enum/EInvitationType';
 import UserCard from 'src/components/User/UserCard/UserCard';
 import { useGetTeam, useGetTeamInvitations } from 'src/hooks/useTeam';
+import { useFocusEffect } from '@react-navigation/native';
 
 export default function SentInvitationsScreen() {
     const { user } = useAuth();
@@ -36,7 +35,10 @@ export default function SentInvitationsScreen() {
     const renderInvitation = useCallback(({ item }: any) => {
         return (
             <View style={[globalStyles.mt10, globalStyles.ph10]}>
-                <UserCard item={item} />
+                <UserCard
+                    item={item}
+                    teamId={team.id}
+                    afterCancelInvitation={refetchInvitations} />
             </View>
         )
     }, []);

@@ -10,9 +10,9 @@ export const createStyles = (theme: Theme) => {
       borderRadius: 20,
     },
     imageContainer: {
-      width: 100,
-      height: 100,
-      borderRadius: 16,
+      width: 80,
+      height: 80,
+      borderRadius: 14,
       overflow: 'hidden'
     },
     actionButtons: {

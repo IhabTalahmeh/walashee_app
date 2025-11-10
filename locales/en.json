@@ -69,8 +69,8 @@
     "accepted": "Accepted",
     "in-review": "In review",
     "in_review": "In review",
-    "sent": "Sent",
-    "received": "Received",
+    "sent-invitations": "Sent",
+    "received-invitations": "Received",
     "cant-send-invitation": "Sorry, this invitation cannot be sent",
     "create-team": "Create team",
     "team-name": "Team name",
@@ -80,5 +80,11 @@
     "my-network": "Network",
     "higher-level-team": "Higher-level team",
     "dont-have-team-yet": "You don’t have your own team yet",
-    "create-your-own-team": "Create your team to start inviting your own agents and grow your network"
+    "create-your-own-team": "Create your team to start inviting your own agents and grow your network",
+    "cancel-invitation": "Cancel invitation",
+    "cancel-invitation-message-1": "Are you sure you want to cancel",
+    "cancel-invitation-message-2": "invitation to your team?",
+    "close": "Close",
+    "invitation-sent-successfully": "Invitation sent successfully",
+    "invitation-cancelled-successfully": "Invitation cancelled successfully"
 }

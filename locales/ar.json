@@ -69,8 +69,8 @@
     "accepted": "مقبول",
     "in-review": "قيد المراجعة",
     "in_review": "قيد المراجعة",
-    "sent-invitations": "الدعوات المرسلة",
-    "received-invitations": "الدعوات الواردة",
+    "sent-invitations": "المرسلة",
+    "received-invitations": "الواردة",
     "cant-send-invitation": "عذراً، لا يمكن إرسال هذه الدعوة",
     "create-team": "إنشاء فريق",
     "team-name": "إسم الفريق",
@@ -80,5 +80,11 @@
     "my-network": "الشبكة",
     "higher-level-team": "الفريق الأعلى",
     "dont-have-team-yet": "ليس لديك فريق خاص بعد",
-    "create-your-own-team": "أنشئ فريقك الخاص لبدء دعوة وكلائك وتنمية شبكتك"
+    "create-your-own-team": "أنشئ فريقك الخاص لبدء دعوة وكلائك وتنمية شبكتك",
+    "cancel-invitation": "إلغاء الدعوة",
+    "cancel-invitation-message-1": "هل انت متأكد من انك تريد الغاء دعوة",
+    "cancel-invitation-message-2": "إلى فريقك؟",
+    "close": "إغلاق",
+    "invitation-sent-successfully": "تم إرسال الدعوة بنجاح",
+    "invitation-cancelled-successfully": "تم إلغاء الدعوة بنجاح"
 }

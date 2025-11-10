@@ -111,7 +111,7 @@ export default function CreateTeamScreen() {
                       <CustomImagePicker
                         size={120}
                         icon='camera'
-                        crop={true}
+                        crop={false}
                         onSelect={handleAvatarSelect}
                         onCancel={handleAvatarCancel} />
                     </View>

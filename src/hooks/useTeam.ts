@@ -19,6 +19,14 @@ const getTeamInvitations = async (dto: ListInvitationsDto) => {
     return await teamService.getTeamInvitations(dto);
 }
 
+const cancelTeamInvitation = async ({ userId, teamId, invitationId }: {
+    userId: string,
+    teamId: string,
+    invitationId: string,
+}) => {
+    return await teamService.cancelTeamInvitations(userId, teamId, invitationId);
+}
+
 const createTeam = async ({ userId, dto }: {
     userId: string,
     dto: CreateTeamDto,
@@ -71,6 +79,14 @@ export const useCreateTeam = (onSuccess: any, onError: any, options = {}) => {
 
 export const useUpdateTeam = (onSuccess: any, onError: any, options = {}) => {
     return useMutation(updateTeam, {
+        onSuccess,
+        onError,
+        ...options,
+    })
+}
+
+export const useCancelTeamInvitation = (onSuccess: any, onError: any, options = {}) => {
+    return useMutation(cancelTeamInvitation, {
         onSuccess,
         onError,
         ...options,

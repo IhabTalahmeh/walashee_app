@@ -15,6 +15,7 @@ import CustomFormTextInput from 'src/components/common/CustomFormTextInput/Custo
 import { getPhoneNumberWithoutLeadingZero } from 'src/common/utils';
 import { LoginPhoneDto } from 'src/types/dto';
 import { useTranslation } from 'react-i18next';
+import * as notificationsService from 'src/services/notificationsService';
 
 const initialTimer = 59;
 
@@ -38,6 +39,7 @@ export default function VerifyItsYouScreen() {
 
   const { mutate: loginWithPhoneCode, isLoading } = useLoginWithPhoneCode(
     (data: any) => {
+      notificationsService.registerToken();
       login(data);
     },
     (error: any) => {

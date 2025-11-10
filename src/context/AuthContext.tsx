@@ -32,6 +32,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const logout = async () => {
     setUser(null);
     try {
+      await authService.logout();
       EventRegister.removeAllListeners();
       await AsyncStorage.removeItem('@user');
     } catch (e) {

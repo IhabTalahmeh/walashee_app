@@ -86,5 +86,7 @@
     "cancel-invitation-message-2": "إلى فريقك؟",
     "close": "إغلاق",
     "invitation-sent-successfully": "تم إرسال الدعوة بنجاح",
-    "invitation-cancelled-successfully": "تم إلغاء الدعوة بنجاح"
+    "invitation-cancelled-successfully": "تم إلغاء الدعوة بنجاح",
+    "accept": "قبول",
+    "reject": "رفض"
 }

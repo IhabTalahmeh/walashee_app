@@ -11,6 +11,7 @@ import FastImage from 'react-native-fast-image';
 import { useApproveProcedureInvitation, useCreateProcedure, useRejectProcedureInvitation } from 'src/hooks/useProcedure';
 import * as appService from 'src/services/appService';
 import { useAuth } from 'src/context/AuthContext';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
   item: any;
@@ -18,6 +19,7 @@ interface Props {
 }
 
 export default function NotificationItem({ item, removeNotification }: Props) {
+  const { t } = useTranslation();
   const { theme } = useTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const globalStyles = useGlobalStyles();
@@ -86,7 +88,7 @@ export default function NotificationItem({ item, removeNotification }: Props) {
         </View>
         <View style={[globalStyles.flex1, globalStyles.pl10]}>
           <CustomText
-            text={`You have been added as a ${item.invitee_type} by ${item?.inviter?.last_name}, ${item?.inviter?.first_name}. Approve to add the case to your list.`}
+            text={item.messageAr}
             size={16}
             color={theme.colors.text}
             fontWeight='medium'
@@ -95,27 +97,29 @@ export default function NotificationItem({ item, removeNotification }: Props) {
       </View>
       <View style={[styles.actionButtons, globalStyles.mt10]}>
 
-        {/* Reject Invitation */}
-        <View style={[globalStyles.flex1]}>
-          <ErrorButton
-            text='Reject'
-            height={40}
-            variant='outlined'
-            disabled={isRejecting || isApproving}
-            isLoading={isRejecting}
-            onPress={handleReject}
-          />
-        </View>
-
         {/* Accept Invitation */}
         <View style={[globalStyles.flex1]}>
           <SuccessButton
-            text='Approve'
-            height={40}
+            text={t('accept')}
+            height={32}
             variant='outlined'
             disabled={isRejecting || isApproving || isCreating}
             isLoading={isApproving || isCreating}
             onPress={handleApprove}
+            fontSize={16}
+          />
+        </View>
+
+        {/* Reject Invitation */}
+        <View style={[globalStyles.flex1]}>
+          <ErrorButton
+            text={t('reject')}
+            height={32}
+            variant='outlined'
+            disabled={isRejecting || isApproving}
+            isLoading={isRejecting}
+            onPress={handleReject}
+            fontSize={16}
           />
         </View>
 

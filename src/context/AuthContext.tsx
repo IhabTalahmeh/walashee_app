@@ -3,7 +3,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as authService from '../services/authService';
 import { EventRegister } from 'react-native-event-listeners';
 import { Text, View } from 'react-native';
-import * as notificationsService from 'src/services/notificationsService';
+import * as notificationsService from 'src/services/appNotificationsService';
 
 const AuthContext = createContext<any>(undefined);
 

@@ -86,5 +86,7 @@
     "cancel-invitation-message-2": "invitation to your team?",
     "close": "Close",
     "invitation-sent-successfully": "Invitation sent successfully",
-    "invitation-cancelled-successfully": "Invitation cancelled successfully"
+    "invitation-cancelled-successfully": "Invitation cancelled successfully",
+    "accept": "Accept",
+    "reject": "Reject"
 }

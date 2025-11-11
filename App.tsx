@@ -19,7 +19,7 @@ import { useGetAppVersion } from 'src/hooks/useLookups';
 import DeviceInfo from 'react-native-device-info';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { LanguageProvider } from 'src/context/LanguageContext';
-import * as notificationsService from './src/services/notificationsService';
+import * as notificationsService from './src/services/appNotificationsService';
 import { getApp } from '@react-native-firebase/app';
 import {
   getMessaging,
@@ -27,7 +27,7 @@ import {
   onTokenRefresh,
 } from '@react-native-firebase/messaging';
 import { NavigationContainer } from '@react-navigation/native';
-import { navigationRef } from './src/services/notificationsService';
+import { navigationRef } from './src/services/appNotificationsService';
 
 LogBox.ignoreLogs(['[Reanimated]']);
 LogBox.ignoreLogs(['AxiosError']);

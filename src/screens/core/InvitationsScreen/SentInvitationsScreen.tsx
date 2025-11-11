@@ -32,9 +32,9 @@ export default function SentInvitationsScreen() {
         onError: (err: any) => console.log('error', err),
     });
 
-    const renderInvitation = useCallback(({ item }: any) => {
+    const renderInvitation = useCallback(({ item, index }: any) => {
         return (
-            <View style={[globalStyles.mt10, globalStyles.ph10]}>
+            <View style={[globalStyles.ph10, globalStyles.mt5]}>
                 <UserCard
                     item={item}
                     teamId={team.id}

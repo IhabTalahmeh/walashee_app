@@ -22,9 +22,9 @@ export default function MyTeam() {
   const globalStyles = useGlobalStyles();
   const navigation: any = useNavigation();
 
-  const renderItem = useCallback(({ item }: any) => {
+  const renderItem = useCallback(({ item, index }: any) => {
     return (
-      <View style={globalStyles.mt10}>
+      <View style={index !== 0 ? globalStyles.mt10 : globalStyles.mt5}>
         <UserItem />
       </View>
     )
@@ -37,9 +37,9 @@ export default function MyTeam() {
         icon={<UsersIcon size={22} color={theme.colors.text} />}
         rightButtons={
           <>
-            {team && <View style={[globalStyles.flexRow, { gap: 10 }]}>
+            {team && <View style={[globalStyles.flexRow, { gap: 10 }, globalStyles.aic]}>
               <TouchableOpacity onPress={() => navigation.navigate('InviteAgents')}>
-                <MaterialIcons name='person-add-alt-1' size={24} color={theme.colors.text} />
+                <MaterialIcons name='person-add-alt-1' size={25} color={theme.colors.text} />
               </TouchableOpacity>
               <TouchableOpacity onPress={() => navigation.navigate('InviteAgents')}>
                 <Ionicons name='chatbubble-ellipses' size={24} color={theme.colors.text} />
@@ -48,7 +48,7 @@ export default function MyTeam() {
           </>
         }
       />
-      <View>
+      <View style={globalStyles.p5}>
         {!team && (
           <View style={[globalStyles.h100, globalStyles.mt20]}>
             <View style={[globalStyles.aic, globalStyles.jcc]}>

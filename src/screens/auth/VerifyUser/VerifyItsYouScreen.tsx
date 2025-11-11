@@ -15,7 +15,7 @@ import CustomFormTextInput from 'src/components/common/CustomFormTextInput/Custo
 import { getPhoneNumberWithoutLeadingZero } from 'src/common/utils';
 import { LoginPhoneDto } from 'src/types/dto';
 import { useTranslation } from 'react-i18next';
-import * as notificationsService from 'src/services/notificationsService';
+import * as notificationsService from 'src/services/appNotificationsService';
 
 const initialTimer = 59;
 

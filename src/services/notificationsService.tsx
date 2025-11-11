@@ -198,11 +198,12 @@ async function sendAppNotification(message: any) {
   });
 
   const lang = await getAppLanguage();
-  const body = lang === 'ar' ? message.data.bodyAr : message.data.bodyEn;
+  const title = lang === 'ar' ? message.data.titleAr : message.data.titleEn;
+  const body = lang === 'ar' ? message.data.messageAr : message.data.messageEn;
 
   await notifee.displayNotification({
     id: message.messageId,
-    title: message.data.title,
+    title,
     body,
     data: message.data,
     android: {

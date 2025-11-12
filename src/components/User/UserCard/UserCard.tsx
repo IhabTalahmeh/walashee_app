@@ -36,7 +36,10 @@ function UserCard({ item, teamId, afterCancelInvitation }: Props) {
       appService.showToast(t('invitation-cancelled-successfully'), 'success');
       afterCancelInvitation?.();
     },
-    (err: any) => console.log('err', err),
+    (err: any) => {
+      setCancelInvitationOpen(false);
+      appService.showToast("We couldn't cancel your invitation, please try again.", 'error');
+    },
   )
 
   const cancelInvitation = async () => {

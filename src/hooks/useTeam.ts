@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from 'react-query';
-import { CreateTeamDto, PhoneDto } from 'src/types/dto';
+import { CreateTeamDto, ListDto, PhoneDto } from 'src/types/dto';
 import * as teamService from 'src/services/teamService';
 import { ListInvitationsDto } from 'src/types/dto/ListInvitationsDto';
 
@@ -17,6 +17,10 @@ const sendTeamInvite = async ({ userId, teamId, dto }: {
 
 const getTeamInvitations = async (dto: ListInvitationsDto) => {
     return await teamService.getTeamInvitations(dto);
+}
+
+const getCustomerTeamInvitations = async (dto: ListInvitationsDto) => {
+    return await teamService.getCustomerTeamInvitations(dto.userId, dto);
 }
 
 const cancelTeamInvitation = async ({ userId, teamId, invitationId }: {
@@ -39,6 +43,13 @@ const updateTeam = async ({ userId, dto }: {
     dto: CreateTeamDto,
 }) => {
     return await teamService.updateTeam(userId, dto);
+}
+
+const rejectTeamInvitation = async ({ userId, invitationId }: {
+    userId: string,
+    invitationId: string,
+}) => {
+    return await teamService.rejectTeamInvitation(userId, invitationId);
 }
 
 // ******************************************************************************************************************************
@@ -69,6 +80,15 @@ export const useGetTeamInvitations = (dto: ListInvitationsDto, options = {}) => 
     })
 }
 
+export const useGetCustomerTeamInvitations = (dto: ListInvitationsDto, options = {}) => {
+    return useQuery({
+        queryKey: ['teamInvitations', dto],
+        queryFn: () => getCustomerTeamInvitations(dto),
+        keepPreviousData: false,
+        ...options,
+    })
+}
+
 export const useCreateTeam = (onSuccess: any, onError: any, options = {}) => {
     return useMutation(createTeam, {
         onSuccess,
@@ -87,6 +107,14 @@ export const useUpdateTeam = (onSuccess: any, onError: any, options = {}) => {
 
 export const useCancelTeamInvitation = (onSuccess: any, onError: any, options = {}) => {
     return useMutation(cancelTeamInvitation, {
+        onSuccess,
+        onError,
+        ...options,
+    })
+}
+
+export const useRejectTeamInvitation = (onSuccess: any, onError: any, options = {}) => {
+    return useMutation(rejectTeamInvitation, {
         onSuccess,
         onError,
         ...options,

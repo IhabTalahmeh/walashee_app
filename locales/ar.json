@@ -88,5 +88,6 @@
     "invitation-sent-successfully": "تم إرسال الدعوة بنجاح",
     "invitation-cancelled-successfully": "تم إلغاء الدعوة بنجاح",
     "accept": "قبول",
-    "reject": "رفض"
+    "reject": "رفض",
+    "invitation-message": "قام {{name}} بدعوتك للإنضمام إلى فريقه ك{{as}}"
 }

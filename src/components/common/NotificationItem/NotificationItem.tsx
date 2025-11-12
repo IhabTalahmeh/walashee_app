@@ -15,10 +15,10 @@ import { useTranslation } from 'react-i18next';
 
 interface Props {
   item: any;
-  removeNotification: (notificationId: number) => void;
+  refetchNotifications: () => void;
 }
 
-export default function NotificationItem({ item, removeNotification }: Props) {
+export default function NotificationItem({ item, refetchNotifications }: Props) {
   const { t } = useTranslation();
   const { theme } = useTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
@@ -44,7 +44,7 @@ export default function NotificationItem({ item, removeNotification }: Props) {
     (data: any) => {
       if (data.status_code == 200) {
         appService.showToast('Invitation approved successfully', 'success');
-        removeNotification(Number(data.data.id));
+        refetchNotifications();
       } else {
         appService.showToast('Could not approve invitation, please try again', 'error');
       }
@@ -58,7 +58,7 @@ export default function NotificationItem({ item, removeNotification }: Props) {
     (data: any) => {
       if (data.status_code == 200) {
         appService.showToast('Invitation rejected successfully', 'success');
-        removeNotification(Number(data.data.id));
+        refetchNotifications();
       } else {
         appService.showToast('Could not reject invitation, please try again', 'error');
       }

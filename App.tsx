@@ -74,6 +74,7 @@ function App(): React.JSX.Element {
       screens: {
         Home: 'home',
         NotificationsScreen: 'NotificationsScreen',
+        InvitationsScreen: 'InvitationsScreen',
       },
     },
     getInitialURL: async () => {

@@ -3,15 +3,12 @@ import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { useTheme } from 'src/context/ThemeContext';
 import { useGlobalStyles } from 'src/hooks/useGlobalStyles';
-import HomeScreen from '../HomeScreen/HomeScreen';
 import HomeIcon from 'src/icons/HomeIcon';
 import HomeIconOutline from 'src/icons/HomeIconOutline';
 import { fonts } from 'src/styles/theme';
 import { Host } from 'react-native-portalize';
-import UsersScreen from '../UsersScreen/UsersScreen';
-import UsersIcon from 'src/icons/UsersIcon';
-import UsersIconOutline from 'src/icons/UsersIconOutline';
 import { useTranslation } from 'react-i18next';
+import CU_HomeScreen from '../HomeScreen/CU_HomeScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -55,7 +52,7 @@ export default function CU_MainScreen() {
                     ? <HomeIcon size={26} color={color} />
                     : <HomeIconOutline size={26} color={color} />,
               }}
-              component={HomeScreen} />
+              component={CU_HomeScreen} />
 
 
           </Tab.Navigator>

@@ -22,6 +22,16 @@ export const getTeamInvitations = async (dto: ListInvitationsDto) => {
     return await ApiService.get(`${path}/${dto.userId}/teams/${dto.teamId}/invitations?type=${dto.type}&page=${dto.page}&size=${dto.size}`);
 }
 
+export const getCustomerTeamInvitations = async (userId: string, dto: ListInvitationsDto) => {
+    const path = await getUseAs();
+    return await ApiService.get(`${path}/${userId}/invitations?type=${dto.type}&page=${dto.page}&size=${dto.size}`);
+}
+
+export const rejectTeamInvitation = async (userId: string, invitationId: string) => {
+    const path = await getUseAs();
+    return await ApiService.delete(`${path}/${userId}/invitations/${invitationId}`);
+}
+
 export const cancelTeamInvitations = async (userId: string, teamId: string, invitationId: string) => {
     const path = await getUseAs();
     return await ApiService.delete(`${path}/${userId}/teams/${teamId}/invitations/${invitationId}`);

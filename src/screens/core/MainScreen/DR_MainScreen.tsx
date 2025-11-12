@@ -3,7 +3,7 @@ import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { useTheme } from 'src/context/ThemeContext';
 import { useGlobalStyles } from 'src/hooks/useGlobalStyles';
-import HomeScreen from '../HomeScreen/HomeScreen';
+import HomeScreen from '../HomeScreen/AG_HomeScreen';
 import HomeIcon from 'src/icons/HomeIcon';
 import HomeIconOutline from 'src/icons/HomeIconOutline';
 import { fonts } from 'src/styles/theme';

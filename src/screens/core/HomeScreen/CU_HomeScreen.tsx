@@ -1,34 +1,28 @@
 import { View, TouchableOpacity, SafeAreaView, Dimensions } from 'react-native';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { useAuth } from 'src/context/AuthContext';
 import UserAvatar from 'src/components/common/UserAvatar/UserAvatar';
 import CustomText from 'src/components/common/CustomText/CustomText';
 import { useTheme } from 'src/context/ThemeContext';
 import { useGlobalStyles } from 'src/hooks/useGlobalStyles';
-import BellIcon from 'src/icons/BellIcon';
 import { createStyles } from './styles';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import MyTabBar from './MyTabBar';
 import { fonts } from 'src/styles/theme';
-import { Portal } from 'react-native-portalize';
-
-// Replace these with your actual screen components
-import CasesScreen from '../CasesScreen/CasesScreen';
-import PeriodCasesScreen from '../CasesScreen/PeriodCasesScreen';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import ProcedureNotificationsIcon from 'src/components/Case/ProcedureNotificationsIcon/ProcedureNotificationsIcon';
-import { ECaseFilter } from 'src/enum/ECaseFilter';
 import { useTranslation } from 'react-i18next';
-import { LanguageSelector } from 'src/components/common/LanguageSelector/LanguageSelector';
 import PreparingScreen from '../PreparingScreen/PreparingScreen';
 import OnTheWayScreen from '../OnTheWayScreen/OnTheWayScreen';
 import DeliveredScreen from '../DeliveredScreen/DeliveredScreen';
+import HeaderCircleButton from 'src/components/buttons/HeaderCircleButton/HeaderCircleButton';
+import CalendarIcon from 'src/icons/CalendarIcon';
+import BellIcon from 'src/icons/BellIcon';
 
 const initialLayout = { width: Dimensions.get('window').width };
 const Tab = createMaterialTopTabNavigator();
 
-export default function HomeScreen() {
+export default function CU_HomeScreen() {
   const { t } = useTranslation();
   const { user } = useAuth();
   const globalStyles = useGlobalStyles();
@@ -59,19 +53,19 @@ export default function HomeScreen() {
         </TouchableOpacity>
       ),
       headerRight: () => (
-        <ProcedureNotificationsIcon />
+        <View style={[globalStyles.flexRow, globalStyles.aic]}>
+          <HeaderCircleButton
+            icon={<CalendarIcon size={24} color={theme.colors.text} />}
+            onPress={() => navigation.navigate('InvitationsScreen')}
+          />
+          <HeaderCircleButton
+            icon={<BellIcon size={24} color={theme.colors.text} />}
+            onPress={() => navigation.navigate('NotificationsScreen')}
+          />
+        </View>
       ),
     });
   }, [user, theme.mode]);
-
-
-  const CasesScreen2 = () => {
-    return (
-      <View>
-        <LanguageSelector />
-      </View>
-    )
-  }
 
   return (
     <SafeAreaView style={styles.container}>

@@ -9,14 +9,12 @@ export default function NotificationsScreen() {
   const [size, setSize] = useState<number>(10);
   const globalStyles = useGlobalStyles();
 
-  const { data: notifications } = useGetNotifications({ page, size });
+  const { data: notifications, refetch: refetchNotifications } = useGetNotifications({ page, size });
 
   const renderItem = useCallback(({ item }: any) => {
     return (
       <View style={[globalStyles.mt5, globalStyles.mh5]}>
-        <NotificationItem item={item} removeNotification={function (notificationId: number): void {
-          throw new Error('Function not implemented.');
-        }} />
+        <NotificationItem item={item} refetchNotifications={refetchNotifications} />
       </View>
     )
   }, [])

@@ -1,13 +1,22 @@
 import { StyleSheet } from 'react-native';
 import { fonts, Theme } from '../../../styles/theme';
-import { hexWithOpacity } from 'src/common/utils';
 
 export const createStyles = (theme: Theme) => {
   return StyleSheet.create({
     container: {
-      backgroundColor: hexWithOpacity(theme.colors.background, 0.9),
+      backgroundColor: theme.colors.background,
       padding: 10,
-      borderRadius: 14,
+      borderRadius: 20
+    },
+    iconContainer: {
+      width: 50,
+      height: 50,
+      borderRadius: 100,
+      justifyContent: 'center',
+      alignItems: 'center',
+      borderWidth: 1,
+      borderColor: theme.colors.border,
+      overflow: 'hidden'
     },
     imageContainer: {
       width: 50,
@@ -22,8 +31,7 @@ export const createStyles = (theme: Theme) => {
     },
     notificationText: {
       fontFamily: fonts.medium,
-      fontSize: 18,
-      color: theme.colors.text
+      fontSize: 18
     }
   });
 }

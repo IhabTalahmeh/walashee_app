@@ -38,6 +38,8 @@ import AG_MainScreen from 'src/screens/core/MainScreen/AG_MainScreen';
 import InviteAgents from 'src/screens/user/InviteUsers/InviteAgents';
 import InviteDrivers from 'src/screens/user/InviteUsers/InviteDrivers';
 import CreateTeamScreen from 'src/screens/core/CreateTeamScreen/CreateTeamScreen';
+import ReceivedInvitationsScreen from 'src/screens/core/InvitationsScreen/ReceivedInvitationsScreen';
+import CU_InvitationsScreen from 'src/screens/core/InvitationsScreen/CU_InvitationsScreen';
 
 type GuestStackParamList = {
   Login: undefined;
@@ -58,6 +60,7 @@ type NotCompletedProfileStackParamList = {
 
 type CustomerStackParamList = {
   CU_Main: undefined;
+  ReceivedInvitationsScreen: undefined;
   AddCase: undefined;
   CaseDetails: undefined;
   CameraScreen: undefined;
@@ -319,6 +322,7 @@ export const NotCompletedProfileStack = () => {
 };
 
 export const CustomerStack = () => {
+  const { t } = useTranslation();
   const { language } = useContext(LanguageContext);
   const { theme } = useTheme();
   const globalStyles = useGlobalStyles();
@@ -352,6 +356,7 @@ export const CustomerStack = () => {
           )
         }}>
         <Stack.Screen options={{ headerShown: false }} name="CU_Main" component={CU_MainScreen} />
+        <Stack.Screen options={{ headerShown: true, title: t('invitations') }} name="InvitationsScreen" component={CU_InvitationsScreen} />
         <Stack.Screen options={{ headerShown: true, title: 'Case' }} name="AddCase" component={AddCaseScreen} />
         <Stack.Screen options={{ headerShown: true, title: '' }} name="CaseDetails" component={CaseDetailsScreen} />
         <Stack.Screen options={{ headerShown: true, title: 'Menu', animation: 'slide_from_left' }} name="MenuScreen" component={MenuScreen} />

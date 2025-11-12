@@ -1,14 +1,18 @@
-import { View, Text, TouchableOpacity } from 'react-native'
-import React, { useMemo } from 'react'
+import { View, Text } from 'react-native'
+import React, { useMemo, useState } from 'react'
 import { useTheme } from 'src/context/ThemeContext';
 import { createStyles } from './styles';
 import { useGlobalStyles } from 'src/hooks/useGlobalStyles';
+import DocIcon from 'src/icons/DocIcon';
+import ErrorButton from 'src/components/buttons/CustomButton/variants/ErrorButton';
+import SuccessButton from 'src/components/buttons/CustomButton/variants/SuccessButton';
 import FastImage from 'react-native-fast-image';
-import { fonts } from 'src/styles/theme';
-import { ErrorButton, SuccessButton } from 'src/components/buttons/CustomButton/variants';
-import { useAcceptInvitation, useRejectInvitation } from 'src/hooks/useUsers';
-import { useAuth } from 'src/context/AuthContext';
+import { useApproveProcedureInvitation, useCreateProcedure, useRejectProcedureInvitation } from 'src/hooks/useProcedure';
 import * as appService from 'src/services/appService';
+import { useAuth } from 'src/context/AuthContext';
+import { useTranslation } from 'react-i18next';
+import CustomText from 'src/components/common/CustomText/CustomText';
+import { useRejectTeamInvitation } from 'src/hooks/useTeam';
 
 interface Props {
   item: any;
@@ -16,93 +20,74 @@ interface Props {
 }
 
 export default function InvitationItem({ item, refetchInvitations }: Props) {
-  const { user } = useAuth();
+  const { t } = useTranslation();
   const { theme } = useTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const globalStyles = useGlobalStyles();
+  const { user } = useAuth();
 
-  const { mutate: acceptMutation, isLoading: isAccepting } = useAcceptInvitation(
+  const { mutate: rejectMutation, isLoading: isRejecting } = useRejectTeamInvitation(
     (data: any) => {
-      appService.showToast('Invitation accepted successfully', 'success');
       refetchInvitations();
+      appService.showToast(t('invitation-rejected-successfully'), 'success');
     },
-    (err: any) => {
-      appService.showToast(err, 'error');
-    },
+    (error: any) => {
+      console.log('error reject', error);
+      appService.showToast(error.message, 'error');
+    }
   )
-
-  const { mutate: rejectMutation, isLoading: isRejecting } = useRejectInvitation(
-    (data: any) => {
-      appService.showToast('Invitation rejected successfully', 'success');
-      refetchInvitations();
-    },
-    (err: any) => {
-      appService.showToast(err, 'error');
-    },
-  )
-
-  const handleAccept = () => {
-    acceptMutation({
-      userId: user.id,
-      doctorId: item.id,
-    });
-  }
 
   const handleReject = () => {
     rejectMutation({
       userId: user.id,
-      doctorId: item.id,
+      invitationId: item.id,
     });
   }
 
   return (
-    <>
-      <View style={styles.container}>
-        <View style={[globalStyles.flexRow]}>
-          <View style={styles.imageContainer}>
-            <FastImage
-              source={item?.user_media?.image?.href_big ? { uri: item.user_media.image.href_big, cache: FastImage.cacheControl.immutable } : require('assets/images/avatar.png')}
-              resizeMode='cover'
-              style={globalStyles.full}
-            />
-          </View>
-          <View style={[globalStyles.ph10, globalStyles.flex1]}>
-            <Text style={styles.notificationText}>
-              <Text style={{ fontFamily: fonts.bold }}>{item.name}</Text>
-              {' has invited you to their dashboard.'}
-            </Text>
-
-          </View>
+    <View style={styles.container}>
+      <View style={[globalStyles.flexRow]}>
+        <View style={styles.iconContainer}>
+          <FastImage source={item?.inviter?.avatars?.small ? { uri: item?.inviter?.avatars?.small } : require('assets/images/doctor-placeholder.png')} style={globalStyles.full} resizeMode='cover' />
         </View>
-
-        <View style={[styles.actionButtons, globalStyles.mt10]}>
-
-          {/* Reject Invitation */}
-          <View style={[globalStyles.flex1]}>
-            <ErrorButton
-              text='Reject'
-              height={40}
-              variant='outlined'
-              disabled={isRejecting}
-              isLoading={isRejecting}
-              onPress={handleReject}
-            />
-          </View>
-
-          {/* Accept Invitation */}
-          <View style={[globalStyles.flex1]}>
-            <SuccessButton
-              text='Accept'
-              height={40}
-              variant='outlined'
-              disabled={isAccepting}
-              isLoading={isAccepting}
-              onPress={handleAccept}
-            />
-          </View>
-
+        <View style={[globalStyles.flex1, globalStyles.pl10]}>
+          <CustomText
+            text={t('invitation-message', { name: item.inviter.fullName, as: t(item.as) })}
+            size={16}
+            color={theme.colors.text}
+            fontWeight='medium'
+          />
         </View>
       </View>
-    </>
+      <View style={[styles.actionButtons, globalStyles.mt10]}>
+
+        {/* Accept Invitation */}
+        <View style={[globalStyles.flex1]}>
+          <SuccessButton
+            text={t('accept')}
+            height={32}
+            variant='outlined'
+            // disabled={isRejecting || isApproving || isCreating}
+            // isLoading={isApproving || isCreating}
+            // onPress={handleApprove}
+            fontSize={16}
+          />
+        </View>
+
+        {/* Reject Invitation */}
+        <View style={[globalStyles.flex1]}>
+          <ErrorButton
+            text={t('reject')}
+            height={32}
+            variant='outlined'
+            disabled={isRejecting}
+            isLoading={isRejecting}
+            onPress={handleReject}
+            fontSize={16}
+          />
+        </View>
+
+      </View>
+    </View>
   )
 }

@@ -9,17 +9,22 @@ import { LanguageContext } from 'src/context/LanguageContext';
 
 interface Props {
   title: string;
+  rounded?: boolean;
   onBackPress: () => void;
 }
 
-export default function CustomHeader({ title, onBackPress }: Props) {
+export default function CustomHeader({ title, onBackPress, rounded = true }: Props) {
   const { language } = useContext(LanguageContext);
   const { theme } = useTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const globalStyles = useGlobalStyles();
 
   return (
-    <View style={styles.container}>
+    <View style={{
+      ...styles.container,
+      borderBottomRightRadius: rounded ? 20 : 0,
+      borderBottomLeftRadius: rounded ? 20 : 0,
+    }}>
       <TouchableOpacity style={globalStyles.headerBackImage} onPress={onBackPress}>
         <Ionicons name={language == 'ar' ? 'arrow-forward' : 'arrow-back'} size={24} color={theme.colors.text} />
       </ TouchableOpacity>

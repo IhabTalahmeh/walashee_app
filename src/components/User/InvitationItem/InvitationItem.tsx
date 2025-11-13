@@ -13,7 +13,8 @@ import { useAuth } from 'src/context/AuthContext';
 import { useTranslation } from 'react-i18next';
 import CustomText from 'src/components/common/CustomText/CustomText';
 import { useRejectTeamInvitation } from 'src/hooks/useTeam';
-import AcceptInvitationModal from '../AcceptInvitationModal/AcceptInvitationModal';
+import AcceptInvitationModal from '../../../screens/user/AcceptInvitationScreen/AcceptInvitationScreen';
+import { useNavigation } from '@react-navigation/native';
 
 interface Props {
   item: any;
@@ -26,7 +27,7 @@ export default function InvitationItem({ item, refetchInvitations }: Props) {
   const styles = useMemo(() => createStyles(theme), [theme]);
   const globalStyles = useGlobalStyles();
   const { user } = useAuth();
-  const [visible, setVisible] = useState<boolean>(false);
+  const navigation: any = useNavigation();
 
   const { mutate: rejectMutation, isLoading: isRejecting } = useRejectTeamInvitation(
     (data: any) => {
@@ -58,7 +59,7 @@ export default function InvitationItem({ item, refetchInvitations }: Props) {
         </View>
         <View style={[globalStyles.flex1, globalStyles.pl10]}>
           <CustomText
-            text={t('invitation-message', { name: item.inviter.fullName, as: t(item.as) })}
+            text={t('invitation-message', { name: item.inviter.fullName, team: item.inviter.gender == 'male' ? t('invitation-team.his-team') : t('invitation-team.her-team'), as: t(`as.${item.as}`) })}
             size={16}
             color={theme.colors.text}
             fontWeight='medium'
@@ -75,7 +76,7 @@ export default function InvitationItem({ item, refetchInvitations }: Props) {
             variant='outlined'
             // disabled={isRejecting || isApproving || isCreating}
             // isLoading={isApproving || isCreating}
-            onPress={() => setVisible(true)}
+            onPress={() => navigation.navigate('AcceptInvitationScreen')}
             fontSize={16}
           />
         </View>
@@ -93,11 +94,6 @@ export default function InvitationItem({ item, refetchInvitations }: Props) {
           />
         </View>
 
-      </View>
-
-      <View>
-        <AcceptInvitationModal
-         visible={visible} setVisible={setVisible} />
       </View>
     </View>
   )

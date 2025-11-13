@@ -89,5 +89,20 @@
     "invitation-cancelled-successfully": "Invitation cancelled successfully",
     "accept": "Accept",
     "reject": "Reject",
-    "invitation-message": "قام {{name}} بدعوتك للإنضمام إلى فريقه ك{{as}}."
+    "invitation-message": "{{name}} has invited you to join {{team}} as {{as}}",
+    "accept-invitation-title": "Notice before proceeding",
+    "accept-invitation-desc-1": "To complete the process of joining the team, we need to verify your identity as an authorized agent.",
+    "accept-invitation-desc-2": "In the next step, you will be asked to enter your personal information and attach a photo of your official ID or passport.",
+    "accept-invitation-desc-3": "Please ensure the accuracy of the information and the validity of the attached documents, as the application will not be accepted without them.",
+    "continue": "Continue",
+    "scan-id-or-passport": "Scan ID/Passport",
+    "identity-confirmation-title": "Identity verification",
+    "as": {
+        "agent": "an agent",
+        "driver": "a driver"
+    },
+    "invitation-team": {
+        "his-team": "his team",
+        "her-team": "her team"
+    }
 }

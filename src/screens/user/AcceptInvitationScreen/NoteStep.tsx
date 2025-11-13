@@ -1,4 +1,4 @@
-import { View, Text } from 'react-native'
+import { View, Text, SafeAreaView } from 'react-native'
 import React, { useMemo } from 'react'
 import { useTheme } from 'src/context/ThemeContext'
 import { createStyles } from './styles';
@@ -20,7 +20,7 @@ export default function NoteStep(props: any) {
   } = props.shared;
 
   return (
-    <View style={[globalStyles.flex1, globalStyles.mt10]}>
+    <View style={[globalStyles.flex1, globalStyles.pv20]}>
       <CustomText
         text={t('accept-invitation-title')}
         size={26}

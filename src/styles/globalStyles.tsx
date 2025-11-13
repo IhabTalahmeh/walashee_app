@@ -25,6 +25,13 @@ export const createGlobalStyles = (theme: Theme) =>
       elevation: 0,
       shadowOpacity: 0,
     },
+    squareHeader: {
+      height: headerHeight,
+      borderBottomRightRadius: 0,
+      borderBottomLeftRadius: 0,
+      elevation: 0,
+      shadowOpacity: 0,
+    },
     headerRadius: {
       borderBottomRightRadius: 20,
       borderBottomLeftRadius: 20,

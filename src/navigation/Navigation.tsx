@@ -41,6 +41,7 @@ import CreateTeamScreen from 'src/screens/core/CreateTeamScreen/CreateTeamScreen
 import ReceivedInvitationsScreen from 'src/screens/core/InvitationsScreen/ReceivedInvitationsScreen';
 import CU_InvitationsScreen from 'src/screens/core/InvitationsScreen/CU_InvitationsScreen';
 import AcceptInvitationScreen from 'src/screens/user/AcceptInvitationScreen/AcceptInvitationScreen';
+import AgentTeamRequestTermsScreen from 'src/screens/core/AgentTeamRequestTermsScreen/AgentTeamRequestTermsScreen';
 
 type GuestStackParamList = {
   Login: undefined;
@@ -63,6 +64,7 @@ type CustomerStackParamList = {
   CU_Main: undefined;
   ReceivedInvitationsScreen: undefined;
   AcceptInvitationScreen: undefined;
+  AgentTeamRequestTermsScreen: undefined;
   AddCase: undefined;
   CaseDetails: undefined;
   CameraScreen: undefined;
@@ -369,6 +371,7 @@ export const CustomerStack = () => {
         <Stack.Screen options={{ headerShown: true, title: 'Reimbursement' }} name="AddReimbursement" component={AddReimbursement} />
         <Stack.Screen options={{ headerShown: true, title: 'Edit Profile' }} name="EditProfileScreen" component={EditProfileScreen} />
         <Stack.Screen options={{ headerShown: true, title: 'Notifications' }} name="NotificationsScreen" component={NotificationsScreen} />
+        <Stack.Screen options={{ headerShown: true, title: '' }} name="AgentTeamRequestTermsScreen" component={AgentTeamRequestTermsScreen} />
 
         <Stack.Screen
           options={{

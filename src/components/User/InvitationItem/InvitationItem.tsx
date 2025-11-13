@@ -15,6 +15,7 @@ import CustomText from 'src/components/common/CustomText/CustomText';
 import { useRejectTeamInvitation } from 'src/hooks/useTeam';
 import AcceptInvitationModal from '../../../screens/user/AcceptInvitationScreen/AcceptInvitationScreen';
 import { useNavigation } from '@react-navigation/native';
+import { EGender } from 'src/enum/EGender';
 
 interface Props {
   item: any;
@@ -59,7 +60,7 @@ export default function InvitationItem({ item, refetchInvitations }: Props) {
         </View>
         <View style={[globalStyles.flex1, globalStyles.pl10]}>
           <CustomText
-            text={t('invitation-message', { name: item.inviter.fullName, team: item.inviter.gender == 'male' ? t('invitation-team.his-team') : t('invitation-team.her-team'), as: t(`as.${item.as}`) })}
+            text={t(`${item.inviter.gender}-invitation-message`, { name: item.inviter.fullName, as: t(`as.${item.inviter.gender}-${item.as}`) })}
             size={16}
             color={theme.colors.text}
             fontWeight='medium'

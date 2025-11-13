@@ -89,20 +89,31 @@
     "invitation-cancelled-successfully": "تم إلغاء الدعوة بنجاح",
     "accept": "قبول",
     "reject": "رفض",
-    "invitation-message": "قام {{name}} بدعوتك للإنضمام إلى فريقه ك{{as}}.",
+    "male-invitation-message": "قام {{name}} بدعوتك للإنضمام إلى فريقه ك{{as}}.",
+    "female-invitation-message": "قامت {{name}} بدعوتك للإنضمام إلى فريقها ك{{as}}.",
     "accept-invitation-title": "تنويه قبل المتابعة",
     "accept-invitation-desc-1": "لإتمام عملية الانضمام إلى الفريق، نحتاج إلى التحقق من هويتك كوكيل معتمد.",
     "accept-invitation-desc-2": "في الخطوة التالية، سيُطلب منك إدخال معلوماتك الشخصية وإرفاق صورة من هويتك الرسمية أو جواز سفرك.",
     "accept-invitation-desc-3": "يرجى التأكد من دقة المعلومات وصحة الوثائق المرفقة، إذ لن يُقبل الطلب بدونها.",
     "continue": "متابعة",
-    "scan-id-or-passport": "مسح صورة الهوية/جواز السفر",
+    "scan-id-or-passport": "صورة الهوية/جواز السفر",
     "identity-confirmation-title": "التحقق من الهوية",
     "as": {
-        "agent": "وكيل",
-        "driver": "سائق"
+        "male-agent": "وكيل",
+        "female-agent": "وكيلة",
+        "male-driver": "سائق",
+        "female-driver": "سائقة"
     },
-    "invitation-team": {
-        "his-team": "فريقه",
-        "her-team": "فريقها"
-    }
+    "send": "إرسال",
+    "full-name-4": "الإسم الرباعي",
+    "enter-full-name-4": "أدخل الإسم الرباعي",
+    "email": "البريد الإلكتروني",
+    "enter-email": "أدخل البريد الإلكتروني",
+    "id-or-passport-number": "رقم الهوية/جواز السفر",
+    "enter-id-or-passport-number": "أدخل رقم الهوية/جواز السفر",
+    "address": "العنوان",
+    "enter-address": "أدخل العنوان",
+    "agent-request-terms-1": "بالموافقة، فإنني أؤكّد بأن جميع البيانات المقدَّمة صحيحة، وأوافق على",
+    "agent-request-terms-2": "وأتحمّل كامل المسؤولية عن أي معلومات غير صحيحة.",
+    "agent-terms-of-use": "الشروط والأحكام وسياسات الشركة،"
 }

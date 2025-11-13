@@ -5,7 +5,7 @@ import { useTheme } from 'src/context/ThemeContext';
 import { createStyles } from './styles';
 import { ScrollView } from 'react-native-gesture-handler';
 import PhoneSignUpForm from 'src/components/Forms/PhoneSignUpForm/PhoneSignUpForm';
-import SignUpNote from 'src/components/SignUpNote/SignUpNote';
+import SignUpNote from 'src/components/Notes/SignUpNote/SignUpNote';
 
 export default function LoginScreen() {
   const globalStyles = useGlobalStyles();

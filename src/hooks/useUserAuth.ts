@@ -19,35 +19,8 @@ const signUpWithPhone = async (dto: PhoneDto) => {
   return await authService.signUpWithPhone(dto);
 }
 
-const changePassword = async ({ userId, dto }: {
-  userId: number,
-  dto: ChangePasswordDto
-}) => {
-  return await authService.changePassword(userId, dto);
-}
-
-const forgetPassword = async (email: string) => {
-  return await authService.forgetPassword(email);
-}
-
-const verifyEmail = async (dto: VerifyEmailDto) => {
-  return await authService.isValidVerificationCode(dto);
-}
-
-const resetPassword = async (dto: ResetPasswordDto) => {
-  return await authService.resetPassword(dto);
-}
-
-const resendVerificationCode = async (dto: PhoneDto) => {
-  return await authService.resendVerificationCode(dto);
-}
-
 const verifyAccount = async (dto: PhoneWithCodeDto) => {
   return await authService.verifyAccount(dto);
-}
-
-const deleteAccount = async (userId: number) => {
-  return await authService.deleteAccount(userId);
 }
 
 // ************************************************************************
@@ -69,38 +42,6 @@ export const useSendPhoneLoginVerificationCode = (onSuccess: any, onError: any) 
   });
 }
 
-export const useChangePassword = (onSuccess: any, onError: any, options = {}) => {
-  return useMutation(changePassword, {
-    onSuccess,
-    onError,
-    ...options
-  })
-}
-
-export const useForgetPassword = (onSuccess: any, onError: any, options = {}) => {
-  return useMutation(forgetPassword, {
-    onSuccess,
-    onError,
-    ...options
-  })
-}
-
-export const useVerifyEmail = (onSuccess: any, onError: any, options = {}) => {
-  return useMutation(verifyEmail, {
-    onSuccess,
-    onError,
-    ...options
-  })
-}
-
-export const useResetPassword = (onSuccess: any, onError: any, options = {}) => {
-  return useMutation(resetPassword, {
-    onSuccess,
-    onError,
-    ...options
-  })
-}
-
 export const useSignUpWithPhone = (onSuccess: any, onError: any, options = {}) => {
   return useMutation(signUpWithPhone, {
     onSuccess,
@@ -109,24 +50,8 @@ export const useSignUpWithPhone = (onSuccess: any, onError: any, options = {}) =
   })
 }
 
-export const useResendVerificationCode = (dto: PhoneDto, options = {}) => {
-  return useQuery({
-    queryKey: ['verificationCode'],
-    queryFn: () => resendVerificationCode(dto),
-    ...options,
-  })
-}
-
 export const useVerifyAccount = (onSuccess: any, onError: any, options = {}) => {
   return useMutation(verifyAccount, {
-    onSuccess,
-    onError,
-    ...options
-  })
-}
-
-export const useDeleteAccount = (onSuccess: any, onError: any, options = {}) => {
-  return useMutation(deleteAccount, {
     onSuccess,
     onError,
     ...options

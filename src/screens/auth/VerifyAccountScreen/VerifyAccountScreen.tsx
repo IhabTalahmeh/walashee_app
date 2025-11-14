@@ -8,12 +8,12 @@ import { useTheme } from 'src/context/ThemeContext';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import * as Yup from 'yup';
 import CustomText from 'src/components/common/CustomText/CustomText';
-import { useLoginWithPhoneCode, useResendVerificationCode, useSignUpWithPhone, useVerifyAccount } from 'src/hooks/useUserAuth';
+import { useSignUpWithPhone, useVerifyAccount } from 'src/hooks/useUserAuth';
 import { createStyles } from './styles';
 import { useAuth } from 'src/context/AuthContext';
 import CustomFormTextInput from 'src/components/common/CustomFormTextInput/CustomFormTextInput';
 import { getPhoneNumberWithoutLeadingZero } from 'src/common/utils';
-import { LoginPhoneDto, PhoneWithCodeDto } from 'src/types/dto';
+import { PhoneWithCodeDto } from 'src/types/dto';
 import { useTranslation } from 'react-i18next';
 import * as appService from 'src/services/appService';
 
@@ -27,7 +27,7 @@ const initialValues = {
 
 export default function VerifyAccountScreen() {
   const { t } = useTranslation();
-  const { user, login, logout } = useAuth();
+  const { login } = useAuth();
   const { theme } = useTheme();
   const globalStyles = useGlobalStyles();
   const styles = useMemo(() => createStyles(theme), [theme]);

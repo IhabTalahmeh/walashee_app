@@ -1,11 +1,8 @@
 import { PhoneDto } from "src/types/dto";
 import { ApiService } from "./apiService";
-import { EInvitationType } from "src/enum/EInvitationType";
-import { ListDto } from "src/types/dto/ListDto";
 import { ListInvitationsDto } from "src/types/dto/ListInvitationsDto";
 import { getUseAs } from "./localStorageService";
 import { CreateTeamDto } from "src/types/dto/CreateTeamDto";
-
 
 export const sendTeamInvite = async (userId: string, teamId: string, dto: PhoneDto) => {
     const path = await getUseAs();

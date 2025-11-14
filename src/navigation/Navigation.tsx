@@ -9,23 +9,12 @@ import { StatusBar, TouchableOpacity } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { useGlobalStyles } from 'src/hooks/useGlobalStyles';
 import { useNavigation } from '@react-navigation/native';
-import CaseDetailsScreen from 'src/screens/case/CaseDetails/CaseDetailsScreen';
-import AddCaseScreen from 'src/screens/case/AddCaseScreen/AddCaseScreen';
 import CameraScreen from 'src/screens/Camera/CameraScreen/CameraScreen';
 import { headerHeight } from 'src/styles/globalStyles';
 import InvitationsScreen from 'src/screens/core/InvitationsScreen/InvitationsScreen';
 import MenuScreen from 'src/screens/core/MenuScreen/MenuScreen';
 import ProfileScreen from 'src/screens/core/ProfileScreen/ProfileScreen';
-import AddPosition from 'src/screens/user/AddPosition/AddPosition';
-import AddEducation from 'src/screens/user/AddEducation/AddEducation';
-import AddReimbursement from 'src/screens/user/AddReimbursement/AddReimbursement';
-import EditProfileScreen from 'src/screens/user/EditProfile/EditProfileScreen';
-import SharedDashboardScreen from 'src/screens/user/SharedDashboardScreen/SharedDashboardScreen';
-import ChangePasswordScreen from 'src/screens/auth/ChangePassword/ChangePasswordScreen';
 import NotificationsScreen from 'src/screens/core/NotificationsScreen/NotificationsScreen';
-import ForgotPasswordScreen from 'src/screens/auth/ForgotPassword/ForgotPasswordScreen';
-import ResetPasswordScreen from 'src/screens/auth/ResetPassword/ResetPasswordScreen';
-import PlansScreen from 'src/screens/auth/PlansScreen/PlansScreen';
 import PrivacyPolicyScreen from 'src/screens/core/PrivacyPolicyScreen/PrivacyPolicyScreen';
 import TermsOfUseScreen from 'src/screens/core/TermsOfUseScreen/TermsOfUseScreen';
 import VerifyItsYouScreen from 'src/screens/auth/VerifyUser/VerifyItsYouScreen';
@@ -38,7 +27,6 @@ import AG_MainScreen from 'src/screens/core/MainScreen/AG_MainScreen';
 import InviteAgents from 'src/screens/user/InviteUsers/InviteAgents';
 import InviteDrivers from 'src/screens/user/InviteUsers/InviteDrivers';
 import CreateTeamScreen from 'src/screens/core/CreateTeamScreen/CreateTeamScreen';
-import ReceivedInvitationsScreen from 'src/screens/core/InvitationsScreen/ReceivedInvitationsScreen';
 import CU_InvitationsScreen from 'src/screens/core/InvitationsScreen/CU_InvitationsScreen';
 import AcceptInvitationScreen from 'src/screens/user/AcceptInvitationScreen/AcceptInvitationScreen';
 import AgentTeamRequestTermsScreen from 'src/screens/core/AgentTeamRequestTermsScreen/AgentTeamRequestTermsScreen';
@@ -189,20 +177,6 @@ export const GuestStack = () => {
             backgroundColor: theme.colors.background,
             borderRadius: 0,
             shadowOpacity: 0,
-          },
-          headerShown: false,
-          title: ''
-        }}
-          name="PlansScreen"
-          component={PlansScreen}
-        />
-
-        <Stack.Screen options={{
-          headerStyle: {
-            height: headerHeight,
-            backgroundColor: theme.colors.background,
-            borderRadius: 0,
-            shadowOpacity: 0,
             elevation: 0,
           },
           headerShown: true,
@@ -213,39 +187,11 @@ export const GuestStack = () => {
         />
 
         <Stack.Screen options={{
-          headerStyle: {
-            height: headerHeight,
-            backgroundColor: theme.colors.background,
-            borderRadius: 0,
-            shadowOpacity: 0,
-          },
-          headerShown: true,
-          title: ''
-        }}
-          name="ForgotPasswordScreen"
-          component={ForgotPasswordScreen}
-        />
-
-        <Stack.Screen options={{
           headerShown: true,
           title: ''
         }}
           name="VerifyAccountScreen"
           component={VerifyAccountScreen}
-        />
-
-        <Stack.Screen options={{
-          headerStyle: {
-            height: headerHeight,
-            backgroundColor: theme.colors.background,
-            borderRadius: 0,
-            shadowOpacity: 0,
-          },
-          headerShown: true,
-          title: ''
-        }}
-          name="ResetPasswordScreen"
-          component={ResetPasswordScreen}
         />
 
         <Stack.Screen
@@ -361,15 +307,8 @@ export const CustomerStack = () => {
         }}>
         <Stack.Screen options={{ headerShown: false }} name="CU_Main" component={CU_MainScreen} />
         <Stack.Screen options={{ headerShown: true, title: t('invitations') }} name="InvitationsScreen" component={CU_InvitationsScreen} />
-        <Stack.Screen options={{ headerShown: true, title: 'Case' }} name="AddCase" component={AddCaseScreen} />
-        <Stack.Screen options={{ headerShown: true, title: '' }} name="CaseDetails" component={CaseDetailsScreen} />
         <Stack.Screen options={{ headerShown: true, title: 'Menu', animation: 'slide_from_left' }} name="MenuScreen" component={MenuScreen} />
         <Stack.Screen options={{ headerShown: true, title: 'My Profile' }} name="ProfileScreen" component={ProfileScreen} />
-        <Stack.Screen options={{ headerShown: true, title: 'Position' }} name="AddPosition" component={AddPosition} />
-        <Stack.Screen options={{ headerShown: true, title: 'Experience' }} name="AddExperience" component={AddPosition} />
-        <Stack.Screen options={{ headerShown: true, title: 'Education' }} name="AddEducation" component={AddEducation} />
-        <Stack.Screen options={{ headerShown: true, title: 'Reimbursement' }} name="AddReimbursement" component={AddReimbursement} />
-        <Stack.Screen options={{ headerShown: true, title: 'Edit Profile' }} name="EditProfileScreen" component={EditProfileScreen} />
         <Stack.Screen options={{ headerShown: true, title: 'Notifications' }} name="NotificationsScreen" component={NotificationsScreen} />
         <Stack.Screen options={{ headerShown: true, title: '' }} name="AgentTeamRequestTermsScreen" component={AgentTeamRequestTermsScreen} />
 
@@ -399,27 +338,6 @@ export const CustomerStack = () => {
           name="TermsOfUseScreen"
           component={TermsOfUseScreen} />
 
-        <Stack.Screen options={{
-          headerStyle: {
-            height: headerHeight,
-            backgroundColor: theme.colors.background,
-            borderRadius: 0
-          },
-          headerShown: true,
-          title: 'Password'
-        }}
-          name="ChangePasswordScreen"
-          component={ChangePasswordScreen}
-        />
-        <Stack.Screen options={{
-          headerShown: true,
-          title: "",
-          headerStyle: {
-            height: headerHeight,
-            backgroundColor: theme.colors.background,
-            borderRadius: 0
-          }
-        }} name="SharedDashboardScreen" component={SharedDashboardScreen} />
         <Stack.Screen
           options={{
             headerShown: false,
@@ -467,17 +385,10 @@ export const DriverStack = () => {
           )
         }}>
         <Stack.Screen options={{ headerShown: false }} name="DR_Main" component={DR_MainScreen} />
-        <Stack.Screen options={{ headerShown: true, title: 'Case' }} name="AddCase" component={AddCaseScreen} />
-        <Stack.Screen options={{ headerShown: true, title: '' }} name="CaseDetails" component={CaseDetailsScreen} />
         <Stack.Screen options={{ headerShown: true, title: t('invite-driver') }} name="InviteDrivers" component={InviteDrivers} />
         <Stack.Screen options={{ headerShown: true, title: 'Invitations' }} name="InvitationsScreen" component={InvitationsScreen} />
         <Stack.Screen options={{ headerShown: true, title: 'Menu', animation: 'slide_from_left' }} name="MenuScreen" component={MenuScreen} />
         <Stack.Screen options={{ headerShown: true, title: 'My Profile' }} name="ProfileScreen" component={ProfileScreen} />
-        <Stack.Screen options={{ headerShown: true, title: 'Position' }} name="AddPosition" component={AddPosition} />
-        <Stack.Screen options={{ headerShown: true, title: 'Experience' }} name="AddExperience" component={AddPosition} />
-        <Stack.Screen options={{ headerShown: true, title: 'Education' }} name="AddEducation" component={AddEducation} />
-        <Stack.Screen options={{ headerShown: true, title: 'Reimbursement' }} name="AddReimbursement" component={AddReimbursement} />
-        <Stack.Screen options={{ headerShown: true, title: 'Edit Profile' }} name="EditProfileScreen" component={EditProfileScreen} />
         <Stack.Screen options={{ headerShown: true, title: 'Notifications' }} name="NotificationsScreen" component={NotificationsScreen} />
 
         <Stack.Screen
@@ -496,27 +407,6 @@ export const DriverStack = () => {
           name="TermsOfUseScreen"
           component={TermsOfUseScreen} />
 
-        <Stack.Screen options={{
-          headerStyle: {
-            height: headerHeight,
-            backgroundColor: theme.colors.background,
-            borderRadius: 0
-          },
-          headerShown: true,
-          title: 'Password'
-        }}
-          name="ChangePasswordScreen"
-          component={ChangePasswordScreen}
-        />
-        <Stack.Screen options={{
-          headerShown: true,
-          title: "",
-          headerStyle: {
-            height: headerHeight,
-            backgroundColor: theme.colors.background,
-            borderRadius: 0
-          }
-        }} name="SharedDashboardScreen" component={SharedDashboardScreen} />
         <Stack.Screen
           options={{
             headerShown: false,
@@ -564,17 +454,10 @@ export const AgentStack = () => {
           )
         }}>
         <Stack.Screen options={{ headerShown: false }} name="DR_Main" component={AG_MainScreen} />
-        <Stack.Screen options={{ headerShown: true, title: 'Case' }} name="AddCase" component={AddCaseScreen} />
-        <Stack.Screen options={{ headerShown: true, title: '' }} name="CaseDetails" component={CaseDetailsScreen} />
         <Stack.Screen options={{ headerShown: true, title: t('invite-agent') }} name="InviteAgents" component={InviteAgents} />
         <Stack.Screen options={{ headerShown: true, title: '' }} name="CreateTeamScreen" component={CreateTeamScreen} />
         <Stack.Screen options={{ headerShown: true, title: 'Menu', animation: 'slide_from_left' }} name="MenuScreen" component={MenuScreen} />
         <Stack.Screen options={{ headerShown: true, title: 'My Profile' }} name="ProfileScreen" component={ProfileScreen} />
-        <Stack.Screen options={{ headerShown: true, title: 'Position' }} name="AddPosition" component={AddPosition} />
-        <Stack.Screen options={{ headerShown: true, title: 'Experience' }} name="AddExperience" component={AddPosition} />
-        <Stack.Screen options={{ headerShown: true, title: 'Education' }} name="AddEducation" component={AddEducation} />
-        <Stack.Screen options={{ headerShown: true, title: 'Reimbursement' }} name="AddReimbursement" component={AddReimbursement} />
-        <Stack.Screen options={{ headerShown: true, title: 'Edit Profile' }} name="EditProfileScreen" component={EditProfileScreen} />
         <Stack.Screen options={{ headerShown: true, title: 'Notifications' }} name="NotificationsScreen" component={NotificationsScreen} />
 
         <Stack.Screen
@@ -609,27 +492,6 @@ export const AgentStack = () => {
           name="TermsOfUseScreen"
           component={TermsOfUseScreen} />
 
-        <Stack.Screen options={{
-          headerStyle: {
-            height: headerHeight,
-            backgroundColor: theme.colors.background,
-            borderRadius: 0
-          },
-          headerShown: true,
-          title: 'Password'
-        }}
-          name="ChangePasswordScreen"
-          component={ChangePasswordScreen}
-        />
-        <Stack.Screen options={{
-          headerShown: true,
-          title: "",
-          headerStyle: {
-            height: headerHeight,
-            backgroundColor: theme.colors.background,
-            borderRadius: 0
-          }
-        }} name="SharedDashboardScreen" component={SharedDashboardScreen} />
         <Stack.Screen
           options={{
             headerShown: false,

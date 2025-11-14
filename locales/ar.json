@@ -113,7 +113,13 @@
     "enter-id-or-passport-number": "أدخل رقم الهوية/جواز السفر",
     "address": "العنوان",
     "enter-address": "أدخل العنوان",
-    "agent-request-terms-1": "بالموافقة، فإنني أؤكّد بأن جميع البيانات المقدَّمة صحيحة، وأوافق على",
+    "agent-request-terms-1": "بالإستمرار، فإنني أؤكّد بأن جميع البيانات المقدَّمة صحيحة، وأوافق على",
     "agent-request-terms-2": "وأتحمّل كامل المسؤولية عن أي معلومات غير صحيحة.",
-    "agent-terms-of-use": "الشروط والأحكام وسياسات الشركة،"
+    "agent-terms-of-use": "الشروط والأحكام وسياسات الشركة،",
+    "full-name-4-is-required": "الإسم الرباعي مطلوب",
+    "id-or-passport-number-is-required": "رقم الهوية/جواز السفر مطلوب",
+    "date-of-birth-is-required": "تاريخ الميلاد مطلوب",
+    "invalid-email-address": "البريد الإلكتروني غير صالح",
+    "email-is-required": "البريد الإلكتروني مطلوب",
+    "address-is-required": "العنوان مطلوب"
 }

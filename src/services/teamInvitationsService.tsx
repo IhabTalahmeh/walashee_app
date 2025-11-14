@@ -10,6 +10,8 @@ export const requestToJoinATeam = async (userId: string, invitationId: string, d
 
         const { filePath, ...restData } = dto;
 
+        restData.dateOfBirth = new Date(dto.dateOfBirth).toISOString().split('T')[0];
+
         let payload: any = restData;
         let config: any = {};
 
@@ -32,7 +34,7 @@ export const requestToJoinATeam = async (userId: string, invitationId: string, d
             headers: { 'Content-Type': 'multipart/form-data' },
         };
 
-        const response = await ApiService.postFormData(url, payload, config);
+        const response = await ApiService.post(url, payload, config);
         return response;
     } catch (error) {
         console.error('Failed to request to join team:', error);

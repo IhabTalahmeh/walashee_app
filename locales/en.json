@@ -112,5 +112,14 @@
     "id-or-passport-number": "ID/Passport number",
     "enter-id-or-passport-number": "Enter ID/Passport number",
     "address": "Address",
-    "enter-addresss": "Enter address"
+    "enter-addresss": "Enter address",
+    "agent-request-terms-1": "By continuing, I confirm that all the data provided is correct, and I agree to",
+    "agent-request-terms-2": "and I take full responsibility for any inaccurate information.",
+    "agent-terms-of-use": "Terms and conditions and company policies,",
+    "full-name-4-is-required": "Full name is required",
+    "id-or-passport-number-is-required": "ID/Passport number is required",
+    "date-of-birth-is-required": "Date of birth is required",
+    "invalid-email-address": "Email is invalid",
+    "email-is-required": "Email is required",
+    "address-is-required": "Address is required"
 }

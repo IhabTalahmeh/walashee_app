@@ -13,7 +13,7 @@ import Spacer from 'src/components/common/Spacer/Spacer'
 import PagerView from 'react-native-pager-view'
 import AcceptInvitationForm from 'src/components/Forms/AcceptInvitationForm/AcceptInvitationForm'
 import NoteStep from './NoteStep'
-import { useNavigation } from '@react-navigation/native'
+import { useNavigation, useRoute } from '@react-navigation/native'
 
 const { width } = Dimensions.get('window');
 
@@ -26,6 +26,8 @@ export default function AcceptInvitationScreen() {
   const pagerRef = useRef<PagerView>(null);
   const [step, setStep] = useState<number>(0);
   const navigation: any = useNavigation();
+  const route: any = useRoute();
+  const { id } = route?.params;
 
   const pages = useMemo(() => [
     NoteStep,
@@ -76,7 +78,7 @@ export default function AcceptInvitationScreen() {
           >
             {pages.map((PageComponent, index) => (
               <View key={index.toString()} style={[{ width }, globalStyles.ph15]}>
-                <PageComponent shared={sharedProps} />
+                <PageComponent shared={sharedProps} id={id} />
               </View>
             ))}
           </PagerView>

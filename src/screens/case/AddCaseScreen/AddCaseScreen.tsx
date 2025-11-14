@@ -6,7 +6,6 @@ import { useGlobalStyles } from 'src/hooks/useGlobalStyles';
 import { useGetApproachList, useGetGenders, useGetIndicationList, useGetInsuranceList, useGetInsuranceStatusList, useGetLocationList, useGetOsteotomyList, useGetProcedureList, useGetProcedureTypes, useGetRaceList, useGetSideList, useGetTICIGrade, useGetVendorsList } from 'src/hooks/useLookups';
 import * as Yup from 'yup';
 import { Formik, FormikProps } from 'formik';
-import { useGetUserHospitals } from 'src/hooks/useUserInfo';
 import { useAuth } from 'src/context/AuthContext';
 import CustomText from 'src/components/common/CustomText/CustomText';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
@@ -304,7 +303,6 @@ export default function AddCaseScreen({ route }: any) {
   const { data: raceList, isFetching: isFetchingRace } = useGetRaceList();
   const { data: insuranceList, isFetching: isFetchingInsuranceList } = useGetInsuranceList();
   const { data: insuranceStatusList, isFetching: isFetchingInsuranceStatusList } = useGetInsuranceStatusList();
-  const { data: userHospitals, isFetching: isFetchingUserHospitals, refetch: refetchUserHospitals } = useGetUserHospitals(user.id);
   const { data: procedureTypes, isFetching: isFetchingProcedureTypes } = useGetProcedureTypes(speciality);
   const { data: cranialApproachList, isFetching: isFetchingCranialApproachList } = useGetApproachList('Cranial');
   const { data: spineApproachList, isFetching: isFetchingSpineApproachList } = useGetApproachList('Spine');
@@ -338,7 +336,6 @@ export default function AddCaseScreen({ route }: any) {
     isFetchingRace ||
     isFetchingInsuranceList ||
     isFetchingInsuranceStatusList ||
-    isFetchingUserHospitals ||
     isFetchingProcedureTypes ||
     isFetchingCranialApproachList ||
     isFetchingSpineApproachList ||
@@ -437,12 +434,6 @@ export default function AddCaseScreen({ route }: any) {
       pagerRef.current?.setPage(newStep);
     }
   };
-
-  useFocusEffect(
-    useCallback(() => {
-      refetchUserHospitals();
-    }, [])
-  )
 
   const newImages = useMemo(() => {
     return images.filter(item => !item?.id);
@@ -567,7 +558,6 @@ export default function AddCaseScreen({ route }: any) {
     raceList,
     insuranceList,
     insuranceStatusList,
-    userHospitals,
     primarySurgeons,
     setPrimarySurgeons,
     coSurgeons,

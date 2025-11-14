@@ -12,32 +12,59 @@ import { useGlobalStyles } from 'src/hooks/useGlobalStyles';
 import CustomFormTextInput from 'src/components/common/CustomFormTextInput/CustomFormTextInput';
 import CustomDatePicker from 'src/components/common/CustomDatePicker/CustomDatePicker';
 import AgentTeamRequestNote from 'src/components/Notes/AgentTeamRequestNote/AgentTeamRequestNote';
+import { useRequestToJoinATeam } from 'src/hooks/useInvitations';
+import { RequestToJoinATeamDto } from 'src/types/dto/RequestToJoinATeamDto';
+import { useAuth } from 'src/context/AuthContext';
 
 const initialValues = {
-  fullName: '',
-  number: '',
+  fullName: 'test',
+  number: '123123',
   dateOfBirth: new Date(),
-  email: '',
-  address: '',
+  email: 'teset@test.te',
+  address: 'asdf asdf asdf asdf',
 }
 
-export default function AcceptInvitationForm({ props }: any) {
+interface Props {
+  id: string;
+  shared: any;
+}
+
+export default function AcceptInvitationForm({ id }: Props) {
   const { t } = useTranslation();
+  const { user } = useAuth();
   const { theme } = useTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const globalStyles = useGlobalStyles();
 
-  const [identity, setIdentity] = useState<string | null>(null);
+  const [docFile, setDocFile] = useState<string | null>(null);
+
+  const { mutate } = useRequestToJoinATeam(
+    (data: any) => {
+      console.log('succeed request', data);
+    },
+    (error: any) => {
+      console.log('error request', error);
+    }
+  )
 
   useEffect(() => {
-    if (identity !== null) {
+    if (docFile !== null) {
       // refetch();
-      console.log('identity', identity);
+      console.log('identity', docFile);
     }
-  }, [identity]);
+  }, [docFile]);
 
   const onIdentityScan = async (path: string) => {
-    setIdentity(path);
+    setDocFile(path);
+  }
+
+  const onSubmit = (values: RequestToJoinATeamDto) => {
+    mutate({
+      userId: user.id,
+      invitationId: id,
+      dto: values,
+    })
+    console.log('values', values);
   }
 
   const renderContenr = () => {
@@ -50,8 +77,8 @@ export default function AcceptInvitationForm({ props }: any) {
       >
         <Formik
           initialValues={initialValues}
-          onSubmit={(values: any) => {
-            console.log('values', values);
+          onSubmit={(values: RequestToJoinATeamDto) => {
+            onSubmit(values);
           }}>
           {(props) => (
             <View style={[globalStyles.flex1]}>

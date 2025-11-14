@@ -77,7 +77,7 @@ export default function InvitationItem({ item, refetchInvitations }: Props) {
             variant='outlined'
             // disabled={isRejecting || isApproving || isCreating}
             // isLoading={isApproving || isCreating}
-            onPress={() => navigation.navigate('AcceptInvitationScreen')}
+            onPress={() => navigation.navigate('AcceptInvitationScreen', { id: item.id })}
             fontSize={16}
           />
         </View>

@@ -1,5 +1,5 @@
-import React, { useState, useCallback, useEffect, useMemo, memo, useContext } from 'react';
-import { View, Modal, TouchableOpacity, FlatList, TextInputProps, SafeAreaView, Keyboard } from 'react-native';
+import React, { useState, useCallback, useMemo, useContext } from 'react';
+import { View, Modal, TouchableOpacity, FlatList, TextInputProps, Keyboard } from 'react-native';
 import CustomHeader from 'src/components/common/CustomHeader/CustomHeader';
 import CustomText from 'src/components/common/CustomText/CustomText';
 import { useTheme } from 'src/context/ThemeContext';
@@ -26,8 +26,6 @@ function CountryCode({
   title,
   country,
   setCountry,
-  placeholder = '',
-  ...props
 }: Props) {
   const { t } = useTranslation();
   const { language } = useContext(LanguageContext);
@@ -39,10 +37,9 @@ function CountryCode({
   const insets = useSafeAreaInsets();
 
   const { data: countries, refetch } = useGetCountries({
-    enabled: true,
     onSuccess: (data: any) => {
       if (!country) {
-        const selected = data?.find((c: CountryType) => c.id == '9c260f15-b5e1-11f0-b04b-544810c5aad1');
+        const selected = data?.find((c: CountryType) => c.phoneCode == 970);
         if (selected) {
           setCountry(selected);
         }

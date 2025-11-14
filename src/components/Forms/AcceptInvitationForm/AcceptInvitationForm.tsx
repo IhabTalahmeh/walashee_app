@@ -14,13 +14,15 @@ import { useRequestToJoinATeam } from 'src/hooks/useInvitations';
 import { RequestToJoinATeamDto } from 'src/types/dto/RequestToJoinATeamDto';
 import { useAuth } from 'src/context/AuthContext';
 import * as Yup from 'yup';
+import CustomImagePicker from 'src/components/common/CustomImagePicker/CustomImagePicker';
+import Label from 'src/components/common/Label/Label';
 
-const defaultInitialvalues = {
-  fullName: '',
-  number: '',
+const initialValues = {
+  fullName: 'test',
+  docNumber: 'test',
   dateOfBirth: new Date(),
-  email: '',
-  address: '',
+  email: 'test@test.te',
+  address: 'test',
 }
 
 interface Props {
@@ -34,12 +36,11 @@ export default function AcceptInvitationForm({ id }: Props) {
   const { theme } = useTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const globalStyles = useGlobalStyles();
-  const [initialValues, setInitialValues] = useState<RequestToJoinATeamDto>(defaultInitialvalues)
   const [filePath, setFilePath] = useState<string>('');
 
   const validationSchema = Yup.object({
     fullName: Yup.string().required(t('full-name-4-is-required')),
-    number: Yup.string().required(t('id-or-passport-number-is-required')),
+    docNumber: Yup.string().required(t('id-or-passport-number-is-required')),
     dateOfBirth: Yup.string().required(t('date-of-birth-is-required')),
     email: Yup.string().email(t('invalid-email-address')).required(t('email-is-required')),
     address: Yup.string().required(t('address-is-required')),
@@ -54,16 +55,13 @@ export default function AcceptInvitationForm({ id }: Props) {
     }
   )
 
-  const onIdentityScan = async (path: string) => {
-    setFilePath(path);
-  }
-
   const onSubmit = (values: RequestToJoinATeamDto) => {
     mutate({
       userId: user.id,
       invitationId: id,
       dto: {
         ...values,
+        dateOfBirth: new Date(values.dateOfBirth).toISOString().split('T')[0],
         filePath,
       }
     });
@@ -89,14 +87,20 @@ export default function AcceptInvitationForm({ id }: Props) {
             <View style={[globalStyles.flex1]}>
 
               {/* ID Scanner */}
-              <View>
-                {/* <IDScanner
-                  onSelect={onIdentityScan}
-                  onCancel={() => console.log('cance')} /> */}
+              <View style={[globalStyles.flexRow, globalStyles.ais, globalStyles.jcb]}>
+                <View style={globalStyles.mb5}>
+                  <Label text={t('id/passport-photo')} />
+                </View>
+                <CustomImagePicker
+                  onSelect={setFilePath}
+                  onCancel={() => console.log('cancelled')}
+                  size={100}
+                  icon={'camera'}
+                />
               </View>
 
               {/* Full name */}
-              <View style={globalStyles.mt20}>
+              <View style={globalStyles.mt10}>
                 <FastField
                   name="fullName"
                   component={CustomFormTextInput}
@@ -122,7 +126,7 @@ export default function AcceptInvitationForm({ id }: Props) {
               {/* ID/Passport number */}
               <View style={globalStyles.mt10}>
                 <FastField
-                  name="number"
+                  name="docNumber"
                   component={CustomFormTextInput}
                   required
                   label={t('id-or-passport-number')}

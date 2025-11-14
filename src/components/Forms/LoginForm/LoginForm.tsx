@@ -1,7 +1,6 @@
 import { View, KeyboardAvoidingView } from 'react-native'
 import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { Field, Formik } from 'formik';
-import { useAuth } from 'src/context/AuthContext';
 import { useSendPhoneLoginVerificationCode } from 'src/hooks/useUserAuth';
 import { createStyles } from './styles';
 import { useTheme } from 'src/context/ThemeContext';
@@ -13,7 +12,6 @@ import { useNavigation } from '@react-navigation/native';
 import CountryCode from 'src/components/common/CountryCode/CountryCode';
 import CustomFormTextInput from 'src/components/common/CustomFormTextInput/CustomFormTextInput';
 import { CountryType } from 'src/types/types/Types';
-import PagerView from 'react-native-pager-view';
 import { PhoneDto } from 'src/types/dto';
 import { useTranslation } from 'react-i18next';
 

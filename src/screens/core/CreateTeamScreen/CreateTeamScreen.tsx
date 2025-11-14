@@ -34,10 +34,10 @@ export default function CreateTeamScreen() {
   const { mutate: createMutation, isLoading: isCreating } = useCreateTeam(
     (data: any) => {
       appService.showToast('team-created-successfully', 'success');
-      navigation.goBack();
+      navigation.pop();
     },
     (err: any) => {
-      appService.showToast(err, 'error');
+      console.log('error creating team', err)
     }
   );
 
@@ -82,7 +82,7 @@ export default function CreateTeamScreen() {
     navigation.setOptions({
       title: team ? team.name : t('create-team'),
     })
-  }, [team]);
+  }, []);
 
   return (
     <>

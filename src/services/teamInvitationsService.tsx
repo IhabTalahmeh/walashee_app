@@ -10,34 +10,34 @@ export const requestToJoinATeam = async (userId: string, invitationId: string, d
 
         const { filePath, ...restData } = dto;
 
-        restData.dateOfBirth = new Date(dto.dateOfBirth).toISOString().split('T')[0];
-
         let payload: any = restData;
         let config: any = {};
 
-        const formData = new FormData();
+        if (filePath) {
+            const formData = new FormData();
 
-        Object.entries(restData).forEach(([key, value]) => {
-            if (value !== undefined && value !== null) {
-                formData.append(key, String(value));
-            }
-        });
+            Object.entries(restData).forEach(([key, value]) => {
+                if (value !== undefined && value !== null) {
+                    formData.append(key, String(value));
+                }
+            });
 
-        formData.append('file', {
-            uri: filePath,
-            type: 'image/jpeg',
-            name: 'photo.jpg',
-        } as any);
+            formData.append('file', {
+                uri: filePath,
+                type: 'image/jpeg',
+                name: 'photo.jpg',
+            } as any);
 
-        payload = formData;
-        config = {
-            headers: { 'Content-Type': 'multipart/form-data' },
-        };
+            payload = formData;
+            config = {
+                headers: { 'Content-Type': 'multipart/form-data' },
+            };
+        }
 
         const response = await ApiService.post(url, payload, config);
         return response;
     } catch (error) {
-        console.error('Failed to request to join team:', error);
+        console.error('Failed to create team:', error);
         throw error;
     }
-}
+};

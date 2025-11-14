@@ -121,5 +121,6 @@
     "date-of-birth-is-required": "Date of birth is required",
     "invalid-email-address": "Email is invalid",
     "email-is-required": "Email is required",
-    "address-is-required": "Address is required"
+    "address-is-required": "Address is required",
+    "id/passport-photo": "ID/Passport"
 }

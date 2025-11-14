@@ -1,7 +1,7 @@
 export interface RequestToJoinATeamDto {
     fullName: string;
     dateOfBirth: string | Date;
-    number: string;
+    docNumber: string;
     email: string;
     address: string;
     filePath?: string;

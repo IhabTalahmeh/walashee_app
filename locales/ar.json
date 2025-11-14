@@ -121,5 +121,6 @@
     "date-of-birth-is-required": "تاريخ الميلاد مطلوب",
     "invalid-email-address": "البريد الإلكتروني غير صالح",
     "email-is-required": "البريد الإلكتروني مطلوب",
-    "address-is-required": "العنوان مطلوب"
+    "address-is-required": "العنوان مطلوب",
+    "id/passport-photo": "صورة الهوية/جواز السفر"
 }
